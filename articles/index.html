@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles — Joseph Bakarji</title>
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/pages.css">
+
+  <!-- KaTeX for math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+
+<div class="page">
+  <!-- Navigation -->
+  <nav class="nav">
+    <a class="nav-logo" href="../">jb</a>
+    <ul class="nav-links">
+      <li><a href="./">articles</a></li>
+      <li><a href="../publications/">publications</a></li>
+      <li><a href="../projects/">projects</a></li>
+      <li><a href="../teaching/">teaching</a></li>
+      <li><a href="../about/">about</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-body">
+    <!-- Listing mode (shown when no ?slug= param) -->
+    <div id="listing-view">
+      <h2 class="page-title">articles</h2>
+      <div id="article-list"></div>
+    </div>
+
+    <!-- Viewer mode (shown when ?slug=xxx) -->
+    <div id="viewer-view" style="display:none;">
+      <a class="back-link" href="./">articles</a>
+      <div id="article-header" class="article-header"></div>
+      <div id="article-content" class="article-content"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle between listing and viewer based on URL
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('slug')) {
+    document.getElementById('listing-view').style.display = 'none';
+    document.getElementById('viewer-view').style.display = 'block';
+  }
+</script>
+<script src="../js/articles.js"></script>
+
+</body>
+</html>

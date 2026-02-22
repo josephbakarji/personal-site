@@ -1,0 +1,37 @@
+:root {
+  /* One Dark Palette */
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-card: rgba(10, 14, 39, 0.85);
+  --bg-card-hover: rgba(10, 14, 39, 0.95);
+
+  --accent-blue: #61afef;
+  --accent-green: #98c379;
+  --accent-yellow: #e5c07b;
+  --accent-red: #e06c75;
+  --accent-purple: #c678dd;
+  --accent-cyan: #56b6c2;
+
+  --text-primary: #e0e6ed;
+  --text-secondary: #8892b0;
+  --text-muted: #5a6178;
+
+  /* Glow */
+  --glow-blue: 0 0 10px rgba(97, 175, 239, 0.4);
+  --glow-green: 0 0 10px rgba(152, 195, 121, 0.4);
+  --glow-cyan: 0 0 10px rgba(86, 182, 194, 0.4);
+
+  /* Typography */
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'Consolas', monospace;
+  --font-size-base: 16px;
+  --font-size-sm: 0.85rem;
+  --font-size-xs: 0.75rem;
+  --line-height: 1.6;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 32px;
+  --space-xl: 64px;
+}

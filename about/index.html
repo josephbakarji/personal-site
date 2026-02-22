@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Joseph Bakarji</title>
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+
+<div class="page">
+  <nav class="nav">
+    <a class="nav-logo" href="../">jb</a>
+    <ul class="nav-links">
+      <li><a href="../articles/">articles</a></li>
+      <li><a href="../publications/">publications</a></li>
+      <li><a href="../projects/">projects</a></li>
+      <li><a href="../teaching/">teaching</a></li>
+      <li><a href="./">about</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-body">
+    <h2 class="page-title">about</h2>
+
+    <div class="article-content">
+
+      <p>I study patterns that repeat across scales. The same compression principles that let you predict a pendulum also let a neural network generate language, and the same self-organization that drives a Game of Life simulation governs the emergence of cities. I work at the intersection of these ideas, using mathematics and computation to make the connections precise.</p>
+
+      <h2>The Work</h2>
+
+      <p>My formal training is in computational mechanics. I did my PhD at Stanford, modeling how heterogeneous materials behave under extreme conditions, using stochastic methods to bridge what happens at the grain scale with what you measure at the lab scale. That problem, how structure at one level gives rise to behavior at another, turned out to be the question I keep asking everywhere.</p>
+
+      <p>After Stanford, I worked with Steve Brunton and Nathan Kutz at the University of Washington, developing data-driven methods for discovering governing equations. The core idea: given time-series observations of a system, can an algorithm recover the equations that generated them? This led to work on sparse regression (SINDy), delay-embedding autoencoders, and dimensionally consistent learning, where physical units are built into the ML architecture itself.</p>
+
+      <p>I'm now at the American University of Beirut, where I run two labs. The <strong>Data-Driven Modeling Lab</strong> works on equation discovery, coarse-graining, and the mathematics of how to extract simple laws from complex data. The <strong>Music Intelligence Lab</strong> builds intelligent instruments, analyzes Arabic maqam traditions through network theory, and explores what it means for a machine to understand music.</p>
+
+      <h2>The Through-Line</h2>
+
+      <p>The connection between these isn't just thematic. Discovering a governing equation from data is an act of compression: you take a high-dimensional time series and find the sparse, low-dimensional rule that generated it. Building a delay embedding is finding the right coordinate system in which hidden structure becomes visible. Designing an intelligent instrument is closing the action-perception loop between human gesture and machine response. These are all instances of the same problem: how does an observer, with finite capacity, extract useful structure from a world with far more degrees of freedom?</p>
+
+      <p>I write about this on <a href="https://bakarji.substack.com" target="_blank">The Latent Dimension</a>, where I explore intelligence, coarse-graining, embodiment, and the philosophy of modeling. Some pieces that capture the thread: <a href="https://bakarji.substack.com/p/clustering-as-the-core-of-cognition" target="_blank">Clustering as the Core of Cognition</a>, <a href="https://bakarji.substack.com/p/what-can-world-models-learn-from-the" target="_blank">What Can World Models Learn from the Sciences?</a>, and <a href="https://bakarji.substack.com/p/were-entering-the-age-of-complex" target="_blank">We're Entering the Age of Complex Systems Technologies</a>.</p>
+
+      <h2>Beyond the Lab</h2>
+
+      <p>I'm a pianist and electronic musician. I compose at the intersection of Arabic musical traditions and computational methods, and I think seriously about what it means for machines to participate in music-making rather than just automate it. I've built wearable instruments (a sensor glove that maps hand gestures to sound), basketball shot drum machines, and tools for analyzing the micro-tonal landscape of Arabic maqam.</p>
+
+      <p>I teach courses in machine learning (<a href="https://ml4science.com" target="_blank">ML for Science</a> and <a href="https://intro2ml.com" target="_blank">Intro to ML</a>) where I try to show students that the same mathematical ideas appear in physics, biology, engineering, and music. I build interactive lecture slides with live simulations because I believe understanding comes from playing with the math, not just reading it.</p>
+
+      <h2>Conceptual Map</h2>
+
+      <p>A network of the recurring themes across a decade of notes, recordings, and writings. Nodes are concepts; edges show how often they appear together. The gravity well at the center is action-perception, the idea that intelligence is best understood as a closed loop between acting on the world and sensing its response.</p>
+
+      <div id="mindmap" style="width:100%; height:400px; margin: var(--space-lg) 0; border: 1px solid rgba(97, 175, 239, 0.1); border-radius: 8px; background: rgba(0,0,0,0.2); overflow: hidden;"></div>
+
+      <h2>Contact</h2>
+
+      <p>
+        Email: joseph.bakarji [at] aub.edu.lb<br>
+        <a href="https://github.com/josephbakarji" target="_blank">GitHub</a> ·
+        <a href="https://scholar.google.com/citations?user=1zZNV48AAAAJ&hl=en" target="_blank">Google Scholar</a> ·
+        <a href="https://bakarji.substack.com" target="_blank">Substack</a> ·
+        <a href="https://soundcloud.com/user-343358875" target="_blank">SoundCloud</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="../js/mindmap.js"></script>
+
+</body>
+</html>

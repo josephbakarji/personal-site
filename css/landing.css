@@ -1,0 +1,318 @@
+/* ========================
+   LANDING PAGE LAYOUT
+   ======================== */
+
+/* Lock scroll only on the landing page */
+body:has(.landing) {
+  height: 100%;
+  overflow: hidden;
+}
+
+.landing {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Game of Life canvas — fills the viewport behind everything */
+#life-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* All content sits above the canvas */
+.overlay {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.overlay > * {
+  pointer-events: auto;
+}
+
+/* ========================
+   NAVIGATION
+   ======================== */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-card);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(97, 175, 239, 0.15);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-lg);
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--accent-blue);
+  text-shadow: var(--glow-blue);
+}
+
+.nav-links a::before {
+  content: '~/';
+  color: var(--text-muted);
+}
+
+.nav-logo {
+  color: var(--accent-green);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  text-shadow: var(--glow-green);
+  letter-spacing: 1px;
+}
+
+/* ========================
+   CENTER CONTENT
+   ======================== */
+
+.center-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 15vh;
+  gap: var(--space-lg);
+  pointer-events: none;
+}
+
+/* ========================
+   TAGLINE + KEYWORDS
+   ======================== */
+
+.tagline-container {
+  background: var(--bg-card);
+  backdrop-filter: blur(8px);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: 8px;
+  border: 1px solid rgba(97, 175, 239, 0.1);
+  pointer-events: auto;
+  max-width: 700px;
+  text-align: center;
+}
+
+.tagline-prompt {
+  color: var(--accent-green);
+  margin-right: var(--space-sm);
+}
+
+.tagline-text {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.15em;
+  background: var(--accent-green);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  justify-content: center;
+  margin-top: var(--space-md);
+}
+
+.kw {
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  padding: 2px var(--space-sm);
+  border: 1px solid rgba(90, 97, 120, 0.2);
+  border-radius: 3px;
+}
+
+.kw-joke {
+  color: var(--accent-yellow);
+  border-color: rgba(229, 192, 123, 0.3);
+  font-style: italic;
+}
+
+/* ========================
+   NAME CORNER
+   ======================== */
+
+.name-corner {
+  position: absolute;
+  bottom: var(--space-sm);
+  left: var(--space-lg);
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  letter-spacing: 2px;
+  opacity: 0.5;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ========================
+   EXTERNAL LINKS
+   ======================== */
+
+.external-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.ext-link {
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid rgba(90, 97, 120, 0.3);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.ext-link:hover {
+  color: var(--accent-cyan);
+  border-color: rgba(86, 182, 194, 0.5);
+  text-shadow: var(--glow-cyan);
+  background: rgba(86, 182, 194, 0.05);
+}
+
+/* ========================
+   CONTROLS (bottom bar)
+   ======================== */
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--bg-card);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(97, 175, 239, 0.15);
+}
+
+.controls .gen-counter {
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  margin-right: auto;
+}
+
+.controls .gen-counter span {
+  color: var(--accent-yellow);
+}
+
+.ctrl-btn {
+  background: none;
+  border: 1px solid rgba(97, 175, 239, 0.3);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ctrl-btn:hover {
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  text-shadow: var(--glow-blue);
+  background: rgba(97, 175, 239, 0.05);
+}
+
+/* ========================
+   RESPONSIVE
+   ======================== */
+
+@media (max-width: 768px) {
+  .nav {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .nav-links {
+    gap: var(--space-md);
+  }
+
+  .nav-links a {
+    font-size: var(--font-size-xs);
+  }
+
+  .nav-links a::before {
+    content: '';
+  }
+
+  .nav-logo {
+    display: none;
+  }
+
+  .tagline-container {
+    padding: var(--space-sm) var(--space-md);
+    margin: 0 var(--space-md);
+  }
+
+  .tagline-text {
+    font-size: 0.95rem;
+  }
+
+  .bio {
+    font-size: var(--font-size-xs);
+  }
+
+  .external-links {
+    padding: 0 var(--space-md);
+  }
+
+  .controls {
+    padding: var(--space-xs) var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links {
+    gap: var(--space-sm);
+  }
+
+  .tagline-text {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* ========================
+   REDUCED MOTION
+   ======================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+    opacity: 1;
+  }
+}

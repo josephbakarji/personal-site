@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joseph Bakarji</title>
+  <meta name="description" content="Joseph Bakarji — searching for patterns across scales. Equation discovery, complex systems, music technology, embodied AI.">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+<div class="landing">
+  <!-- Game of Life canvas fills the background -->
+  <canvas id="life-canvas"></canvas>
+
+  <!-- All content overlaid on the canvas -->
+  <div class="overlay">
+
+    <!-- Navigation -->
+    <nav class="nav">
+      <span class="nav-logo">jb</span>
+      <ul class="nav-links">
+        <li><a href="articles/">articles</a></li>
+        <li><a href="publications/">publications</a></li>
+        <li><a href="projects/">projects</a></li>
+        <li><a href="teaching/">teaching</a></li>
+        <li><a href="about/">about</a></li>
+      </ul>
+    </nav>
+
+    <!-- Center: tagline + keywords + links -->
+    <div class="center-content">
+
+      <div class="tagline-container">
+        <div>
+          <span class="tagline-prompt">&gt;</span>
+          <span class="tagline-text" id="tagline-typed" data-text="searching for patterns across scales">searching for patterns across scales</span><span class="cursor"></span>
+        </div>
+        <div class="keywords">
+          <span class="kw">equation discovery</span>
+          <span class="kw">complex systems</span>
+          <span class="kw">multiscale modeling</span>
+          <span class="kw">machine intelligence</span>
+          <span class="kw">music technology</span>
+          <span class="kw">embodied AI</span>
+        </div>
+      </div>
+
+      <div class="external-links">
+        <a class="ext-link" href="https://ml4science.com" target="_blank" rel="noopener">ml4science</a>
+        <a class="ext-link" href="https://intro2ml.com" target="_blank" rel="noopener">intro2ml</a>
+        <a class="ext-link" href="https://www.sematlas.com" target="_blank" rel="noopener">sematlas</a>
+        <a class="ext-link" href="https://bakarji.substack.com" target="_blank" rel="noopener">substack</a>
+        <a class="ext-link" href="https://github.com/josephbakarji" target="_blank" rel="noopener">github</a>
+        <a class="ext-link" href="https://scholar.google.com/citations?user=1zZNV48AAAAJ&hl=en" target="_blank" rel="noopener">scholar</a>
+        <a class="ext-link" href="https://soundcloud.com/user-343358875" target="_blank" rel="noopener">soundcloud</a>
+      </div>
+    </div>
+
+    <!-- Name, subtle, bottom-right -->
+    <div class="name-corner">joseph bakarji</div>
+
+    <!-- Bottom controls -->
+    <div class="controls">
+      <div class="gen-counter">gen: <span id="life-gen">0</span></div>
+      <button class="ctrl-btn" id="life-play">play</button>
+      <button class="ctrl-btn" id="life-reset">reset</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Scripts: pixel font must load before gameoflife -->
+<script src="js/pixel-font.js"></script>
+<script src="js/gameoflife.js"></script>
+<script src="js/terminal.js"></script>
+
+</body>
+</html>

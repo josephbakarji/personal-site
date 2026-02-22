@@ -1,0 +1,124 @@
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../assets/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../assets/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+a:hover {
+  color: var(--accent-cyan);
+  text-shadow: var(--glow-cyan);
+}
+
+::selection {
+  background: rgba(97, 175, 239, 0.3);
+  color: var(--text-primary);
+}
+
+/* ========================
+   SHARED NAVIGATION
+   ======================== */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-card);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(97, 175, 239, 0.15);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-lg);
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--accent-blue);
+  text-shadow: var(--glow-blue);
+}
+
+.nav-links a::before {
+  content: '~/';
+  color: var(--text-muted);
+}
+
+.nav-logo {
+  color: var(--accent-green);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  text-shadow: var(--glow-green);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+.nav-logo:hover {
+  color: var(--accent-green);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .nav-links {
+    gap: var(--space-md);
+  }
+
+  .nav-links a {
+    font-size: var(--font-size-xs);
+  }
+
+  .nav-links a::before {
+    content: '';
+  }
+
+  .nav-logo {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links {
+    gap: var(--space-sm);
+  }
+}
