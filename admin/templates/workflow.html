@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workflow — josephbakarji.com</title>
+  <link rel="stylesheet" href="/admin/static/admin.css">
+  <link rel="stylesheet" href="/admin/static/dashboard.css">
+  <style>
+    .workflow {
+      padding: 24px 32px;
+      max-width: 800px;
+      overflow-y: auto;
+      height: calc(100vh - 49px);
+      line-height: 1.7;
+      color: #c8ccd4;
+    }
+    .workflow h2 {
+      font-size: 16px;
+      color: #61afef;
+      margin: 28px 0 12px 0;
+      font-weight: 700;
+    }
+    .workflow h2:first-child { margin-top: 0; }
+    .workflow h3 {
+      font-size: 13px;
+      color: #e5c07b;
+      margin: 18px 0 8px 0;
+      font-weight: 700;
+    }
+    .workflow p, .workflow li {
+      font-size: 13px;
+      color: #c8ccd4;
+    }
+    .workflow ul { padding-left: 20px; margin: 8px 0; }
+    .workflow li { margin-bottom: 4px; }
+    .workflow code {
+      background: rgba(0,0,0,0.3);
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+      color: #98c379;
+    }
+    .workflow pre {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(97, 175, 239, 0.1);
+      border-radius: 4px;
+      padding: 12px 16px;
+      font-size: 12px;
+      overflow-x: auto;
+      color: #98c379;
+      margin: 8px 0;
+    }
+    .workflow .stage-flow {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      margin: 12px 0;
+      flex-wrap: wrap;
+    }
+    .workflow .stage-box {
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(97, 175, 239, 0.1);
+      border: 1px solid rgba(97, 175, 239, 0.2);
+      color: #61afef;
+    }
+    .workflow .stage-arrow {
+      color: #5a6178;
+      font-size: 14px;
+    }
+    .workflow .note {
+      background: rgba(229, 192, 123, 0.08);
+      border-left: 3px solid #e5c07b;
+      padding: 10px 14px;
+      margin: 12px 0;
+      border-radius: 0 4px 4px 0;
+      font-size: 12px;
+      color: #c8ccd4;
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>
+    <span>~/admin/</span>
+    <a href="/admin/dashboard" class="nav-link">dashboard</a>
+    <a href="/admin/" class="nav-link">articles</a>
+    <a href="/admin/workflow" class="nav-link active">workflow</a>
+  </h1>
+</div>
+
+<div class="workflow">
+
+  <h2>Idea-to-Output Workflow</h2>
+
+  <p>This page documents the typical workflow for turning ideas into outputs
+  (papers, articles, prototypes, demos). It serves as a shared reference for
+  both Joe and Claude across sessions.</p>
+
+  <h3>The Pipeline</h3>
+
+  <div class="stage-flow">
+    <span class="stage-box">raw</span>
+    <span class="stage-arrow">&rarr;</span>
+    <span class="stage-box">exploring</span>
+    <span class="stage-arrow">&rarr;</span>
+    <span class="stage-box">prototype</span>
+    <span class="stage-arrow">&rarr;</span>
+    <span class="stage-box">draft</span>
+    <span class="stage-arrow">&rarr;</span>
+    <span class="stage-box">submittable</span>
+    <span class="stage-arrow">&rarr;</span>
+    <span class="stage-box">published</span>
+  </div>
+
+  <ul>
+    <li><strong>raw</strong> — Captured from voice memo, conversation, or brainstorm. Not yet explored.</li>
+    <li><strong>exploring</strong> — Actively researching: reading related work, testing feasibility, gathering data.</li>
+    <li><strong>prototype</strong> — Working code, initial results, proof of concept exists.</li>
+    <li><strong>draft</strong> — Paper or article draft written. Content taking shape.</li>
+    <li><strong>submittable</strong> — Polished enough to submit/publish. Final review.</li>
+    <li><strong>published</strong> — Live on website, submitted to journal, or shipped.</li>
+    <li><strong>parked</strong> — On hold. Not dead, but not actively being worked on.</li>
+  </ul>
+
+  <h2>Typical Session Flow</h2>
+
+  <h3>1. Capture (voice memo or conversation)</h3>
+  <ul>
+    <li>Record a voice memo while walking/thinking</li>
+    <li>Or start a Claude session and brainstorm</li>
+    <li>The dashboard shows recent voice memos with a <code>+ idea</code> button</li>
+  </ul>
+
+  <h3>2. Create an Idea</h3>
+  <ul>
+    <li>From dashboard: click <code>+ New Idea</code> or <code>+ idea</code> on a voice memo card</li>
+    <li>From terminal: Claude can POST to <code>/api/dashboard/ideas</code></li>
+    <li>Set initial stage to <code>raw</code></li>
+    <li>Tag with relevant topics</li>
+  </ul>
+
+  <h3>3. Work on It (Claude sessions)</h3>
+  <ul>
+    <li>Open a Claude session in the relevant project directory</li>
+    <li>Each session gets a unique ID (visible in the dashboard under "Recent Sessions")</li>
+    <li>Link session IDs to ideas in the dashboard to track which sessions contributed</li>
+    <li>Advance the idea's stage as it progresses</li>
+  </ul>
+
+  <h3>4. Resume Work</h3>
+  <ul>
+    <li>Find the idea on the dashboard, see linked sessions</li>
+    <li>Click <code>copy</code> on any session to get the resume command:</li>
+  </ul>
+  <pre>claude --dangerously-skip-permissions --resume SESSION_ID</pre>
+  <ul>
+    <li>Or start a fresh session — Claude can read the dashboard to pick up context</li>
+    <li>Or use <code>claude --continue</code> to resume the most recent session</li>
+  </ul>
+
+  <h3>5. Produce Outputs</h3>
+  <ul>
+    <li><strong>Paper</strong>: LaTeX draft in <code>00-projects/00-active/[project]/paper/</code></li>
+    <li><strong>Article</strong>: Markdown in <code>personal-site/content/articles/</code>, registered in articles.json</li>
+    <li><strong>Prototype</strong>: Code in project folder, tracked in nexus registry</li>
+    <li><strong>Slides</strong>: RevealJS in teaching or project folder</li>
+  </ul>
+
+  <h2>Key Commands</h2>
+
+  <h3>Terminal (Claude Code)</h3>
+  <pre>claude                                  # new session in current dir
+claude --continue                       # resume last session
+claude --resume SESSION_ID              # resume specific session
+claude --dangerously-skip-permissions --resume SESSION_ID  # resume, skip prompts</pre>
+
+  <h3>Voice Memos (from nexus)</h3>
+  <pre>python3 ~/Documents/05-nexus/tools/voice_memos.py recent 10    # recent memos
+python3 ~/Documents/05-nexus/tools/voice_memos.py search "topic" # search by title
+python3 ~/Documents/05-nexus/tools/voice_memos.py transcribe ID  # transcribe one</pre>
+
+  <h3>Dashboard API (for Claude or scripts)</h3>
+  <pre># List ideas
+curl http://localhost:5001/api/dashboard/ideas
+
+# Create idea
+curl -X POST http://localhost:5001/api/dashboard/ideas \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"My idea","stage":"raw","tags":["topic"]}'
+
+# Update idea stage
+curl -X PUT http://localhost:5001/api/dashboard/ideas/my-idea \
+  -H 'Content-Type: application/json' \
+  -d '{"stage":"exploring"}'
+
+# Get recent sessions
+curl "http://localhost:5001/api/dashboard/sessions?limit=10"</pre>
+
+  <h2>Architecture</h2>
+
+  <p>Everything runs on the personal-site admin backend (Flask, port 5001):</p>
+  <pre>localhost:5001/admin/dashboard  → this dashboard
+localhost:5001/admin/           → article CMS
+localhost:5001/admin/workflow   → this page
+localhost:5001/                 → site preview</pre>
+
+  <p>Data sources aggregated by the dashboard:</p>
+  <ul>
+    <li><strong>Ideas</strong>: <code>personal-site/data/ideas.json</code></li>
+    <li><strong>Articles</strong>: <code>personal-site/data/articles.json</code></li>
+    <li><strong>Projects</strong>: Scanned from <code>~/Documents/00-projects/00-active/</code> and <code>01-tests/</code></li>
+    <li><strong>Papers</strong>: Nexus registry at <code>05-nexus/skills/papers/registry.json</code></li>
+    <li><strong>Voice Memos</strong>: Apple Voice Memos DB via <code>voice_memos.py</code></li>
+    <li><strong>Sessions</strong>: Claude JSONL files in <code>~/.claude/projects/</code></li>
+  </ul>
+
+  <div class="note">
+    <strong>Phase 2 (next)</strong>: Mirror app integration — proxy Mirror API to show transcripts inline,
+    link memos to ideas automatically, clean up Mirror inefficiencies.
+  </div>
+
+  <h2>Conventions</h2>
+
+  <ul>
+    <li>Ideas are named with kebab-case slugs (e.g., <code>action-conditioned-information</code>)</li>
+    <li>Each idea can link to one project, one article, and one paper</li>
+    <li>Session IDs are UUIDs — store the full ID, use <code>copy</code> button for the resume command</li>
+    <li>Tags should be lowercase, hyphenated, reused across ideas when possible</li>
+    <li>The <code>origin</code> field tracks where the idea came from: <code>voice-memo:ID</code>, <code>conversation</code>, <code>research</code>, etc.</li>
+  </ul>
+
+</div>
+
+</body>
+</html>

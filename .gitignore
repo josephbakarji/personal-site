@@ -3,3 +3,7 @@
 __pycache__/
 node_modules/
 .env
+
+# Dashboard private data (contains local paths, session IDs, project metadata)
+data/ideas.json
+data/projects.json

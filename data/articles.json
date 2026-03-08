@@ -1,6 +1,21 @@
 {
   "articles": [
     {
+      "slug": "action-conditioned-information",
+      "title": "Action-Conditioned Information: Compression Should Be Measured by What It Does",
+      "date": "2026-02-23",
+      "tags": [
+        "information theory",
+        "compression",
+        "intelligence",
+        "active inference"
+      ],
+      "excerpt": "Classical information theory evaluates compression by symbol reconstruction fidelity. I argue this is the wrong metric. The purpose of information is to produce behavior: a compressed representation is good if the actions it induces are equivalent to those induced by the original.",
+      "has_math": true,
+      "source": "local",
+      "published": true
+    },
+    {
       "slug": "the-center-of-the-universe",
       "title": "The Center of the Universe",
       "date": "2026-01-15",

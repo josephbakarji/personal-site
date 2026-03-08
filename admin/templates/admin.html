@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — josephbakarji.com</title>
+  <link rel="stylesheet" href="/admin/static/admin.css">
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>
+    <span>~/admin/</span>
+    <a href="/admin/dashboard" class="nav-link" style="color:#5a6178;text-decoration:none;margin-left:12px;font-size:14px;font-weight:400;transition:color 0.15s">dashboard</a>
+    <a href="/admin/" class="nav-link" style="color:#61afef;text-decoration:none;margin-left:12px;font-size:14px;font-weight:700">articles</a>
+    <a href="/admin/workflow" class="nav-link" style="color:#5a6178;text-decoration:none;margin-left:12px;font-size:14px;font-weight:400;transition:color 0.15s">workflow</a>
+  </h1>
+  <div class="toolbar">
+    <button class="btn btn-green" id="btn-new">+ New Article</button>
+    <button class="btn btn-yellow" id="btn-sync-substack">Sync Substack</button>
+    <button class="btn btn-yellow" id="btn-sync-scholar">Sync Scholar</button>
+    <button class="btn" id="btn-preview">Preview Site</button>
+  </div>
+</div>
+
+<div class="main">
+  <!-- Left: Article List -->
+  <div class="article-list-panel">
+    <div class="list-header">
+      <h2>Articles <span id="article-count"></span></h2>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="local">Local</button>
+        <button class="filter-tab" data-filter="substack">Substack</button>
+        <button class="filter-tab" data-filter="draft">Drafts</button>
+      </div>
+    </div>
+    <div id="article-list"></div>
+  </div>
+
+  <!-- Right: Editor -->
+  <div id="editor-panel" class="editor-panel">
+    <div class="editor-empty">Select an article to edit</div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<div id="sync-output" class="sync-output"></div>
+
+<script src="/admin/static/admin.js"></script>
+</body>
+</html>

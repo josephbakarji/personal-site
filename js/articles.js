@@ -30,7 +30,9 @@
       const resp = await fetch(DATA_PATH);
       const data = await resp.json();
 
-      const articles = data.articles.sort((a, b) => b.date.localeCompare(a.date));
+      const articles = data.articles
+        .filter(a => a.published !== false)
+        .sort((a, b) => b.date.localeCompare(a.date));
 
       container.innerHTML = articles.map(a => {
         const href = a.external_url

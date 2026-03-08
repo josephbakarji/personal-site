@@ -105,12 +105,19 @@ def update_articles_json(substack_data, articles_path):
     else:
         data = {'articles': []}
 
+    # Build map of existing articles to preserve 'published' status
+    existing = {a['slug']: a for a in data['articles']}
+
     # Remove old Substack entries
     local_articles = [a for a in data['articles'] if a.get('source') != 'substack']
 
     # Convert Substack posts to article format
     substack_articles = []
     for post in substack_data['posts']:
+        # Carry over 'published' from existing entry if it was set
+        prev = existing.get(post['slug'], {})
+        published = prev.get('published', True)
+
         substack_articles.append({
             'slug': post['slug'],
             'title': post['title'],
@@ -120,6 +127,7 @@ def update_articles_json(substack_data, articles_path):
             'has_math': post['has_math'],
             'source': 'substack',
             'external_url': post['url'],
+            'published': published,
         })
 
     # Merge: local articles + substack articles
