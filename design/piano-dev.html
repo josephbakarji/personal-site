@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piano dev sandbox — hammer detection + GoL</title>
+<style>
+  :root {
+    --bg: #faf8f3;
+    --bg2: #f0ede5;
+    --fg: #1c1b1f;
+    --muted: #5a544c;
+    --accent: #a6844e;
+    --accent-cyan: #4d8478;
+    --accent-red: #a05548;
+    --border: rgba(28, 27, 31, 0.12);
+    --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+    --font-serif: 'Georgia', serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-serif);
+    padding: 16px;
+    min-height: 100vh;
+  }
+  h1 {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  h1 a { color: var(--accent); text-decoration: none; }
+  h1 a:hover { text-decoration: underline; }
+
+  .stage {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* Zones stacked top-down */
+  .zone-video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    overflow: hidden;
+  }
+  .zone-video video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .zone-video canvas.det-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.75;
+  }
+
+  .zone-roll {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .zone-roll canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .zone-gol {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .zone-gol canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px 20px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .ctrl { display: flex; flex-direction: column; gap: 4px; }
+  .ctrl-label { font-weight: 600; color: var(--fg); font-size: 11px; letter-spacing: 0.4px; text-transform: uppercase; }
+  .ctrl-value { font-size: 11px; color: var(--muted); }
+  .ctrl input[type="range"] { width: 100%; accent-color: var(--accent); }
+  .ctrl input[type="number"] { width: 80px; padding: 2px 6px; background: transparent; border: 1px solid var(--border); border-radius: 4px; color: var(--fg); font-family: inherit; }
+  .ctrl-row { display: flex; gap: 8px; align-items: center; }
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+  }
+  .btn:hover { color: var(--fg); border-color: var(--fg); }
+  .btn.active { color: var(--accent); border-color: var(--accent); }
+
+  .status {
+    padding: 8px 20px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .status span strong { color: var(--fg); font-weight: 600; }
+
+  .zone-motion {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .zone-motion canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .zone-motion .zone-label {
+    position: absolute;
+    top: 4px; left: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    z-index: 2;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<h1>~/design/piano-dev &mdash; hammer detection sandbox &nbsp;·&nbsp; <a href="/">back to site</a></h1>
+
+<div class="stage">
+
+  <!-- VIDEO ZONE with detection overlay -->
+  <div class="zone-video">
+    <video id="piano-video"
+           autoplay muted loop playsinline
+           poster="/assets/hero/piano-poster.jpg" preload="auto">
+      <source src="/assets/hero/piano.webm" type="video/webm">
+      <source src="/assets/hero/piano.mp4"  type="video/mp4">
+    </video>
+    <canvas id="det-overlay" class="det-overlay"></canvas>
+  </div>
+
+  <!-- Per-column motion bars (visual debug) -->
+  <div class="zone-motion">
+    <span class="zone-label">// per-column motion (bottom = 0, top = threshold * 2)</span>
+    <canvas id="motion-canvas"></canvas>
+  </div>
+
+  <!-- Piano roll: bars fall from top -->
+  <div class="zone-roll">
+    <canvas id="roll-canvas"></canvas>
+  </div>
+
+  <!-- Game of Life -->
+  <div class="zone-gol">
+    <canvas id="gol-canvas"></canvas>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+
+    <div class="ctrl">
+      <span class="ctrl-label">Detection source</span>
+      <div class="ctrl-row">
+        <button class="btn active" data-src="motion" id="src-motion">motion</button>
+        <button class="btn"        data-src="onsets" id="src-onsets">audio onsets</button>
+        <button class="btn"        data-src="both"   id="src-both">both</button>
+      </div>
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">Direction (band luma sign)</span>
+      <div class="ctrl-row">
+        <button class="btn active" data-dir="strike" id="dir-strike" title="band DARKENS: felt moved up out of band">strike (dark)</button>
+        <button class="btn"        data-dir="return" id="dir-return" title="band BRIGHTENS: felt returned into band">return (bright)</button>
+        <button class="btn"        data-dir="any"    id="dir-any"    title="fire on either direction">any</button>
+      </div>
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">Direction bias <span class="ctrl-value" id="bias-val">1.8×</span></span>
+      <input type="range" id="bias" min="1" max="5" step="0.1" value="1.8">
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">Luma-change threshold <span class="ctrl-value" id="thr-val">8.0</span></span>
+      <input type="range" id="thr" min="1" max="60" step="0.5" value="8">
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">Detection band center Y <span class="ctrl-value" id="band-y-val">0.58</span></span>
+      <input type="range" id="band-y" min="0.05" max="0.95" step="0.005" value="0.58">
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">Detection band thickness <span class="ctrl-value" id="band-t-val">0.05</span></span>
+      <input type="range" id="band-t" min="0.005" max="0.30" step="0.005" value="0.05">
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">Detection columns <span class="ctrl-value" id="cols-val">60</span></span>
+      <input type="range" id="cols" min="16" max="120" step="1" value="60">
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">Per-column cooldown (ms) <span class="ctrl-value" id="cd-val">260</span></span>
+      <input type="range" id="cd" min="20" max="800" step="10" value="260">
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">Debug overlay</span>
+      <div class="ctrl-row">
+        <button class="btn active" id="ov-zone">show band</button>
+        <button class="btn active" id="ov-cols">show columns</button>
+      </div>
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">Playback</span>
+      <div class="ctrl-row">
+        <button class="btn" id="btn-pause">pause</button>
+        <button class="btn" id="btn-audio">unmute video</button>
+      </div>
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">GoL → audio filter (bandpass bank, 32 bands, log-spaced A2–C7)</span>
+      <div class="ctrl-row">
+        <button class="btn" id="btn-gol-audio" title="apply GoL PMF as a spectral filter to the piano audio">GoL filter: OFF</button>
+      </div>
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">Dry (piano) <span class="ctrl-value" id="dry-val">0.35</span></span>
+      <input type="range" id="dry" min="0" max="1" step="0.01" value="0.35">
+    </div>
+
+    <div class="ctrl">
+      <span class="ctrl-label">Wet (GoL-filtered) <span class="ctrl-value" id="wet-val">0.75</span></span>
+      <input type="range" id="wet" min="0" max="1" step="0.01" value="0.75">
+    </div>
+
+  </div>
+
+  <!-- Status bar -->
+  <div class="status" id="status">
+    <span>t: <strong id="s-time">0.00</strong>s</span>
+    <span>hits: <strong id="s-hits">0</strong></span>
+    <span>hits/s: <strong id="s-rate">0.0</strong></span>
+    <span>peak col motion: <strong id="s-peak">0.00</strong></span>
+    <span>dir bias (top&minus;bot): <strong id="s-dir">0.00</strong></span>
+    <span>columns: <strong id="s-seg">uniform</strong></span>
+    <span>FPS: <strong id="s-fps">0</strong></span>
+    <span>onsets loaded: <strong id="s-onsets">?</strong></span>
+  </div>
+
+</div>
+
+<script src="piano-dev.js"></script>
+</body>
+</html>

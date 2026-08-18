@@ -1,32 +1,38 @@
 :root {
-  /* One Dark Palette */
-  --bg-primary: #1a1a2e;
-  --bg-secondary: #16213e;
-  --bg-card: rgba(10, 14, 39, 0.85);
-  --bg-card-hover: rgba(10, 14, 39, 0.95);
+  /* Warm Paper Palette (light) */
+  --bg-primary: #faf8f3;
+  --bg-secondary: #f0ede5;
+  --bg-card: rgba(255, 253, 248, 0.92);
+  --bg-card-hover: rgba(255, 255, 250, 0.98);
 
-  --accent-blue: #61afef;
-  --accent-green: #98c379;
-  --accent-yellow: #e5c07b;
-  --accent-red: #e06c75;
-  --accent-purple: #c678dd;
-  --accent-cyan: #56b6c2;
+  /* Accents — retuned for light background contrast */
+  --accent-primary: #a6844e;
+  --accent-blue:    #4d7ba6;
+  --accent-green:   #5f8a4f;
+  --accent-yellow:  #b08a3a;
+  --accent-red:     #a05548;
+  --accent-purple:  #7a5d8c;
+  --accent-cyan:    #4d8478;
 
-  --text-primary: #e0e6ed;
-  --text-secondary: #8892b0;
-  --text-muted: #5a6178;
+  /* Text (warm neutrals on paper) */
+  --text-primary:   #1c1b1f;
+  --text-secondary: #5a544c;
+  --text-muted:     #8a8478;
 
-  /* Glow */
-  --glow-blue: 0 0 10px rgba(97, 175, 239, 0.4);
-  --glow-green: 0 0 10px rgba(152, 195, 121, 0.4);
-  --glow-cyan: 0 0 10px rgba(86, 182, 194, 0.4);
+  /* Borders */
+  --border-subtle:  rgba(28, 27, 31, 0.06);
+  --border-default: rgba(28, 27, 31, 0.10);
+  --border-hover:   rgba(28, 27, 31, 0.20);
 
   /* Typography */
+  --font-serif: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'Consolas', monospace;
   --font-size-base: 16px;
   --font-size-sm: 0.85rem;
   --font-size-xs: 0.75rem;
+  --font-size-prose: 1.05rem;
   --line-height: 1.6;
+  --line-height-prose: 1.75;
 
   /* Spacing */
   --space-xs: 4px;
@@ -35,3 +41,10 @@
   --space-lg: 32px;
   --space-xl: 64px;
 }
+
+/* Per-page accent overrides (light-bg tuned) */
+[data-page="articles"]     { --accent-page: #a6844e; }
+[data-page="publications"] { --accent-page: #4d7ba6; }
+[data-page="projects"]     { --accent-page: #5f8a4f; }
+[data-page="teaching"]     { --accent-page: #4d8478; }
+[data-page="about"]        { --accent-page: #7a5d8c; }

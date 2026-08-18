@@ -1,29 +1,22 @@
 /**
- * Dashboard — client-side logic
+ * Dashboard — client-side logic (ideas, memos, papers, search)
+ * Projects and sessions have their own dedicated pages.
  */
 (function () {
   const STAGES = ['raw', 'exploring', 'prototype', 'draft', 'submittable', 'published', 'parked'];
   let ideas = [];
+  let sessions = [];  // loaded for idea linking only
   let editingId = null;
 
   const $ = (sel, ctx) => (ctx || document).querySelector(sel);
   const $$ = (sel, ctx) => [...(ctx || document).querySelectorAll(sel)];
 
-  // --- Init ---
-
-  let sessions = [];
-  let allProjects = [];
-  let knownCollaborators = [];
-  let projectSort = 'priority';
-  let projectFilter = 'all';
-
   async function init() {
     await Promise.all([
       loadStats(),
       loadIdeas(),
-      loadSessions(),
+      loadSessionsForLinking(),
       loadVoiceMemos(),
-      loadProjects(),
       loadPapers(),
     ]);
     bindEvents();
@@ -82,7 +75,6 @@
       `;
     }).join('');
 
-    // Add parked column if any
     if (parked.length > 0) {
       pipeline.innerHTML += `
         <div class="pipeline-col" style="opacity:0.5">
@@ -97,7 +89,6 @@
       `;
     }
 
-    // Bind card clicks
     $$('.idea-card', pipeline).forEach(card => {
       card.addEventListener('click', () => openIdeaModal(card.dataset.id));
     });
@@ -145,13 +136,12 @@
             <div class="memo-meta">${m.date} &middot; ${m.duration_min.toFixed(1)} min</div>
           </div>
           <div class="memo-actions">
-            <button class="btn btn-sm btn-green btn-idea-from-memo"
+            <button class="btn btn-sm btn-accent btn-idea-from-memo"
                     data-memo-id="${m.id}" data-memo-title="${esc(m.title)}">+ idea</button>
           </div>
         </div>
       `).join('');
 
-      // Bind "+ idea" buttons
       $$('.btn-idea-from-memo', list).forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -163,166 +153,14 @@
     }
   }
 
-  // --- Projects ---
+  // --- Sessions (for idea linking only) ---
 
-  async function loadProjects() {
-    try {
-      const resp = await fetch(`/api/dashboard/projects?sort=${projectSort}`);
-      const data = await resp.json();
-      allProjects = data.projects || [];
-      // Also load collaborators for datalist
-      try {
-        const cr = await fetch('/api/dashboard/collaborators');
-        const cd = await cr.json();
-        knownCollaborators = cd.collaborators || [];
-      } catch (_) {}
-      renderProjects();
-    } catch (e) {
-      $('#project-list').innerHTML = '<div class="empty">Failed to load projects</div>';
-    }
-  }
-
-  function renderProjects() {
-    const list = $('#project-list');
-    let filtered = allProjects;
-    if (projectFilter === 'active') {
-      filtered = filtered.filter(p => p.status === 'active');
-    } else if (projectFilter === 'paused') {
-      filtered = filtered.filter(p => p.status === 'paused');
-    } else if (projectFilter === 'has-deadline') {
-      filtered = filtered.filter(p => p.deadline);
-    }
-    if (filtered.length === 0) {
-      list.innerHTML = '<div class="empty">No projects match filter</div>';
-      return;
-    }
-    list.innerHTML = filtered.map(p => renderProjectCard(p)).join('');
-    // Bind clicks
-    $$('.project-card', list).forEach(card => {
-      card.addEventListener('click', () => openProjectModal(card.dataset.relative));
-    });
-  }
-
-  function renderProjectCard(p) {
-    const today = new Date().toISOString().slice(0, 10);
-    let deadlineClass = '';
-    let deadlineStr = '';
-    if (p.deadline) {
-      deadlineStr = p.deadline;
-      if (p.deadline < today) deadlineClass = 'deadline-overdue';
-      else {
-        const diff = (new Date(p.deadline) - new Date(today)) / 86400000;
-        if (diff <= 7) deadlineClass = 'deadline-soon';
-      }
-    }
-    const prioClass = !p.priority ? 'prio-none'
-      : p.priority >= 8 ? 'prio-high'
-      : p.priority >= 5 ? 'prio-mid' : 'prio-low';
-
-    const collabs = (p.collaborators || []).map(c =>
-      `<span class="collab-chip">${esc(c)}</span>`
-    ).join('');
-
-    const desc = p.description ? `<div class="project-desc">${esc(p.description)}</div>` : '';
-
-    return `
-      <div class="project-card" data-relative="${esc(p.relative)}">
-        <div class="project-left">
-          ${p.priority ? `<span class="prio-badge ${prioClass}">${p.priority}</span>` : '<span class="prio-badge prio-none">-</span>'}
-          <div>
-            <div class="project-name">${esc(p.name)}
-              <span class="project-cluster">${esc(p.cluster || '')}</span>
-            </div>
-            ${desc}
-            <div class="project-meta">
-              ${collabs ? collabs : ''}
-            </div>
-          </div>
-        </div>
-        <div class="project-right">
-          ${p.has_paper ? '<span class="link-badge link-badge-paper">paper</span>' : ''}
-          ${p.has_claude ? '<span class="link-badge link-badge-project">CLAUDE.md</span>' : ''}
-          ${p.status !== 'active' ? `<span class="status-badge status-${p.status}">${p.status}</span>` : ''}
-          ${deadlineStr ? `<span class="deadline-badge ${deadlineClass}">${deadlineStr}</span>` : ''}
-          <span class="project-modified">${p.modified}</span>
-        </div>
-      </div>
-    `;
-  }
-
-  // --- Sessions ---
-
-  async function loadSessions() {
+  async function loadSessionsForLinking() {
     try {
       const resp = await fetch('/api/dashboard/sessions?limit=20');
       const data = await resp.json();
       sessions = data.sessions || [];
-      const list = $('#session-list');
-      if (sessions.length === 0) {
-        list.innerHTML = '<div class="empty">No sessions found</div>';
-        return;
-      }
-      list.innerHTML = sessions.map(s => {
-        const cmd = `claude --dangerously-skip-permissions --resume ${s.id}`;
-        const msgs = (s.messages || []).slice(1);  // skip first (already shown as topic)
-        const hasDetail = msgs.length > 0 || s.summary;
-        return `
-          <div class="session-card${hasDetail ? ' expandable' : ''}" data-sid="${s.id}">
-            <div class="session-main">
-              <div class="session-info">
-                <div class="session-topic">${esc(s.topic)}</div>
-                <div class="session-meta">
-                  ${s.date} ${s.time} &middot; ${s.size_mb}MB &middot;
-                  <span class="session-project">${esc(s.project_dir)}</span>
-                  ${hasDetail ? '<span class="session-expand-hint">&#9662;</span>' : ''}
-                </div>
-              </div>
-              <div class="session-actions">
-                <button class="btn btn-sm btn-copy-session" data-cmd="${esc(cmd)}"
-                        title="Copy resume command">copy</button>
-              </div>
-            </div>
-            ${hasDetail ? `
-              <div class="session-detail" style="display:none">
-                ${s.summary ? `<div class="session-summary">${esc(s.summary.slice(0, 300))}${s.summary.length > 300 ? '...' : ''}</div>` : ''}
-                ${msgs.length > 0 ? `
-                  <div class="session-messages">
-                    ${msgs.map(m => `<div class="session-msg">${esc(m)}</div>`).join('')}
-                  </div>
-                ` : ''}
-              </div>
-            ` : ''}
-          </div>
-        `;
-      }).join('');
-
-      // Bind expand/collapse
-      $$('.session-card.expandable', list).forEach(card => {
-        card.addEventListener('click', (e) => {
-          if (e.target.closest('.btn-copy-session')) return;
-          const detail = card.querySelector('.session-detail');
-          const hint = card.querySelector('.session-expand-hint');
-          if (detail) {
-            const open = detail.style.display !== 'none';
-            detail.style.display = open ? 'none' : 'block';
-            if (hint) hint.innerHTML = open ? '&#9662;' : '&#9652;';
-          }
-        });
-      });
-
-      // Bind copy buttons
-      $$('.btn-copy-session', list).forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          navigator.clipboard.writeText(btn.dataset.cmd).then(() => {
-            btn.textContent = 'copied!';
-            setTimeout(() => btn.textContent = 'copy', 1500);
-          });
-        });
-      });
-    } catch (e) {
-      $('#session-list').innerHTML = '<div class="empty">Failed to load sessions</div>';
-    }
+    } catch (_) {}
   }
 
   // --- Papers ---
@@ -486,91 +324,6 @@
     }
   }
 
-  // --- Project Modal ---
-
-  let editingProject = null;
-
-  function openProjectModal(relative) {
-    const p = allProjects.find(x => x.relative === relative);
-    if (!p) return;
-    editingProject = relative;
-    $('#proj-modal-title').textContent = p.name;
-    $('#proj-path').textContent = p.relative;
-    $('#proj-priority').value = p.priority || '';
-    $('#proj-deadline').value = p.deadline || '';
-    $('#proj-status').value = p.status || 'active';
-    $('#proj-notes').value = p.notes || '';
-    $('#proj-modified').textContent = `Modified: ${p.modified}`;
-    let badges = '';
-    if (p.has_paper) badges += '<span class="link-badge link-badge-paper">paper</span> ';
-    if (p.has_claude) badges += '<span class="link-badge link-badge-project">CLAUDE.md</span>';
-    $('#proj-badges').innerHTML = badges;
-
-    renderProjCollabs(p.collaborators || []);
-    // Populate datalist
-    const dl = $('#collab-datalist');
-    dl.innerHTML = knownCollaborators.map(c => `<option value="${esc(c)}">`).join('');
-
-    $('#proj-modal-overlay').classList.add('show');
-  }
-
-  function closeProjModal() {
-    $('#proj-modal-overlay').classList.remove('show');
-    editingProject = null;
-  }
-
-  function renderProjCollabs(collabs) {
-    const container = $('#proj-collab-list');
-    if (!collabs.length) {
-      container.innerHTML = '<span class="session-empty">No collaborators</span>';
-    } else {
-      container.innerHTML = collabs.map(c => `
-        <span class="collab-chip editable">
-          ${esc(c)}
-          <button class="btn-remove-collab" data-name="${esc(c)}">&times;</button>
-        </span>
-      `).join('');
-      $$('.btn-remove-collab', container).forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const current = getProjCollabs();
-          renderProjCollabs(current.filter(x => x !== btn.dataset.name));
-        });
-      });
-    }
-  }
-
-  function getProjCollabs() {
-    return $$('.collab-chip.editable', $('#proj-collab-list')).map(el => {
-      // Get text content minus the x button
-      return el.childNodes[0].textContent.trim();
-    });
-  }
-
-  async function saveProject() {
-    if (!editingProject) return;
-    const prio = $('#proj-priority').value;
-    const body = {
-      priority: prio ? parseInt(prio) : null,
-      deadline: $('#proj-deadline').value || null,
-      status: $('#proj-status').value,
-      collaborators: getProjCollabs(),
-      notes: $('#proj-notes').value,
-    };
-    try {
-      await fetch(`/api/dashboard/projects/${editingProject}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      closeProjModal();
-      await loadProjects();
-      toast('Project saved');
-    } catch (e) {
-      toast('Failed to save project', true);
-    }
-  }
-
   // --- Events ---
 
   function bindEvents() {
@@ -582,49 +335,7 @@
       if (e.target === e.currentTarget) closeModal();
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') { closeModal(); closeProjModal(); }
-    });
-
-    // Project modal
-    $('#proj-modal-close').addEventListener('click', closeProjModal);
-    $('#proj-modal-save').addEventListener('click', saveProject);
-    $('#proj-modal-overlay').addEventListener('click', (e) => {
-      if (e.target === e.currentTarget) closeProjModal();
-    });
-    // Add collaborator
-    $('#btn-add-collab').addEventListener('click', () => {
-      const input = $('#proj-collab-input');
-      const name = input.value.trim();
-      if (!name) return;
-      const current = getProjCollabs();
-      if (!current.includes(name)) {
-        current.push(name);
-        renderProjCollabs(current);
-      }
-      input.value = '';
-    });
-    $('#proj-collab-input').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') { e.preventDefault(); $('#btn-add-collab').click(); }
-    });
-
-    // Project filter tabs
-    $$('.filter-tab', $('#project-filter')).forEach(tab => {
-      tab.addEventListener('click', () => {
-        $$('.filter-tab', $('#project-filter')).forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        projectFilter = tab.dataset.filter;
-        renderProjects();
-      });
-    });
-
-    // Project sort tabs
-    $$('.sort-tab', $('#project-sort')).forEach(tab => {
-      tab.addEventListener('click', () => {
-        $$('.sort-tab', $('#project-sort')).forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        projectSort = tab.dataset.sort;
-        loadProjects();
-      });
+      if (e.key === 'Escape') closeModal();
     });
 
     // Link session to idea
@@ -649,7 +360,6 @@
         $('#search-input').blur();
       }
     });
-    // Bind copy buttons inside search results (delegated)
     $('#search-results').addEventListener('click', (e) => {
       const btn = e.target.closest('.search-copy');
       if (btn) {
@@ -708,9 +418,9 @@
   }
 
   function renderSearchResult(r, q) {
-    const typeColors = { memo: '#c678dd', session: '#61afef', project: '#98c379' };
+    const typeColors = { memo: 'var(--purple)', session: 'var(--blue)', project: 'var(--green)' };
     const typeLabel = { memo: 'voice memo', session: 'session', project: 'project' };
-    const color = typeColors[r.type] || '#5a6178';
+    const color = typeColors[r.type] || 'var(--text-muted)';
     const snippet = highlightMatch(esc(r.snippet), q);
     let extra = '';
     if (r.type === 'session' && r.project_dir) extra = ` &middot; ${esc(r.project_dir)}`;
@@ -756,6 +466,5 @@
     setTimeout(() => t.className = 'toast', 2500);
   }
 
-  // --- Boot ---
   document.addEventListener('DOMContentLoaded', init);
 })();

@@ -28,9 +28,9 @@
   const NAME_SHORT = 'BAKARJI';
   const HOLD_DURATION = 2500;  // ms to display name before dissolving
   const STEP_INTERVAL = 100;   // ms between generations
-  const CELL_COLOR = '#61afef';
-  const CELL_GLOW_COLOR = 'rgba(97, 175, 239, 0.35)';
-  const BG_COLOR = '#1a1a2e';
+  const CELL_COLOR = '#c4a46c';
+  const CELL_GLOW_COLOR = 'rgba(196, 164, 108, 0.25)';
+  const BG_COLOR = '#1c1b1f';
 
   // --- Initialization ---
 

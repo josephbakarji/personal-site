@@ -14,14 +14,11 @@
       const resp = await fetch(DATA_PATH);
       const data = await resp.json();
 
-      // Render author stats
+      // Render Google Scholar link
       const statsEl = document.getElementById('scholar-stats');
       if (statsEl && data.author) {
         const a = data.author;
         statsEl.innerHTML = `
-          <span>citations: <strong style="color:var(--accent-yellow)">${a.citedby}</strong></span>
-          <span>h-index: <strong style="color:var(--accent-yellow)">${a.h_index}</strong></span>
-          <span>i10-index: <strong style="color:var(--accent-yellow)">${a.i10_index}</strong></span>
           <a href="https://scholar.google.com/citations?user=${a.scholar_id}&hl=en" target="_blank" rel="noopener" style="color:var(--accent-blue)">google scholar ↗</a>
         `;
       }

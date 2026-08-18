@@ -1,6 +1,157 @@
 {
   "articles": [
     {
+      "slug": "vipp-guidelines",
+      "title": "VIPP Guidelines",
+      "date": "2025-11-19",
+      "tags": [
+        "vipp",
+        "lab",
+        "documentation",
+        "students"
+      ],
+      "excerpt": "The Vertically Integrated Project Program (VIPP) functions as applied research rather than traditional coursework. Students should embrace three core principles: learn by building, share progress within the lab community, and prioritize comprehensive documentation.",
+      "has_math": false,
+      "source": "local",
+      "published": true
+    },
+    {
+      "slug": "vertically-integrated-program",
+      "title": "Vertically Integrated Project Program (VIPP) in Music Technology",
+      "date": "2025-09-11",
+      "tags": [
+        "vipp",
+        "music",
+        "lab",
+        "research"
+      ],
+      "excerpt": "The Music Intelligence Lab now offers a Vertically Integrated Project Program (VIPP). Through this initiative, students can earn course credit, participate in long-term research, and explore music and technology intersections.",
+      "has_math": false,
+      "source": "local",
+      "published": true
+    },
+    {
+      "slug": "why-music-intelligence",
+      "title": "Why Music Intelligence?",
+      "date": "2024-11-15",
+      "tags": [
+        "music",
+        "intelligence",
+        "lab"
+      ],
+      "excerpt": "What's music intelligence? Is it just AI for music? The term Music Intelligence Lab might imply artificial intelligence generating music, but intelligence here means the ability to adapt to one's surrounding through abstraction and problem solving.",
+      "has_math": false,
+      "source": "local",
+      "published": true
+    },
+    {
+      "slug": "intelligences-natural-and-artificial",
+      "title": "Intelligences, Natural and Artificial",
+      "date": "2024-11-15",
+      "tags": [
+        "intelligence",
+        "ai",
+        "philosophy",
+        "complex-systems"
+      ],
+      "excerpt": "How does a collection of living, breathing cells self-organize into much bigger intelligent beings? In this article, I argue that intelligence comes in many forms, characteristic of the diversity found in living and non-living organisms alike.",
+      "has_math": false,
+      "source": "local",
+      "published": true
+    },
+    {
+      "slug": "on-discovering-physics-from-data",
+      "title": "On Discovering Physics From Data",
+      "date": "2024-03-02",
+      "tags": [
+        "physics",
+        "machine-learning",
+        "sindy",
+        "scientific-ml",
+        "equation-discovery"
+      ],
+      "excerpt": "Our grasp of the world has evolved alongside our capacity to shape it. Language provided initial frameworks for abstract representation, but the Renaissance introduced a revolutionary concept: space and time could be quantified through mathematics.",
+      "has_math": true,
+      "source": "local",
+      "published": true
+    },
+    {
+      "slug": "introduction-to-linear-regression",
+      "title": "Introduction to Linear Regression",
+      "date": "2024-01-18",
+      "tags": [
+        "machine-learning",
+        "tutorial",
+        "python",
+        "regression"
+      ],
+      "excerpt": "Machine learning is everywhere. The basic principles of machine learning are easy to understand. In this tutorial, I'll cover linear regression to introduce general concepts.",
+      "has_math": true,
+      "source": "local",
+      "published": true
+    },
+    {
+      "slug": "over-generalization-and-its-paradox",
+      "title": "Over-Generalization and its Paradox",
+      "date": "2024-03-02",
+      "tags": [
+        "philosophy",
+        "epistemology",
+        "science",
+        "logic"
+      ],
+      "excerpt": "How do we define a point? Because I've never seen one, have you? A point is an abstraction. It doesn't exist in reality; and yet, it's a surprisingly simple concept to imagine.",
+      "has_math": false,
+      "source": "local",
+      "published": true
+    },
+    {
+      "slug": "quantifying-uncertainty-with-the-pdf-method",
+      "title": "Quantifying Uncertainty with the PDF Method",
+      "date": "2024-03-02",
+      "tags": [
+        "uncertainty-quantification",
+        "physics",
+        "probability",
+        "pdf-method"
+      ],
+      "excerpt": "Modern science recognizes that purely deterministic equations cannot fully explain physical phenomena. Randomness pervades most measurable systems, requiring probabilistic approaches for accurate modeling.",
+      "has_math": true,
+      "source": "local",
+      "published": true
+    },
+    {
+      "slug": "sentient-ideas",
+      "title": "Sentient Ideas",
+      "date": "2024-03-02",
+      "tags": [
+        "philosophy",
+        "ideas",
+        "memes",
+        "essay"
+      ],
+      "excerpt": "Ideas emerge from the ceaseless storm of bursts in a complex network of cells. At least that's what many scientists believe. But the relationship between neurons and the abstract things they generate is wholly unknown.",
+      "has_math": false,
+      "source": "local",
+      "published": true
+    },
+    {
+      "slug": "piano-of-life",
+      "title": "Piano of Life: A Piano Triggered Game of Life",
+      "date": "2026-07-06",
+      "tags": [
+        "music",
+        "computer vision",
+        "cellular automata",
+        "audio",
+        "experiment"
+      ],
+      "excerpt": "A short experiment where a piano video seeds a Game of Life whose column density becomes a live spectral filter over the piano's own audio. Framework payload: intelligence as a closed action–perception loop, made audible.",
+      "has_math": true,
+      "source": "local",
+      "published": true
+    },
+    {
       "slug": "action-conditioned-information",
       "title": "Action-Conditioned Information: Compression Should Be Measured by What It Does",
       "date": "2026-02-23",
@@ -254,32 +405,6 @@
       "has_math": false,
       "source": "substack",
       "external_url": "https://bakarji.substack.com/p/living-inside-a-model"
-    },
-    {
-      "slug": "on-discovering-physics-from-data",
-      "title": "On Discovering Physics From Data",
-      "date": "2025-06-15",
-      "tags": [
-        "equation discovery",
-        "SINDy",
-        "scientific ML"
-      ],
-      "excerpt": "Automating scientific discovery through physics-informed machine learning.",
-      "has_math": true,
-      "source": "local"
-    },
-    {
-      "slug": "intelligences-natural-and-artificial",
-      "title": "Intelligences, Natural and Artificial",
-      "date": "2025-03-10",
-      "tags": [
-        "intelligence",
-        "AI",
-        "philosophy"
-      ],
-      "excerpt": "Understanding natural and artificial intelligence in an information-rich world.",
-      "has_math": false,
-      "source": "local"
     }
   ]
 }

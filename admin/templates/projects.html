@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — josephbakarji.com</title>
+  <link rel="stylesheet" href="/admin/static/admin.css">
+  <link rel="stylesheet" href="/admin/static/projects.css">
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>
+    <span>~/admin/</span>
+    <a href="/admin/dashboard" class="nav-link">dashboard</a>
+    <a href="/admin/projects" class="nav-link active">projects</a>
+    <a href="/admin/sessions" class="nav-link">sessions</a>
+    <a href="/admin/" class="nav-link">articles</a>
+    <a href="/admin/news" class="nav-link">news</a>
+    <a href="/admin/hero" class="nav-link">hero</a>
+  </h1>
+  <div class="toolbar">
+    <button class="btn btn-sm" id="btn-expand-all">Expand all</button>
+  </div>
+</div>
+
+<div class="projects-page">
+  <!-- Stats strip -->
+  <div class="stats-strip" id="stats-strip"></div>
+
+  <!-- Controls row -->
+  <div class="controls-row">
+    <div class="cluster-filters" id="cluster-filters">
+      <button class="cluster-btn active" data-cluster="all">All</button>
+    </div>
+    <div class="controls-right">
+      <div class="sort-tabs" id="sort-tabs">
+        <span class="sort-label">Sort:</span>
+        <button class="sort-btn active" data-sort="priority">Priority</button>
+        <button class="sort-btn" data-sort="deadline">Deadline</button>
+        <button class="sort-btn" data-sort="name">Name</button>
+      </div>
+      <div class="status-filter" id="status-filter">
+        <select id="status-select">
+          <option value="all">All statuses</option>
+          <option value="active" selected>Active</option>
+          <option value="paused">Paused</option>
+          <option value="completed">Completed</option>
+          <option value="archived">Archived</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project list (grouped by priority tier) -->
+  <div class="project-groups" id="project-groups"></div>
+</div>
+
+<!-- Project Edit Modal -->
+<div class="modal-overlay" id="proj-modal-overlay">
+  <div class="modal" style="width:560px">
+    <div class="modal-header">
+      <h3 id="proj-modal-title">Edit Project</h3>
+      <button class="btn btn-sm" id="proj-modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="proj-path-row">
+        <span class="proj-path-label" id="proj-path"></span>
+        <span id="proj-badges"></span>
+      </div>
+      <div class="modal-grid">
+        <div class="field">
+          <label>Priority (1–10)</label>
+          <select id="proj-priority">
+            <option value="">— unset —</option>
+            <option value="10">10 — urgent</option>
+            <option value="9">9</option>
+            <option value="8">8</option>
+            <option value="7">7</option>
+            <option value="6">6</option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1 — lowest</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Deadline</label>
+          <input id="proj-deadline" type="date">
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <select id="proj-status">
+            <option value="active">active</option>
+            <option value="paused">paused</option>
+            <option value="completed">completed</option>
+            <option value="archived">archived</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Collaborators</label>
+        <div id="proj-collab-list" class="collab-chip-list"></div>
+        <div class="collab-add-row">
+          <input id="proj-collab-input" type="text" list="collab-datalist" placeholder="Add collaborator...">
+          <datalist id="collab-datalist"></datalist>
+          <button class="btn btn-sm btn-accent" id="btn-add-collab">+</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Notes</label>
+        <textarea id="proj-notes" rows="3" placeholder="Add notes..."></textarea>
+      </div>
+      <div class="proj-info-row">
+        <span id="proj-modified"></span>
+        <span id="proj-desc"></span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div></div>
+      <button class="btn btn-accent" id="proj-modal-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/admin/static/projects.js"></script>
+</body>
+</html>

@@ -253,27 +253,64 @@ const CHAR_WIDTH = 5;
 const CHAR_HEIGHT = 7;
 const CHAR_SPACING = 2; // cells between characters
 
-/**
- * Render a text string into a Game of Life grid.
- * Centers the text horizontally and vertically.
- * @param {string} text - uppercase text to render
- * @param {number[][]} grid - 2D grid (rows x cols) to write into
- * @param {number} rows - grid height
- * @param {number} cols - grid width
- */
-function renderTextToGrid(text, grid, rows, cols) {
-  const chars = text.toUpperCase().split('');
-  const totalWidth = chars.length * (CHAR_WIDTH + CHAR_SPACING) - CHAR_SPACING;
-  const startCol = Math.floor((cols - totalWidth) / 2);
-  // Place name in the upper third of the canvas so it's visible above the text overlay
-  const startRow = Math.floor(rows * 0.3);
+/* Compact 3x5 pixel font — roughly half the footprint of the 5x7 font */
+const PIXEL_FONT_SMALL = {
+  'A': [[1,1,1],[1,0,1],[1,1,1],[1,0,1],[1,0,1]],
+  'B': [[1,1,0],[1,0,1],[1,1,0],[1,0,1],[1,1,0]],
+  'C': [[0,1,1],[1,0,0],[1,0,0],[1,0,0],[0,1,1]],
+  'D': [[1,1,0],[1,0,1],[1,0,1],[1,0,1],[1,1,0]],
+  'E': [[1,1,1],[1,0,0],[1,1,0],[1,0,0],[1,1,1]],
+  'F': [[1,1,1],[1,0,0],[1,1,0],[1,0,0],[1,0,0]],
+  'G': [[0,1,1],[1,0,0],[1,0,1],[1,0,1],[0,1,1]],
+  'H': [[1,0,1],[1,0,1],[1,1,1],[1,0,1],[1,0,1]],
+  'I': [[1,1,1],[0,1,0],[0,1,0],[0,1,0],[1,1,1]],
+  'J': [[0,1,1],[0,0,1],[0,0,1],[1,0,1],[0,1,0]],
+  'K': [[1,0,1],[1,1,0],[1,0,0],[1,1,0],[1,0,1]],
+  'L': [[1,0,0],[1,0,0],[1,0,0],[1,0,0],[1,1,1]],
+  'M': [[1,0,1],[1,1,1],[1,0,1],[1,0,1],[1,0,1]],
+  'N': [[1,0,1],[1,1,1],[1,1,1],[1,0,1],[1,0,1]],
+  'O': [[0,1,0],[1,0,1],[1,0,1],[1,0,1],[0,1,0]],
+  'P': [[1,1,0],[1,0,1],[1,1,0],[1,0,0],[1,0,0]],
+  'Q': [[0,1,0],[1,0,1],[1,0,1],[1,1,0],[0,1,1]],
+  'R': [[1,1,0],[1,0,1],[1,1,0],[1,0,1],[1,0,1]],
+  'S': [[0,1,1],[1,0,0],[0,1,0],[0,0,1],[1,1,0]],
+  'T': [[1,1,1],[0,1,0],[0,1,0],[0,1,0],[0,1,0]],
+  'U': [[1,0,1],[1,0,1],[1,0,1],[1,0,1],[0,1,0]],
+  'V': [[1,0,1],[1,0,1],[1,0,1],[0,1,0],[0,1,0]],
+  'W': [[1,0,1],[1,0,1],[1,0,1],[1,1,1],[1,0,1]],
+  'X': [[1,0,1],[0,1,0],[0,1,0],[0,1,0],[1,0,1]],
+  'Y': [[1,0,1],[0,1,0],[0,1,0],[0,1,0],[0,1,0]],
+  'Z': [[1,1,1],[0,0,1],[0,1,0],[1,0,0],[1,1,1]],
+  ' ': [[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]],
+};
 
-  chars.forEach((ch, i) => {
-    const glyph = PIXEL_FONT[ch];
+const SMALL_CHAR_WIDTH = 3;
+const SMALL_CHAR_HEIGHT = 5;
+const SMALL_CHAR_SPACING = 1;
+
+/**
+ * Render text into grid using the compact 3x5 font.
+ * @param {string} text
+ * @param {number[][]} grid
+ * @param {number} rows
+ * @param {number} cols
+ * @param {number} [yFraction=0.22] - vertical position as fraction of rows
+ */
+function renderTextToGrid(text, grid, rows, cols, yFraction) {
+  const chars = text.toUpperCase().split('');
+  const cw = SMALL_CHAR_WIDTH;
+  const ch = SMALL_CHAR_HEIGHT;
+  const sp = SMALL_CHAR_SPACING;
+  const totalWidth = chars.length * (cw + sp) - sp;
+  const startCol = Math.floor((cols - totalWidth) / 2);
+  const startRow = Math.floor(rows * (yFraction || 0.22));
+
+  chars.forEach((char, i) => {
+    const glyph = PIXEL_FONT_SMALL[char];
     if (!glyph) return;
-    const colOffset = startCol + i * (CHAR_WIDTH + CHAR_SPACING);
-    for (let r = 0; r < CHAR_HEIGHT; r++) {
-      for (let c = 0; c < CHAR_WIDTH; c++) {
+    const colOffset = startCol + i * (cw + sp);
+    for (let r = 0; r < ch; r++) {
+      for (let c = 0; c < cw; c++) {
         const gr = startRow + r;
         const gc = colOffset + c;
         if (gr >= 0 && gr < rows && gc >= 0 && gc < cols && glyph[r][c]) {
@@ -286,11 +323,8 @@ function renderTextToGrid(text, grid, rows, cols) {
 
 /**
  * Check if text fits in the grid at given dimensions.
- * @param {string} text
- * @param {number} cols
- * @returns {boolean}
  */
 function textFitsInGrid(text, cols) {
-  const totalWidth = text.length * (CHAR_WIDTH + CHAR_SPACING) - CHAR_SPACING;
-  return totalWidth < cols - 4; // leave some margin
+  const totalWidth = text.length * (SMALL_CHAR_WIDTH + SMALL_CHAR_SPACING) - SMALL_CHAR_SPACING;
+  return totalWidth < cols - 4;
 }

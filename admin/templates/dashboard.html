@@ -13,11 +13,14 @@
   <h1>
     <span>~/admin/</span>
     <a href="/admin/dashboard" class="nav-link active">dashboard</a>
+    <a href="/admin/projects" class="nav-link">projects</a>
+    <a href="/admin/sessions" class="nav-link">sessions</a>
     <a href="/admin/" class="nav-link">articles</a>
-    <a href="/admin/workflow" class="nav-link">workflow</a>
+    <a href="/admin/news" class="nav-link">news</a>
+    <a href="/admin/hero" class="nav-link">hero</a>
   </h1>
   <div class="toolbar">
-    <button class="btn btn-green" id="btn-new-idea">+ New Idea</button>
+    <button class="btn btn-accent" id="btn-new-idea">+ New Idea</button>
   </div>
 </div>
 
@@ -42,34 +45,6 @@
   <section class="section">
     <h2 class="section-title">Recent Voice Memos</h2>
     <div class="memo-list" id="memo-list"></div>
-  </section>
-
-  <!-- Recent Sessions -->
-  <section class="section">
-    <h2 class="section-title">Recent Sessions</h2>
-    <div class="session-list" id="session-list"></div>
-  </section>
-
-  <!-- Projects -->
-  <section class="section">
-    <div class="section-header-row">
-      <h2 class="section-title">Projects</h2>
-      <div class="project-controls">
-        <div class="filter-tabs" id="project-filter">
-          <button class="filter-tab active" data-filter="all">All</button>
-          <button class="filter-tab" data-filter="active">Active</button>
-          <button class="filter-tab" data-filter="paused">Paused</button>
-          <button class="filter-tab" data-filter="has-deadline">Has deadline</button>
-        </div>
-        <div class="sort-tabs" id="project-sort">
-          <span class="sort-label">Sort:</span>
-          <button class="sort-tab active" data-sort="priority">Priority</button>
-          <button class="sort-tab" data-sort="deadline">Deadline</button>
-          <button class="sort-tab" data-sort="modified">Modified</button>
-        </div>
-      </div>
-    </div>
-    <div class="project-list" id="project-list"></div>
   </section>
 
   <!-- Papers -->
@@ -115,65 +90,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-red" id="modal-delete" style="display:none">Delete</button>
-      <button class="btn btn-green" id="modal-save">Save</button>
-    </div>
-  </div>
-</div>
-
-<!-- Project Modal -->
-<div class="modal-overlay" id="proj-modal-overlay">
-  <div class="modal">
-    <div class="modal-header">
-      <h3 id="proj-modal-title">Edit Project</h3>
-      <button class="btn btn-sm" id="proj-modal-close">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="field">
-        <label>Project</label>
-        <div id="proj-path" class="proj-readonly"></div>
-      </div>
-      <div class="field"><label>Priority (1-10)</label>
-        <select id="proj-priority">
-          <option value="">-- unset --</option>
-          <option value="10">10 (highest)</option>
-          <option value="9">9</option>
-          <option value="8">8</option>
-          <option value="7">7</option>
-          <option value="6">6</option>
-          <option value="5">5</option>
-          <option value="4">4</option>
-          <option value="3">3</option>
-          <option value="2">2</option>
-          <option value="1">1 (lowest)</option>
-        </select>
-      </div>
-      <div class="field"><label>Deadline</label><input id="proj-deadline" type="date"></div>
-      <div class="field"><label>Status</label>
-        <select id="proj-status">
-          <option value="active">active</option>
-          <option value="paused">paused</option>
-          <option value="completed">completed</option>
-          <option value="archived">archived</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Collaborators</label>
-        <div id="proj-collab-list" class="collab-chip-list"></div>
-        <div class="collab-add-row">
-          <input id="proj-collab-input" type="text" list="collab-datalist" placeholder="Add collaborator...">
-          <datalist id="collab-datalist"></datalist>
-          <button class="btn btn-sm" id="btn-add-collab">+</button>
-        </div>
-      </div>
-      <div class="field"><label>Notes</label><textarea id="proj-notes" rows="3"></textarea></div>
-      <div class="field proj-info-row">
-        <span id="proj-modified"></span>
-        <span id="proj-badges"></span>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <div></div>
-      <button class="btn btn-green" id="proj-modal-save">Save</button>
+      <button class="btn btn-accent" id="modal-save">Save</button>
     </div>
   </div>
 </div>

@@ -4,79 +4,142 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Joseph Bakarji</title>
-  <meta name="description" content="Joseph Bakarji — searching for patterns across scales. Equation discovery, complex systems, music technology, embodied AI.">
+  <meta name="description" content="Joseph Bakarji. Modeling physical systems, scientific machine learning, music technology, mechatronic instrument design. Assistant Professor at the American University of Beirut.">
 
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/landing.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="landing">
-  <!-- Game of Life canvas fills the background -->
-  <canvas id="life-canvas"></canvas>
+<nav class="nav">
+  <a class="nav-logo" href="/">jb</a>
+  <ul class="nav-links">
+    <li><a href="articles/">articles</a></li>
+    <li><a href="publications/">publications</a></li>
+    <li><a href="labs/">labs</a></li>
+    <li><a href="teaching/">teaching</a></li>
+    <li><a href="team/">team</a></li>
+    <li><a href="about/">about</a></li>
+  </ul>
+</nav>
 
-  <!-- All content overlaid on the canvas -->
-  <div class="overlay">
+<!-- ============ HERO ============ -->
+<section class="hero" data-section="hero">
 
-    <!-- Navigation -->
-    <nav class="nav">
-      <span class="nav-logo">jb</span>
-      <ul class="nav-links">
-        <li><a href="articles/">articles</a></li>
-        <li><a href="publications/">publications</a></li>
-        <li><a href="projects/">projects</a></li>
-        <li><a href="teaching/">teaching</a></li>
-        <li><a href="about/">about</a></li>
-      </ul>
-    </nav>
-
-    <!-- Center: tagline + keywords + links -->
-    <div class="center-content">
-
-      <div class="tagline-container">
-        <div>
-          <span class="tagline-prompt">&gt;</span>
-          <span class="tagline-text" id="tagline-typed" data-text="searching for patterns across scales">searching for patterns across scales</span><span class="cursor"></span>
-        </div>
-        <div class="keywords">
-          <span class="kw">equation discovery</span>
-          <span class="kw">complex systems</span>
-          <span class="kw">multiscale modeling</span>
-          <span class="kw">machine intelligence</span>
-          <span class="kw">music technology</span>
-          <span class="kw">embodied AI</span>
-        </div>
-      </div>
-
-      <div class="external-links">
-        <a class="ext-link" href="https://ml4science.com" target="_blank" rel="noopener">ml4science</a>
-        <a class="ext-link" href="https://intro2ml.com" target="_blank" rel="noopener">intro2ml</a>
-        <a class="ext-link" href="https://www.sematlas.com" target="_blank" rel="noopener">sematlas</a>
-        <a class="ext-link" href="https://bakarji.substack.com" target="_blank" rel="noopener">substack</a>
-        <a class="ext-link" href="https://github.com/josephbakarji" target="_blank" rel="noopener">github</a>
-        <a class="ext-link" href="https://scholar.google.com/citations?user=1zZNV48AAAAJ&hl=en" target="_blank" rel="noopener">scholar</a>
-        <a class="ext-link" href="https://soundcloud.com/user-343358875" target="_blank" rel="noopener">soundcloud</a>
-      </div>
+  <!-- Piano video slice: shows hammers down to the strike point -->
+  <div class="hero-video-strip" id="hero-video-strip">
+    <video id="hero-video" autoplay muted loop playsinline
+           poster="assets/hero/piano-poster.jpg" preload="auto" aria-hidden="true">
+      <source src="assets/hero/piano.webm" type="video/webm">
+      <source src="assets/hero/piano.mp4" type="video/mp4">
+    </video>
+    <canvas id="det-overlay" class="det-overlay" aria-hidden="true"></canvas>
+    <div class="hero-controls" aria-label="animation controls">
+      <button class="hero-ctrl" id="hero-ctrl-pause" type="button" aria-pressed="false" title="pause / resume">pause</button>
+      <button class="hero-ctrl" id="hero-ctrl-audio" type="button" aria-pressed="false" title="unmute video audio">audio: off</button>
     </div>
-
-    <!-- Name, subtle, bottom-right -->
-    <div class="name-corner">joseph bakarji</div>
-
-    <!-- Bottom controls -->
-    <div class="controls">
-      <div class="gen-counter">gen: <span id="life-gen">0</span></div>
-      <button class="ctrl-btn" id="life-play">play</button>
-      <button class="ctrl-btn" id="life-reset">reset</button>
-    </div>
-
   </div>
-</div>
 
-<!-- Scripts: pixel font must load before gameoflife -->
-<script src="js/pixel-font.js"></script>
-<script src="js/gameoflife.js"></script>
-<script src="js/terminal.js"></script>
+  <!-- Clearance band: piano-roll bars fall from strikes into the substrate -->
+  <div class="hero-clearance" aria-hidden="true">
+    <canvas id="hero-roll-canvas"></canvas>
+  </div>
+
+  <!-- Game of Life zone: fills the remaining hero band -->
+  <div class="hero-gol" id="hero-gol">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+    <div class="hero-overlay">
+      <p class="hero-intro">
+        My name is Joseph (Joe) Bakarji. I'm an assistant professor at the <a href="https://aub.edu.lb" target="_blank" rel="noopener">American University of Beirut</a>, where I teach <a href="https://intro2ml.com" target="_blank" rel="noopener">intro to ML</a> and <a href="https://ml4science.com" target="_blank" rel="noopener">ML for science</a>, and I research problems at the intersection of <a href="labs/data-driven-modeling/">data-driven equation discovery</a>, <a href="labs/music-intelligence/">mechatronic design of digital musical instruments</a>, and complex systems modeling and simulation. I'm driven by questions you can find me wrestling with on <a href="https://bakarji.substack.com" target="_blank" rel="noopener">my blog</a>, and you can find the people who have joined me on this journey on the <a href="team/">team page</a>. I'm also a musician (pianist and composer/improviser) enjoying sounds across neo-classical, jazz, and arabic music on <a href="https://soundcloud.com/user-343358875" target="_blank" rel="noopener">SoundCloud</a>. I enjoy bringing together loosely related ideas, hence the background simulation: a <a href="articles/?slug=piano-of-life">piano-triggered game of life</a>.
+      </p>
+    </div>
+  </div>
+
+  <a class="hero-scroll" href="#news" aria-label="scroll to news">
+    <span class="hero-scroll-label">news</span>
+    <span class="hero-scroll-chev" aria-hidden="true"></span>
+  </a>
+</section>
+
+<!-- ============ NEWS ============ -->
+<section id="news" class="section section--news" data-section="news">
+  <div class="section-inner">
+    <header class="section-head">
+      <h2 class="section-title"><span class="section-tag">// news</span></h2>
+    </header>
+    <ul class="news-list" id="news-list">
+      <li class="news-item news-item--skeleton">loading...</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ LABS ============ -->
+<section class="section section--labs" data-section="labs">
+  <div class="section-inner">
+    <header class="section-head">
+      <h2 class="section-title"><span class="section-tag">// labs</span></h2>
+    </header>
+    <div class="labs-grid">
+
+      <a class="lab-card" href="labs/data-driven-modeling/">
+        <img class="lab-card-img" src="assets/labs/ddm-lab-hero.png" alt="Data-Driven Modeling Lab" loading="lazy">
+        <span class="lab-name">Data-Driven Modeling Lab <span class="lab-alias">(DDM)</span></span>
+        <p class="lab-blurb">Discovering governing equations from data. Dimensional analysis, multi-scale modeling of granular materials, and agent-based simulations for social systems.</p>
+        <span class="lab-link">read more</span>
+      </a>
+
+      <a class="lab-card" href="labs/music-intelligence/">
+        <img class="lab-card-img lab-card-img--contain" src="assets/labs/bakarji-labs-logo.png" alt="Music Intelligence Lab" loading="lazy">
+        <span class="lab-name">Music Intelligence Lab <span class="lab-alias">(&micro;-lab)</span></span>
+        <p class="lab-blurb">Intelligent instruments, generative composition with alternate tuning systems, computational analysis of Arabic maqam and the maqam archive project.</p>
+        <span class="lab-link">read more</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECENT WRITING ============ -->
+<section class="section section--writing" data-section="writing">
+  <div class="section-inner">
+    <header class="section-head">
+      <h2 class="section-title"><span class="section-tag">// recent writing</span></h2>
+    </header>
+    <ul class="writing-list" id="recent-articles">
+      <li class="writing-item writing-item--skeleton">loading...</li>
+    </ul>
+    <a class="section-more" href="articles/">all articles</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="ext-links">
+      <a class="ext-link" href="https://bakarji.substack.com" target="_blank" rel="noopener">substack</a>
+      <a class="ext-link" href="https://github.com/josephbakarji" target="_blank" rel="noopener">github</a>
+      <a class="ext-link" href="https://scholar.google.com/citations?user=1zZNV48AAAAJ&hl=en" target="_blank" rel="noopener">scholar</a>
+      <a class="ext-link" href="https://soundcloud.com/user-343358875" target="_blank" rel="noopener">soundcloud</a>
+      <a class="ext-link" href="https://www.sematlas.com" target="_blank" rel="noopener">sematlas</a>
+      <a class="ext-link" href="https://ml4science.com" target="_blank" rel="noopener">ml4science</a>
+      <a class="ext-link" href="mailto:joseph.bakarji@aub.edu.lb">email</a>
+    </div>
+    <p class="footer-note">joseph bakarji &middot; beirut &middot; <span id="year"></span></p>
+  </div>
+</footer>
+
+<script src="js/news.js"></script>
+<script src="js/recent-articles.js"></script>
+<script src="js/landing-anim.js" defer></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>

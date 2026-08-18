@@ -27,6 +27,14 @@ TOOLS_DIR = SITE_ROOT / 'tools'
 ARTICLES_JSON = DATA_DIR / 'articles.json'
 IDEAS_JSON = DATA_DIR / 'ideas.json'
 PROJECTS_JSON = DATA_DIR / 'projects.json'
+NEWS_JSON = DATA_DIR / 'news.json'
+NEWS_KINDS = ['talk', 'paper', 'writing', 'book', 'demo', 'code']
+HERO_JSON = DATA_DIR / 'hero.json'
+INDEX_HTML = SITE_ROOT / 'index.html'
+HERO_INTRO_PATTERN = re.compile(
+    r'(<p class="hero-intro">)(.*?)(</p>)',
+    re.DOTALL,
+)
 
 # External paths
 HOME = Path.home()
@@ -79,6 +87,49 @@ def save_ideas(data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
+# --- Helpers: News ---
+
+def load_news():
+    if not NEWS_JSON.exists():
+        return {'items': [], 'last_updated': None}
+    with open(NEWS_JSON) as f:
+        return json.load(f)
+
+def save_news(data):
+    data['last_updated'] = datetime.now().strftime('%Y-%m-%d')
+    with open(NEWS_JSON, 'w') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+# --- Helpers: Hero intro (landing paragraph) ---
+
+def load_hero():
+    if not HERO_JSON.exists():
+        return {'intro_html': '', 'last_updated': None}
+    with open(HERO_JSON) as f:
+        return json.load(f)
+
+def save_hero(data):
+    data['last_updated'] = datetime.now().strftime('%Y-%m-%d')
+    with open(HERO_JSON, 'w') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+def sync_intro_to_index(intro_html):
+    """
+    Patch the <p class="hero-intro">...</p> body in index.html so the
+    landing renders the same intro that admin/hero shows. Preserves
+    surrounding whitespace/indentation. Non-destructive if pattern
+    doesn't match (raises so the caller can surface the error).
+    """
+    txt = INDEX_HTML.read_text(encoding='utf-8')
+    def repl(m):
+        return f"{m.group(1)}\n        {intro_html.strip()}\n      {m.group(3)}"
+    new_txt, n = HERO_INTRO_PATTERN.subn(repl, txt, count=1)
+    if n == 0:
+        raise ValueError('could not locate <p class="hero-intro"> in index.html')
+    INDEX_HTML.write_text(new_txt, encoding='utf-8')
+
+
 # --- Helpers: Projects metadata ---
 
 def load_projects_meta():
@@ -110,6 +161,22 @@ def admin_page():
 @app.route('/admin/dashboard')
 def dashboard_page():
     return render_template('dashboard.html')
+
+@app.route('/admin/projects')
+def projects_page():
+    return render_template('projects.html')
+
+@app.route('/admin/news')
+def news_page():
+    return render_template('news.html')
+
+@app.route('/admin/hero')
+def hero_page():
+    return render_template('hero.html')
+
+@app.route('/admin/sessions')
+def sessions_page():
+    return render_template('sessions.html')
 
 
 # --- API: Articles ---
@@ -237,6 +304,83 @@ def reorder_articles():
 
 
 # --- API: Dashboard ---
+
+# --- Hero API ---
+
+@app.route('/api/hero', methods=['GET'])
+def api_get_hero():
+    return jsonify(load_hero())
+
+@app.route('/api/hero', methods=['PUT'])
+def api_update_hero():
+    body = request.json or {}
+    intro_html = (body.get('intro_html') or '').strip()
+    if not intro_html:
+        return jsonify({'error': 'intro_html is required'}), 400
+    data = load_hero()
+    data['intro_html'] = intro_html
+    save_hero(data)
+    try:
+        sync_intro_to_index(intro_html)
+    except Exception as e:
+        return jsonify({
+            'error': f'saved hero.json but failed to update index.html: {e}',
+            'data': data,
+        }), 500
+    return jsonify(data)
+
+
+# --- News API ---
+
+@app.route('/api/news', methods=['GET'])
+def api_get_news():
+    return jsonify(load_news())
+
+@app.route('/api/news', methods=['POST'])
+def api_create_news():
+    body = request.json or {}
+    data = load_news()
+    item = {
+        'id': body.get('id') or datetime.now().strftime('%Y%m%d%H%M%S%f'),
+        'date': body.get('date') or datetime.now().strftime('%Y-%m-%d'),
+        'kind': body.get('kind', 'writing'),
+        'headline': body.get('headline', ''),
+        'link': body.get('link') or None,
+        'note': body.get('note') or None,
+    }
+    if item['kind'] not in NEWS_KINDS:
+        return jsonify({'error': f'kind must be one of {NEWS_KINDS}'}), 400
+    if not item['headline'].strip():
+        return jsonify({'error': 'headline is required'}), 400
+    data.setdefault('items', []).insert(0, item)
+    save_news(data)
+    return jsonify(item), 201
+
+@app.route('/api/news/<item_id>', methods=['PUT'])
+def api_update_news(item_id):
+    body = request.json or {}
+    data = load_news()
+    for it in data.get('items', []):
+        if it.get('id') == item_id:
+            for k in ('date', 'kind', 'headline', 'link', 'note'):
+                if k in body:
+                    it[k] = body[k] if body[k] != '' else None
+            if it.get('kind') not in NEWS_KINDS:
+                return jsonify({'error': f'kind must be one of {NEWS_KINDS}'}), 400
+            save_news(data)
+            return jsonify(it)
+    return jsonify({'error': 'not found'}), 404
+
+@app.route('/api/news/<item_id>', methods=['DELETE'])
+def api_delete_news(item_id):
+    data = load_news()
+    n_before = len(data.get('items', []))
+    data['items'] = [i for i in data.get('items', []) if i.get('id') != item_id]
+    if len(data['items']) == n_before:
+        return jsonify({'error': 'not found'}), 404
+    save_news(data)
+    return jsonify({'ok': True})
+
 
 @app.route('/api/dashboard/ideas', methods=['GET'])
 def get_ideas():

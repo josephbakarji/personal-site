@@ -271,6 +271,23 @@
       renderList();
       selectArticle(article.slug);
       toast('Article created (draft)');
+
+      // Offer to add to news feed
+      if (confirm(`Add "${title}" to the news feed on the landing?`)) {
+        const newsResp = await fetch('/api/news', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            date: article.date || new Date().toISOString().slice(0, 10),
+            kind: 'writing',
+            headline: title,
+            link: `/articles/?slug=${article.slug}`,
+            note: null,
+          }),
+        });
+        if (newsResp.ok) toast('Added to news feed');
+        else             toast('News add failed');
+      }
     }
   }
 

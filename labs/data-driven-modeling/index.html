@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data-Driven Modeling Lab &middot; Joseph Bakarji</title>
+  <meta name="description" content="The Data-Driven Modeling Lab at AUB. Complex systems, artificial intelligence, and scientific machine learning.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/pages.css">
+  <link rel="stylesheet" href="../../css/labs.css">
+</head>
+<body>
+
+<div class="page" data-page="projects">
+  <nav class="nav">
+    <a class="nav-logo" href="../../">jb</a>
+    <ul class="nav-links">
+      <li><a href="../../articles/">articles</a></li>
+      <li><a href="../../publications/">publications</a></li>
+      <li><a href="../">labs</a></li>
+      <li><a href="../../teaching/">teaching</a></li>
+      <li><a href="../../team/">team</a></li>
+      <li><a href="../../about/">about</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-body">
+
+    <div class="lab-hero">
+      <img class="lab-hero-logo" src="../../assets/labs/ddm-lab-hero.png" alt="Data-Driven Modeling Lab" style="border-radius: 6px;">
+      <div class="lab-hero-text">
+        <h1>Data-Driven Modeling Lab <span class="lab-alias">DDM</span></h1>
+        <p class="lab-tagline">The intersection of complex systems and artificial intelligence. We develop algorithms that extract governing equations directly from data while keeping the models interpretable.</p>
+        <div class="lab-hero-links">
+          <a href="mailto:jb50@aub.edu.lb">jb50@aub.edu.lb</a>
+          <a href="https://scholar.google.com/citations?user=1zZNV48AAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a>
+          <a href="https://github.com/josephbakarji" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="page-lede">
+      Our research combines computational methods, applied mathematics, and machine learning to address scientific modeling challenges. We work on discovering governing equations from measurement data, incorporating physical dimensions into learning architectures, multi-scale modeling of granular materials, and agent-based simulation of social systems. We publish in applied math, computational science, and physics venues; we teach the methods in the <a href="../../teaching/">ML for Science</a> course sequence.
+    </p>
+
+    <section class="lab-section">
+      <h2>research topics</h2>
+      <div class="topics-grid">
+
+        <article class="topic-card">
+          <img class="topic-card-img" src="../../assets/labs/ddm-delay-sindy.jpg" alt="Delay embedding SINDy">
+          <div class="topic-card-body">
+            <h3>Discovering equations from partial measurements</h3>
+            <div class="topic-tags">
+              <span class="topic-tag">dynamical systems</span>
+              <span class="topic-tag">deep learning</span>
+              <span class="topic-tag">SINDy</span>
+              <span class="topic-tag">system identification</span>
+            </div>
+            <p>Using delay embeddings and autoencoders to jointly discover governing equations and their latent variables from high-dimensional or partial time-series observations. Demonstrated on Lorenz, R&ouml;ssler, Lotka-Volterra, and a chaotic waterwheel experiment.</p>
+          </div>
+        </article>
+
+        <article class="topic-card">
+          <img class="topic-card-img" src="../../assets/labs/ddm-buckinet.jpeg" alt="BuckiNet">
+          <div class="topic-card-body">
+            <h3>Dimensionally consistent learning</h3>
+            <div class="topic-tags">
+              <span class="topic-tag">dimensional analysis</span>
+              <span class="topic-tag">Buckingham Pi</span>
+              <span class="topic-tag">physics-informed ML</span>
+            </div>
+            <p>Building physical units and dimensional groups directly into neural architectures via constrained optimization and BuckiNet. Improves generalization across scales and preserves physical interpretability. Applied to bead on rotating hoop, laminar boundary layer, and Rayleigh-B&eacute;nard convection.</p>
+          </div>
+        </article>
+
+        <article class="topic-card">
+          <img class="topic-card-img" src="../../assets/labs/ddm-granular.jpg" alt="Granular materials">
+          <div class="topic-card-body">
+            <h3>Multi-scale modeling of complex materials</h3>
+            <div class="topic-tags">
+              <span class="topic-tag">granular materials</span>
+              <span class="topic-tag">multi-scale</span>
+              <span class="topic-tag">stochastic PDEs</span>
+              <span class="topic-tag">uncertainty quantification</span>
+            </div>
+            <p>Data-driven multi-scale modeling of granular materials such as sand and powders. Explores how microstructural heterogeneity drives macroscopic behavior including reaction initiation and hotspot formation. Bridges grain-scale physics with continuum descriptions.</p>
+          </div>
+        </article>
+
+        <article class="topic-card">
+          <img class="topic-card-img" src="../../assets/labs/ddm-socio-hydro.png" alt="Socio-hydrology">
+          <div class="topic-card-body">
+            <h3>Social dynamics with agent-based models and LLMs</h3>
+            <div class="topic-tags">
+              <span class="topic-tag">agent-based modeling</span>
+              <span class="topic-tag">LLMs</span>
+              <span class="topic-tag">social dynamics</span>
+              <span class="topic-tag">graphs</span>
+            </div>
+            <p>Modeling social behavior with agent-based frameworks embedded in graph structures, and using large language models to instantiate agent decision-making. Applications include socio-hydrological hybrid modeling for water resource management.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="lab-section">
+      <h2>selected publications</h2>
+      <ul class="pub-list">
+        <li>
+          <a href="https://royalsocietypublishing.org/doi/10.1098/rspa.2023.0422" target="_blank" rel="noopener">Discovering governing equations from partial measurements with deep delay autoencoders</a>
+          <span class="pub-meta">Bakarji, Champion, Kutz, Brunton &middot; Proc. Roy. Soc. A, 2023</span>
+        </li>
+        <li>
+          <a href="https://www.nature.com/articles/s43588-022-00355-5" target="_blank" rel="noopener">Dimensionally consistent learning with Buckingham Pi</a>
+          <span class="pub-meta">Bakarji, Callaham, Brunton, Kutz &middot; Nature Computational Science, 2022</span>
+        </li>
+        <li>
+          <a href="https://www.sciencedirect.com/science/article/abs/pii/S0021999121003570" target="_blank" rel="noopener">Data-driven discovery of coarse-grained equations</a>
+          <span class="pub-meta">Bakarji, Tartakovsky &middot; Journal of Computational Physics, 2021</span>
+        </li>
+        <li>
+          Microstructural heterogeneity drives reaction initiation in granular materials
+        </li>
+        <li>
+          On the use of reverse Brownian motion to accelerate hybrid simulations
+        </li>
+        <li>
+          Agent-based socio-hydrological hybrid modeling for water resource management
+        </li>
+      </ul>
+      <p style="margin-top: var(--space-md); font-family: var(--font-mono); font-size: var(--font-size-sm);"><a href="../../publications/">All publications on Scholar</a></p>
+    </section>
+
+    <section class="lab-section">
+      <h2>team</h2>
+      <ul class="lab-team">
+        <li>
+          <span class="lab-team-name">Joseph Bakarji</span>
+          <span class="lab-team-role">Director, Assistant Professor</span>
+          <span class="lab-team-link"><a href="mailto:jb50@aub.edu.lb">jb50@aub.edu.lb</a></span>
+        </li>
+        <li>
+          <span class="lab-team-name">Lama Sleem</span>
+          <span class="lab-team-role">MS Computational Science, co-supervised with Dr. Arij Daou</span>
+          <span class="lab-team-link"><a href="mailto:lks09@mail.aub.edu">lks09@mail.aub.edu</a></span>
+        </li>
+        <li>
+          <span class="lab-team-name">Issar Amro</span>
+          <span class="lab-team-role">MS Computational Science, co-supervised with Dr. Sara Najem</span>
+          <span class="lab-team-link"><a href="mailto:iza04@mail.aub.edu">iza04@mail.aub.edu</a></span>
+        </li>
+        <li>
+          <span class="lab-team-name">Oussama Ibrahim</span>
+          <span class="lab-team-role">MS Computational Science, co-supervised with Dr. Sara Najem</span>
+          <span class="lab-team-link"><a href="mailto:ohi00@mail.aub.edu">ohi00@mail.aub.edu</a></span>
+        </li>
+        <li>
+          <span class="lab-team-name">Joe Germany</span>
+          <span class="lab-team-role">BS Physics and Applied Math, undergraduate researcher, co-supervised with Dr. Sara Najem</span>
+          <span class="lab-team-link"><a href="https://joegermany.netlify.app/docs/readme/" target="_blank" rel="noopener">personal site</a></span>
+        </li>
+      </ul>
+      <p style="margin-top: var(--space-md); font-family: var(--font-mono); font-size: var(--font-size-sm);"><a href="../../team/">All team</a></p>
+    </section>
+
+    <section class="lab-section">
+      <h2>grants and awards</h2>
+      <ul class="pub-list">
+        <li>
+          <strong>Center for Advanced Mathematical Sciences Fellowship</strong>
+          <span class="pub-meta">CAMS, AUB &middot; 2022 to present</span>
+          <p style="margin-top: var(--space-xs); color: var(--text-secondary); font-size: var(--font-size-sm);">Research fellowship supporting the lab's activity at the intersection of applied math and machine learning.</p>
+        </li>
+        <li style="border-color: var(--border-default); border-style: dashed;">
+          <em style="color: var(--text-muted);">Additional grant listings coming soon.</em>
+        </li>
+      </ul>
+    </section>
+
+    <section class="lab-section">
+      <h2>funders and partners</h2>
+      <div class="funders">
+        <div class="funder">
+          <span class="funder-name"><a href="https://cams.aub.edu.lb" target="_blank" rel="noopener">Center for Advanced Mathematical Sciences</a></span>
+          <span class="funder-alias">CAMS</span>
+        </div>
+        <div class="funder">
+          <span class="funder-name">Artificial Intelligence, Data Science, and Computing Hub</span>
+          <span class="funder-alias">AI Hub, AUB</span>
+        </div>
+        <div class="funder">
+          <span class="funder-name"><a href="https://aub.edu.lb" target="_blank" rel="noopener">American University of Beirut</a></span>
+        </div>
+      </div>
+    </section>
+
+    <div class="lab-contact">
+      Contact: <a href="mailto:jb50@aub.edu.lb">jb50@aub.edu.lb</a>. Prospective students, see <a href="../../teaching/">teaching</a> for course prerequisites and the <a href="../">Labs overview</a> for open topics.
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

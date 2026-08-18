@@ -1,0 +1,330 @@
+/* =========================================================
+   LAB PAGES (shared styles for DDM Lab and μ-lab)
+   ========================================================= */
+
+.page-lede {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-prose);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin-bottom: var(--space-xl);
+}
+
+.page-lede a {
+  color: var(--accent-primary);
+  border-bottom: 1px solid rgba(166, 132, 78, 0.35);
+  padding-bottom: 1px;
+}
+
+/* ─── Lab hero: logo + name + tagline ─── */
+.lab-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 240px) 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+  padding: var(--space-lg) 0 var(--space-xl);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: var(--space-xl);
+}
+
+.lab-hero-logo {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  display: block;
+}
+
+.lab-hero-text h1 {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+  line-height: 1.2;
+}
+
+.lab-hero-text .lab-alias {
+  font-family: var(--font-mono);
+  color: var(--accent-primary);
+  font-weight: 400;
+  font-size: 1.1rem;
+  margin-left: 8px;
+}
+
+.lab-hero-text .lab-tagline {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: var(--space-md);
+}
+
+.lab-hero-links {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+}
+
+.lab-hero-links a {
+  color: var(--accent-primary);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: border-color 0.15s;
+}
+
+.lab-hero-links a:hover {
+  border-bottom-color: var(--accent-primary);
+}
+
+@media (max-width: 640px) {
+  .lab-hero {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    text-align: left;
+  }
+  .lab-hero-logo { max-width: 180px; }
+}
+
+/* ─── Section headers within a lab page ─── */
+.lab-section {
+  margin-bottom: var(--space-xl);
+}
+
+.lab-section h2 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--accent-primary);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+
+.lab-section h2::before {
+  content: '// ';
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* ─── Research topics: grid with image + text ─── */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: var(--space-lg);
+}
+
+.topic-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.topic-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.topic-card-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-secondary);
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.topic-card-body {
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.topic-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.topic-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--space-sm);
+}
+
+.topic-tag {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+}
+
+.topic-card p {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+/* ─── Publications list ─── */
+.pub-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.pub-list li {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  transition: border-color 0.15s;
+}
+
+.pub-list li:hover {
+  border-color: var(--border-hover);
+}
+
+.pub-list li a {
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-default);
+  padding-bottom: 1px;
+}
+
+.pub-list li a:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.pub-meta {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-left: var(--space-sm);
+}
+
+/* ─── Team list on lab pages ─── */
+.lab-team {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-md);
+}
+
+.lab-team li {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+}
+
+.lab-team-name {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.lab-team-role {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--accent-primary);
+  margin-top: 2px;
+}
+
+.lab-team-link {
+  display: inline-block;
+  margin-top: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.lab-team-link a {
+  color: var(--text-muted);
+  border-bottom: 1px solid transparent;
+}
+
+.lab-team-link a:hover {
+  color: var(--accent-primary);
+  border-bottom-color: var(--accent-primary);
+}
+
+/* ─── Funders strip ─── */
+.funders {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+}
+
+.funder {
+  flex: 1;
+  min-width: 200px;
+}
+
+.funder-name {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.funder-alias {
+  display: block;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  margin-top: 2px;
+}
+
+.funder a {
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.funder a:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+/* ─── Contact block ─── */
+.lab-contact {
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-xl);
+}
+
+.lab-contact a {
+  color: var(--accent-primary);
+}

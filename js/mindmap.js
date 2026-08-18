@@ -70,19 +70,19 @@
 
   // Color mapping for nodes
   const coreColors = [
-    '#61afef', // action perception - blue
-    '#c678dd', // perception field - purple
-    '#e5c07b', // internal external - yellow
-    '#56b6c2', // external world - cyan
-    '#98c379', // living things - green
-    '#e06c75', // building blocks - red
-    '#61afef', // space time - blue
-    '#c678dd', // hypothesis class - purple
+    '#c4a46c', // action perception - warm gold
+    '#a589b8', // perception field - lavender
+    '#d4b06a', // internal external - amber
+    '#7aaca2', // external world - teal
+    '#8aad7a', // living things - green
+    '#c97a6e', // building blocks - terracotta
+    '#7a9ec4', // space time - steel blue
+    '#a589b8', // hypothesis class - lavender
   ];
 
   function getNodeColor(d) {
     if (d.is_core && d.id < coreColors.length) return coreColors[d.id];
-    return '#5a6178';
+    return '#6b645c';
   }
 
   function getNodeRadius(d) {
@@ -123,7 +123,7 @@
     .selectAll('line')
     .data(graphData.links)
     .join('line')
-    .attr('stroke', 'rgba(97, 175, 239, 0.15)')
+    .attr('stroke', 'rgba(196, 164, 108, 0.10)')
     .attr('stroke-width', d => Math.max(0.5, d.value / 40));
 
   // Nodes
@@ -156,7 +156,7 @@
         .text(line)
         .attr('dy', `${(i - (lines.length - 1) / 2) * 1.1 + 0.35}em`)
         .attr('text-anchor', 'middle')
-        .attr('fill', d.is_core ? '#e0e6ed' : '#8892b0')
+        .attr('fill', d.is_core ? '#e8e2d9' : '#9a938a')
         .attr('font-size', d.is_core ? '9px' : '8px')
         .attr('font-family', "'JetBrains Mono', monospace")
         .attr('pointer-events', 'none')

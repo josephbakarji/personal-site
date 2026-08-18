@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landing hero animation — prototype</title>
+<style>
+  :root {
+    --bg-primary: #faf8f3;
+    --bg-secondary: #f0ede5;
+    --text-primary: #1c1b1f;
+    --text-secondary: #5a544c;
+    --text-muted: #8b8579;
+    --accent-primary: #c4a46c;
+    --accent-teal: #7aaca2;
+    --accent-green: #8aad7a;
+    --accent-purple: #a589b8;
+    --accent-red: #c97a6e;
+    --border-subtle: rgba(28, 27, 31, 0.08);
+    --border-default: rgba(28, 27, 31, 0.14);
+    --font-serif: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-serif);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Prototype-only page frame */
+  .proto-nav {
+    padding: 14px 24px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-default);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .proto-nav .logo { color: var(--accent-primary); font-weight: 700; letter-spacing: 1px; }
+
+  /* --- HERO BAND (integration target) --- */
+  .hero-band {
+    position: relative;
+    width: 100%;
+    min-height: 320px;
+    height: 46vh;
+    max-height: 520px;
+    overflow: hidden;
+    background: var(--bg-primary);
+    isolation: isolate;
+  }
+
+  #hero-anim {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Intro card floats over animation */
+  .intro-card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    max-width: 620px;
+    width: min(620px, 88vw);
+    padding: 28px 36px;
+    background: rgba(250, 248, 243, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(28, 27, 31, 0.06);
+  }
+  .intro-bio {
+    font-family: var(--font-serif);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  .intro-lab {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .intro-lab a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(196, 164, 108, 0.35);
+  }
+
+  /* Controls (bottom of hero band) */
+  .anim-controls {
+    position: absolute;
+    right: 18px;
+    bottom: 14px;
+    z-index: 3;
+    display: flex;
+    gap: 8px;
+    font-family: var(--font-mono);
+  }
+  .anim-btn {
+    appearance: none;
+    background: rgba(250, 248, 243, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid var(--border-default);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 5px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color .18s, border-color .18s, background .18s;
+  }
+  .anim-btn:hover {
+    color: var(--accent-primary);
+    border-color: rgba(196, 164, 108, 0.4);
+    background: rgba(196, 164, 108, 0.08);
+  }
+  .anim-btn[aria-pressed="true"] {
+    color: var(--accent-primary);
+    border-color: rgba(196, 164, 108, 0.5);
+    background: rgba(196, 164, 108, 0.12);
+  }
+
+  /* Stage indicator - faint bottom-left */
+  .stage-legend {
+    position: absolute;
+    left: 18px;
+    bottom: 14px;
+    z-index: 3;
+    display: flex;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: lowercase;
+    pointer-events: none;
+  }
+  .stage-legend .seg {
+    opacity: 0.4;
+    transition: opacity .3s, color .3s;
+  }
+  .stage-legend .seg.active {
+    opacity: 1;
+    color: var(--accent-primary);
+  }
+
+  /* Below-hero content (existing landing keeps its links etc.) */
+  .below-hero {
+    padding: 32px 24px 48px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ext-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  .ext-link {
+    color: var(--text-muted);
+    padding: 4px 10px;
+    border: 1px solid var(--border-default);
+    border-radius: 4px;
+    text-decoration: none;
+  }
+  .ext-link:hover {
+    color: var(--accent-primary);
+    border-color: rgba(196, 164, 108, 0.4);
+    background: rgba(196, 164, 108, 0.06);
+  }
+
+  /* Reduced-motion static caption */
+  .rm-caption {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    z-index: 2;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: lowercase;
+    padding: 4px 10px;
+    background: rgba(250, 248, 243, 0.6);
+    border: 1px solid var(--border-subtle);
+    border-radius: 3px;
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .hero-band {
+      height: 60vh;
+      min-height: 260px;
+      max-height: 420px;
+    }
+    .intro-card {
+      padding: 22px 20px;
+      width: min(560px, 92vw);
+    }
+    .intro-bio {
+      font-size: 0.94rem;
+      line-height: 1.65;
+    }
+    .stage-legend {
+      display: none;
+    }
+    .anim-controls {
+      right: 12px;
+      bottom: 10px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .intro-card {
+      padding: 18px 16px;
+    }
+    .intro-bio {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rm-caption { display: inline-block; }
+  }
+</style>
+</head>
+<body>
+
+<div class="proto-nav">
+  <span><span class="logo">jb</span> &nbsp;·&nbsp; landing hero animation prototype</span>
+  <span>~/design/landing-animation-prototype.html</span>
+</div>
+
+<section class="hero-band">
+  <canvas id="hero-anim" aria-hidden="true"></canvas>
+
+  <span class="rm-caption">animation paused (reduced motion)</span>
+
+  <div class="stage-legend" aria-hidden="true">
+    <span class="seg" data-seg="0">strike</span>
+    <span class="seg" data-seg="1">roll</span>
+    <span class="seg" data-seg="2">life</span>
+    <span class="seg" data-seg="3">grain</span>
+  </div>
+
+  <div class="intro-card">
+    <p class="intro-bio">
+      I study how patterns repeat across scales — the same compression
+      principles that let you predict a pendulum also let a neural network
+      generate language. I work at the intersection of scientific computing,
+      music, and philosophy of mind.
+    </p>
+    <p class="intro-lab">
+      Looking for my research lab?
+      <a href="https://www.bakarjilab.com" target="_blank" rel="noopener">bakarjilab.com →</a>
+    </p>
+  </div>
+
+  <div class="anim-controls">
+    <button class="anim-btn" id="anim-pause" aria-pressed="false" title="pause / resume animation">pause</button>
+    <button class="anim-btn" id="anim-mute" aria-pressed="true" title="toggle audio (off by default)">audio: off</button>
+  </div>
+</section>
+
+<div class="below-hero">
+  <div class="ext-links">
+    <a class="ext-link" href="#">ml4science</a>
+    <a class="ext-link" href="#">intro2ml</a>
+    <a class="ext-link" href="#">sematlas</a>
+    <a class="ext-link" href="#">substack</a>
+    <a class="ext-link" href="#">github</a>
+    <a class="ext-link" href="#">scholar</a>
+    <a class="ext-link" href="#">soundcloud</a>
+  </div>
+</div>
+
+<script>
+/**
+ * Landing Hero Animation — Layered continuous flow prototype
+ *
+ * Stages, left → right (overlapping):
+ *   0. Piano hammers strike strings (0.00 – 0.22)
+ *   1. Piano roll / discretization  (0.18 – 0.48)
+ *   2. Game of Life on grid          (0.42 – 0.78)  ← audio ticks here
+ *   3. Fall & pile into hourglass    (0.72 – 1.00)
+ *
+ * One canvas, one coordinate system. Cells travel through all stages
+ * with persistent identity: the same "pixel" is a struck note, then a
+ * roll cell, then a GoL cell, then a grain.
+ */
+
+(function () {
+  // ---------- State ----------
+  let canvas, ctx;
+  let W = 0, H = 0, dpr = 1;
+  let running = true;
+  let audioOn = false;
+  let audioCtx = null;
+  let masterGain = null;
+  let animId = null;
+  let lastT = 0;
+  let tSec = 0;   // global animation time, seconds
+  let reducedMotion = false;
+
+  // Layout (in unit space; recomputed on resize)
+  let gridCellPx = 10;
+  let gridCols = 0, gridRows = 0;
+  let stageBounds = { strike: [0.00, 0.22], roll: [0.18, 0.48], life: [0.42, 0.78], fall: [0.72, 1.00] };
+
+  // Piano
+  const NUM_STRINGS = 12;
+  let strings = [];   // { y, len, phase, energy, pitch }
+  let hammers = [];   // { targetIdx, x, y, vy, active, cooldown }
+
+  // Roll cells: discrete notes traveling right
+  let rollCells = [];  // { x, y, w, h, hue, energy, born, id }
+
+  // GoL grid — occupies the middle band; cells "attach" from rollCells
+  let life = null;     // Uint8Array
+  let lifeAlpha = null;  // Float32Array for age/fade
+  let lifePrev = null;
+  let lifeCols = 0, lifeRows = 0;
+  let lifeStepInterval = 0.28; // seconds between GoL generations
+  let lifeStepAcc = 0;
+
+  // Grains falling into hourglass
+  let grains = [];   // { x, y, vx, vy, hue, size, settled }
+  let pileHeights = null;  // Float32Array — pile height per column bin
+  let pileBinPx = 6;
+  let pileBinCount = 0;
+  let hourglassPathCache = null;  // recomputed on resize
+
+  // Audio scheduling
+  const PENTATONIC = [0, 2, 4, 7, 9, 12, 14, 16, 19, 21];  // semitones above root
+  const ROOT_MIDI = 60;  // C4
+  let audioTickAcc = 0;
+  let audioTickInterval = 0.12;  // min gap between pings
+
+  // Palette (sampled from CSS variables at init)
+  const palette = {
+    bg: '#faf8f3',
+    bg2: '#f0ede5',
+    ink: '#1c1b1f',
+    inkSoft: '#5a544c',
+    muted: '#8b8579',
+    gold: '#c4a46c',
+    teal: '#7aaca2',
+    green: '#8aad7a',
+    purple: '#a589b8',
+    red: '#c97a6e',
+    line: 'rgba(28, 27, 31, 0.08)',
+  };
+
+  // ---------- Init ----------
+  function init() {
+    canvas = document.getElementById('hero-anim');
+    if (!canvas) return;
+    ctx = canvas.getContext('2d');
+
+    reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    readPalette();
+    sizeCanvas();
+    seedStage();
+    bindControls();
+    window.addEventListener('resize', debounce(onResize, 200));
+
+    if (reducedMotion) {
+      // Paint the sonified-GoL frame and stop.
+      renderStaticFallback();
+      return;
+    }
+
+    lastT = performance.now();
+    animId = requestAnimationFrame(loop);
+  }
+
+  function readPalette() {
+    // Prefer CSS custom properties when running inside the site.
+    const s = getComputedStyle(document.documentElement);
+    const g = (k, fallback) => (s.getPropertyValue(k).trim() || fallback);
+    palette.bg = g('--bg-primary', palette.bg);
+    palette.bg2 = g('--bg-secondary', palette.bg2);
+    palette.ink = g('--text-primary', palette.ink);
+    palette.inkSoft = g('--text-secondary', palette.inkSoft);
+    palette.gold = g('--accent-primary', palette.gold);
+    palette.teal = g('--accent-teal', palette.teal);
+    palette.green = g('--accent-green', palette.green);
+    palette.purple = g('--accent-purple', palette.purple);
+    palette.red = g('--accent-red', palette.red);
+  }
+
+  function sizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    W = Math.max(1, Math.floor(rect.width));
+    H = Math.max(1, Math.floor(rect.height));
+    dpr = window.devicePixelRatio || 1;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // Grid sizing responsive: bigger cells on small screens keep density readable
+    gridCellPx = W < 640 ? 12 : (W < 1100 ? 10 : 9);
+    gridCols = Math.floor(W / gridCellPx);
+    gridRows = Math.floor(H / gridCellPx);
+
+    // Life grid: only the middle band (life stage)
+    const lifeL = Math.floor(stageBounds.life[0] * W / gridCellPx);
+    const lifeR = Math.floor(stageBounds.life[1] * W / gridCellPx);
+    lifeCols = Math.max(4, lifeR - lifeL);
+    lifeRows = Math.max(6, Math.floor(H / gridCellPx) - 4);
+    life = new Uint8Array(lifeCols * lifeRows);
+    lifePrev = new Uint8Array(lifeCols * lifeRows);
+    lifeAlpha = new Float32Array(lifeCols * lifeRows);
+
+    // Pile bins across full width
+    pileBinPx = W < 640 ? 8 : 6;
+    pileBinCount = Math.ceil(W / pileBinPx);
+    pileHeights = new Float32Array(pileBinCount);
+
+    // Precompute hourglass shape at right
+    hourglassPathCache = computeHourglassPath();
+  }
+
+  function seedStage() {
+    // Piano strings: horizontal, evenly spaced in strike region
+    strings = [];
+    hammers = [];
+    const strikeR = stageBounds.strike[1] * W;
+    const strikeL = 24;
+    const nS = Math.max(8, Math.min(14, Math.round(H / 26)));
+    for (let i = 0; i < nS; i++) {
+      const y = mapLinear(i, 0, nS - 1, H * 0.18, H * 0.82);
+      strings.push({
+        y,
+        xL: strikeL,
+        xR: strikeR,
+        phase: 0,
+        energy: 0,
+        pitch: (nS - 1 - i)  // top = highest
+      });
+      hammers.push({
+        idx: i,
+        x: strikeL + 8 + (i % 2) * 6,
+        y0: y - 14,
+        y: y - 14,
+        vy: 0,
+        cooldown: rand(0.4, 3.5),
+        striking: false
+      });
+    }
+
+    // Seed some GoL cells so the middle isn't empty at t=0
+    seedInitialLife();
+
+    // No grains until they arrive naturally
+    grains = [];
+    rollCells = [];
+    // Pile starts empty but with a very slight base bump under the hourglass
+    for (let i = 0; i < pileHeights.length; i++) pileHeights[i] = 0;
+  }
+
+  function seedInitialLife() {
+    for (let i = 0; i < life.length; i++) { life[i] = 0; lifeAlpha[i] = 0; }
+    // Seed a couple of glider-ish patterns in the middle
+    const cx = Math.floor(lifeCols / 2);
+    const cy = Math.floor(lifeRows / 2);
+    // Glider
+    const gliderCells = [[0,1],[1,2],[2,0],[2,1],[2,2]];
+    for (const [dr, dc] of gliderCells) {
+      const r = cy - 2 + dr, c = cx - 6 + dc;
+      if (r >= 0 && r < lifeRows && c >= 0 && c < lifeCols) {
+        life[r * lifeCols + c] = 1;
+        lifeAlpha[r * lifeCols + c] = 1;
+      }
+    }
+    // Blinker
+    for (let d = -1; d <= 1; d++) {
+      const r = cy + 3, c = cx + 2 + d;
+      if (r < lifeRows && c < lifeCols) { life[r * lifeCols + c] = 1; lifeAlpha[r*lifeCols+c]=1; }
+    }
+    // Small R-pentomino-ish burst
+    const rp = [[0,1],[0,2],[1,0],[1,1],[2,1]];
+    for (const [dr, dc] of rp) {
+      const r = cy - 1 + dr, c = cx + 4 + dc;
+      if (r >= 0 && r < lifeRows && c >= 0 && c < lifeCols) { life[r*lifeCols+c] = 1; lifeAlpha[r*lifeCols+c]=1; }
+    }
+  }
+
+  function onResize() {
+    sizeCanvas();
+    seedStage();
+  }
+
+  // ---------- Controls ----------
+  function bindControls() {
+    const pauseBtn = document.getElementById('anim-pause');
+    if (pauseBtn) {
+      pauseBtn.addEventListener('click', () => {
+        running = !running;
+        pauseBtn.textContent = running ? 'pause' : 'play';
+        pauseBtn.setAttribute('aria-pressed', String(!running));
+        if (running) { lastT = performance.now(); animId = requestAnimationFrame(loop); }
+      });
+    }
+
+    const muteBtn = document.getElementById('anim-mute');
+    if (muteBtn) {
+      muteBtn.addEventListener('click', async () => {
+        audioOn = !audioOn;
+        muteBtn.textContent = audioOn ? 'audio: on' : 'audio: off';
+        muteBtn.setAttribute('aria-pressed', String(!audioOn));
+        if (audioOn) {
+          await ensureAudio();
+          // ramp master gain up gently
+          if (masterGain) masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+          if (masterGain) masterGain.gain.setTargetAtTime(0.18, audioCtx.currentTime, 0.05);
+        } else {
+          if (masterGain) masterGain.gain.setTargetAtTime(0.0, audioCtx.currentTime, 0.05);
+        }
+      });
+    }
+  }
+
+  async function ensureAudio() {
+    if (audioCtx) {
+      if (audioCtx.state === 'suspended') { try { await audioCtx.resume(); } catch (e) {} }
+      return;
+    }
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      masterGain = audioCtx.createGain();
+      masterGain.gain.value = 0.0;
+      const shelf = audioCtx.createBiquadFilter();
+      shelf.type = 'highshelf';
+      shelf.frequency.value = 3200;
+      shelf.gain.value = -6;
+      masterGain.connect(shelf);
+      shelf.connect(audioCtx.destination);
+    } catch (e) {
+      console.warn('audio init failed', e);
+      audioOn = false;
+    }
+  }
+
+  // Very short pentatonic ping — used by GoL sonification and piano strikes
+  function ping(midi, opts = {}) {
+    if (!audioOn || !audioCtx || !masterGain) return;
+    const now = audioCtx.currentTime;
+    const dur = opts.dur || 0.6;
+    const amp = opts.amp || 0.14;
+    const freq = 440 * Math.pow(2, (midi - 69) / 12);
+
+    // Two-oscillator additive with slight detune for warmth
+    const osc1 = audioCtx.createOscillator();
+    osc1.type = 'sine';
+    osc1.frequency.value = freq;
+
+    const osc2 = audioCtx.createOscillator();
+    osc2.type = 'triangle';
+    osc2.frequency.value = freq * 2.005;
+
+    const g1 = audioCtx.createGain();
+    g1.gain.value = 0;
+    const g2 = audioCtx.createGain();
+    g2.gain.value = 0;
+
+    // Attack-decay envelope
+    g1.gain.setValueAtTime(0, now);
+    g1.gain.linearRampToValueAtTime(amp, now + 0.005);
+    g1.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+
+    g2.gain.setValueAtTime(0, now);
+    g2.gain.linearRampToValueAtTime(amp * 0.35, now + 0.008);
+    g2.gain.exponentialRampToValueAtTime(0.0001, now + dur * 0.8);
+
+    osc1.connect(g1);
+    osc2.connect(g2);
+    g1.connect(masterGain);
+    g2.connect(masterGain);
+
+    osc1.start(now);
+    osc2.start(now);
+    osc1.stop(now + dur + 0.05);
+    osc2.stop(now + dur + 0.05);
+  }
+
+  // ---------- Simulation ----------
+  function updateStrings(dt) {
+    // Decay vibration energy
+    for (const s of strings) {
+      s.energy *= Math.pow(0.15, dt);  // ~85% per second
+      s.phase = (s.phase + dt * (10 + s.pitch * 1.5)) % (Math.PI * 2);
+    }
+  }
+
+  function updateHammers(dt) {
+    for (const h of hammers) {
+      h.cooldown -= dt;
+      if (!h.striking && h.cooldown <= 0) {
+        // Trigger a strike
+        h.striking = true;
+        h.vy = 180;   // pixels/sec
+        // Next strike scheduled by pitch/rhythm — feels arpeggiated
+        h.cooldown = rand(1.4, 3.8);
+      }
+      if (h.striking) {
+        h.y += h.vy * dt;
+        const targetY = strings[h.idx].y - 3;
+        if (h.y >= targetY) {
+          h.y = targetY;
+          strikeString(h.idx);
+          h.striking = false;
+          // Rebound
+          h.vy = -80;
+        }
+      } else {
+        // Return to rest above string
+        const rest = strings[h.idx].y - 14;
+        h.vy += (-h.vy) * Math.min(1, 4 * dt);
+        h.y += h.vy * dt * 0.6;
+        if (h.y < rest) { h.y = rest; h.vy = 0; }
+      }
+    }
+  }
+
+  function strikeString(idx) {
+    const s = strings[idx];
+    s.energy = 1;
+    // Emit a piano-roll cell traveling right from the right edge of strings
+    const emitX = s.xR - 6;
+    const emitY = s.y;
+    const midi = ROOT_MIDI + PENTATONIC[s.pitch % PENTATONIC.length] - 12;
+    rollCells.push({
+      x: emitX,
+      y: emitY,
+      w: gridCellPx,
+      h: gridCellPx * 0.6,
+      hue: 'gold',
+      energy: 1,
+      born: tSec,
+      snapped: false,
+      midi
+    });
+    ping(midi, { dur: 0.9, amp: 0.09 });
+  }
+
+  function updateRollCells(dt) {
+    const rollL = stageBounds.roll[0] * W;
+    const rollR = stageBounds.roll[1] * W;
+    const lifeL = stageBounds.life[0] * W;
+    const rollSpeed = W * 0.06;  // px/sec — cross roll region in ~5s
+
+    for (let i = rollCells.length - 1; i >= 0; i--) {
+      const c = rollCells[i];
+      c.x += rollSpeed * dt;
+      c.energy *= Math.pow(0.7, dt);
+
+      // Snap to grid Y as it enters the roll region
+      if (!c.snapped && c.x > rollL) {
+        // Snap y to nearest grid row
+        c.y = Math.round(c.y / gridCellPx) * gridCellPx + gridCellPx / 2;
+        c.snapped = true;
+      }
+
+      // When it crosses into life region, attach to life grid and remove
+      if (c.x > lifeL) {
+        const gc = Math.floor((c.x - lifeL) / gridCellPx);
+        const gr = Math.floor((c.y - (H / 2 - lifeRows * gridCellPx / 2)) / gridCellPx);
+        if (gc >= 0 && gc < lifeCols && gr >= 0 && gr < lifeRows) {
+          const k = gr * lifeCols + gc;
+          life[k] = 1;
+          lifeAlpha[k] = 1;
+        }
+        rollCells.splice(i, 1);
+        continue;
+      }
+
+      // Cull if far right
+      if (c.x > W + 20) rollCells.splice(i, 1);
+    }
+  }
+
+  function stepLife() {
+    // Save previous
+    lifePrev.set(life);
+    const nextLife = new Uint8Array(lifeCols * lifeRows);
+    for (let r = 0; r < lifeRows; r++) {
+      for (let c = 0; c < lifeCols; c++) {
+        let n = 0;
+        for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            if (dr === 0 && dc === 0) continue;
+            const nr = r + dr, nc = c + dc;
+            // No wrap — dead border so patterns are finite
+            if (nr < 0 || nr >= lifeRows || nc < 0 || nc >= lifeCols) continue;
+            n += life[nr * lifeCols + nc];
+          }
+        }
+        const alive = life[r * lifeCols + c] === 1;
+        const k = r * lifeCols + c;
+        if (alive) {
+          nextLife[k] = (n === 2 || n === 3) ? 1 : 0;
+        } else {
+          nextLife[k] = (n === 3) ? 1 : 0;
+        }
+      }
+    }
+
+    // Sonify: cells that just became alive at low-density spots trigger a ping
+    if (audioOn) {
+      audioTickAcc += lifeStepInterval;
+      if (audioTickAcc >= audioTickInterval) {
+        audioTickAcc = 0;
+        // pick a small number of "just-born" cells
+        const candidates = [];
+        for (let r = 0; r < lifeRows; r++) {
+          for (let c = 0; c < lifeCols; c++) {
+            const k = r * lifeCols + c;
+            if (nextLife[k] === 1 && life[k] === 0) {
+              candidates.push({ r, c });
+            }
+          }
+        }
+        if (candidates.length > 0) {
+          // Pick up to 2 pings this step, spread across the grid
+          const pick = Math.min(2, candidates.length);
+          for (let i = 0; i < pick; i++) {
+            const cell = candidates[Math.floor(Math.random() * candidates.length)];
+            const pitchIdx = (lifeRows - 1 - cell.r) % PENTATONIC.length;
+            const oct = 12 * Math.floor((lifeRows - 1 - cell.r) / PENTATONIC.length);
+            const midi = ROOT_MIDI + PENTATONIC[pitchIdx] + oct;
+            ping(midi, { dur: 0.5, amp: 0.06 });
+          }
+        }
+      }
+    }
+
+    // Update life state + alpha fades
+    for (let i = 0; i < life.length; i++) {
+      if (nextLife[i] === 1) {
+        lifeAlpha[i] = Math.min(1, lifeAlpha[i] + 0.5);
+      } else if (life[i] === 1 && nextLife[i] === 0) {
+        // just died — start fading; also emit as a grain from the right side
+        lifeAlpha[i] = Math.max(lifeAlpha[i], 0.9);
+      } else {
+        lifeAlpha[i] *= 0.55;
+      }
+    }
+    life = nextLife;
+
+    // Occasional injection to keep the ecosystem alive (compensates for GoL die-off)
+    if (Math.random() < 0.55) {
+      injectLifeCluster();
+    }
+  }
+
+  function injectLifeCluster() {
+    // Drop a small 3x3-ish random pattern on the left side of the life grid
+    const cx = Math.floor(Math.random() * (lifeCols / 3));
+    const cy = Math.floor(Math.random() * lifeRows);
+    for (let dr = -1; dr <= 1; dr++) {
+      for (let dc = -1; dc <= 1; dc++) {
+        if (Math.random() < 0.45) {
+          const r = cy + dr, c = cx + dc;
+          if (r >= 0 && r < lifeRows && c >= 0 && c < lifeCols) {
+            life[r * lifeCols + c] = 1;
+            lifeAlpha[r * lifeCols + c] = 1;
+          }
+        }
+      }
+    }
+  }
+
+  function emitGrainsFromLifeEdge(dt) {
+    // Cells in the rightmost 3 columns of the life grid "fall off"
+    const fallL = stageBounds.fall[0] * W;
+    const lifeL = stageBounds.life[0] * W;
+    const gridOriginY = H / 2 - lifeRows * gridCellPx / 2;
+    const rightCol = lifeCols - 1;
+    // Emit at a rate proportional to live cells in edge cols
+    const emitProb = Math.min(0.6, dt * 6);
+
+    for (let r = 0; r < lifeRows; r++) {
+      for (let dc = 0; dc <= 2; dc++) {
+        const c = rightCol - dc;
+        const k = r * lifeCols + c;
+        if (life[k] === 1 && lifeAlpha[k] > 0.85 && Math.random() < emitProb * (1 - dc * 0.35)) {
+          const x = lifeL + c * gridCellPx + gridCellPx / 2;
+          const y = gridOriginY + r * gridCellPx + gridCellPx / 2;
+          // Choose grain color by row (echoes pitch mapping)
+          const rowFrac = r / (lifeRows - 1);
+          const hue = pickGrainColor(rowFrac);
+          grains.push({
+            x, y,
+            vx: rand(10, 40) + (W - x) * 0.02,
+            vy: rand(-20, 10),
+            size: gridCellPx * 0.55,
+            hue,
+            settled: false,
+            age: 0
+          });
+          // remove from life so we don't stampede
+          life[k] = 0;
+          lifeAlpha[k] = 0.4;
+        }
+      }
+    }
+  }
+
+  function updateGrains(dt) {
+    const g_grav = H * 1.4;
+    const hourglassBase = H * 0.86;  // pile top surface baseline
+
+    for (let i = grains.length - 1; i >= 0; i--) {
+      const g = grains[i];
+      if (g.settled) continue;
+      g.age += dt;
+      g.vy += g_grav * dt;
+      // Slight air-drag on vx
+      g.vx *= Math.pow(0.35, dt);
+      g.x += g.vx * dt;
+      g.y += g.vy * dt;
+
+      // Pile collision — check pile surface at grain's column
+      const binIdx = Math.max(0, Math.min(pileBinCount - 1, Math.floor(g.x / pileBinPx)));
+      const surfaceY = hourglassBase - pileHeights[binIdx];
+      if (g.y >= surfaceY - g.size * 0.3) {
+        g.y = surfaceY - g.size * 0.3;
+        // Deposit
+        depositGrain(binIdx, g);
+        g.settled = true;
+        continue;
+      }
+      // Cull off-canvas
+      if (g.y > H + 40 || g.x < -30 || g.x > W + 30) grains.splice(i, 1);
+    }
+
+    // Rendered grains include settled; but move settled ones into pile representation and prune
+    for (let i = grains.length - 1; i >= 0; i--) {
+      const g = grains[i];
+      if (g.settled && g.age > 0.05) {
+        // Once represented in pile heights, we can remove the individual grain
+        // to keep grain array small.
+        grains.splice(i, 1);
+      }
+    }
+  }
+
+  function depositGrain(binIdx, g) {
+    // Add height plus a bit of neighbor spillover for a natural angle-of-repose
+    const spread = 2;
+    const total = g.size * 0.75;
+    let weights = 0;
+    for (let d = -spread; d <= spread; d++) {
+      weights += Math.exp(-Math.abs(d) * 0.9);
+    }
+    for (let d = -spread; d <= spread; d++) {
+      const idx = binIdx + d;
+      if (idx < 0 || idx >= pileBinCount) continue;
+      const w = Math.exp(-Math.abs(d) * 0.9) / weights;
+      pileHeights[idx] += total * w;
+    }
+    // Enforce angle of repose: no bin can be > threshold higher than its neighbor
+    for (let pass = 0; pass < 3; pass++) {
+      for (let i = 1; i < pileBinCount; i++) {
+        const diff = pileHeights[i] - pileHeights[i - 1];
+        if (diff > 5) {
+          const t = (diff - 5) * 0.5;
+          pileHeights[i] -= t;
+          pileHeights[i - 1] += t;
+        }
+      }
+      for (let i = pileBinCount - 2; i >= 0; i--) {
+        const diff = pileHeights[i] - pileHeights[i + 1];
+        if (diff > 5) {
+          const t = (diff - 5) * 0.5;
+          pileHeights[i] -= t;
+          pileHeights[i + 1] += t;
+        }
+      }
+    }
+    // Cap pile height so it doesn't invade the intro card area
+    const maxHeight = H * 0.42;
+    for (let i = 0; i < pileBinCount; i++) {
+      if (pileHeights[i] > maxHeight) pileHeights[i] = maxHeight;
+    }
+    // Very slow global settle — pile drifts back down over minutes so it never
+    // grows unboundedly on a page left open all day.
+    // (implemented as a small decay in the main loop)
+  }
+
+  function computeHourglassPath() {
+    // Hourglass is at the far right, tapered funnel above the pile.
+    const cx = W * 0.88;
+    const topY = H * 0.18;
+    const midY = H * 0.55;
+    const botY = H * 0.86;
+    const topHalfW = Math.min(W * 0.08, 90);
+    const neckHalfW = 4;
+    const botHalfW = Math.min(W * 0.11, 130);
+    return { cx, topY, midY, botY, topHalfW, neckHalfW, botHalfW };
+  }
+
+  // ---------- Main loop ----------
+  function loop(now) {
+    if (!running) return;
+    let dt = (now - lastT) / 1000;
+    lastT = now;
+    if (dt > 0.05) dt = 0.05;  // clamp large frame gaps
+    tSec += dt;
+
+    // Simulation
+    updateHammers(dt);
+    updateStrings(dt);
+    updateRollCells(dt);
+    lifeStepAcc += dt;
+    while (lifeStepAcc >= lifeStepInterval) {
+      lifeStepAcc -= lifeStepInterval;
+      stepLife();
+    }
+    emitGrainsFromLifeEdge(dt);
+    updateGrains(dt);
+
+    // Slow pile decay (grains "sift" out the bottom of the hourglass)
+    for (let i = 0; i < pileHeights.length; i++) {
+      pileHeights[i] = Math.max(0, pileHeights[i] - dt * 4);
+    }
+
+    // Render
+    render();
+
+    // Stage indicator
+    updateStageLegend();
+
+    animId = requestAnimationFrame(loop);
+  }
+
+  // ---------- Render ----------
+  function render() {
+    // Background wash — subtle warm gradient
+    const bg = ctx.createLinearGradient(0, 0, W, 0);
+    bg.addColorStop(0, palette.bg);
+    bg.addColorStop(1, palette.bg2);
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // Faint vertical stage dividers — very subtle
+    drawStageDividers();
+
+    // Piano zone
+    drawPiano();
+
+    // Roll zone: grid guides + traveling cells
+    drawRoll();
+
+    // Life zone: grid + cells
+    drawLife();
+
+    // Fall zone: hourglass frame + grains + pile
+    drawFallAndPile();
+
+    // Central card mask: dim the animation behind the intro card for readability.
+    drawCenterFade();
+  }
+
+  function drawStageDividers() {
+    ctx.strokeStyle = 'rgba(28,27,31,0.05)';
+    ctx.lineWidth = 1;
+    const xs = [stageBounds.roll[0], stageBounds.life[0], stageBounds.fall[0]];
+    for (const xf of xs) {
+      const x = Math.round(xf * W) + 0.5;
+      ctx.beginPath();
+      ctx.moveTo(x, H * 0.06);
+      ctx.lineTo(x, H * 0.94);
+      ctx.stroke();
+    }
+  }
+
+  function drawPiano() {
+    // Strings as thin horizontal lines from xL to xR with slight vibration when energized
+    for (const s of strings) {
+      const wiggle = s.energy * 3 * Math.sin(s.phase * 6);
+      // String base
+      ctx.strokeStyle = `rgba(28,27,31,${0.28 + s.energy * 0.35})`;
+      ctx.lineWidth = 1 + s.energy * 1.2;
+      ctx.beginPath();
+      // Draw as a thin sine when energized, else straight
+      const steps = 20;
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const x = s.xL + t * (s.xR - s.xL);
+        // Envelope: peak wiggle in the middle
+        const env = Math.sin(Math.PI * t);
+        const y = s.y + wiggle * env * Math.sin(t * 20 - s.phase * 4);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Glow around energized strings
+      if (s.energy > 0.05) {
+        ctx.strokeStyle = withAlpha(palette.gold, 0.18 * s.energy);
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(s.xL, s.y);
+        ctx.lineTo(s.xR, s.y);
+        ctx.stroke();
+      }
+    }
+
+    // Hammers — small rectangles above their target strings
+    for (const h of hammers) {
+      const s = strings[h.idx];
+      const w = 10, hgt = 6;
+      // Shaft
+      ctx.strokeStyle = 'rgba(28,27,31,0.3)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(h.x, 0);
+      ctx.lineTo(h.x, h.y);
+      ctx.stroke();
+      // Head
+      ctx.fillStyle = withAlpha(palette.ink, 0.75);
+      roundRect(ctx, h.x - w/2, h.y - hgt/2, w, hgt, 2);
+      ctx.fill();
+    }
+
+    // Vertical baseline (the edge of the piano) — like a keybed
+    ctx.strokeStyle = 'rgba(28,27,31,0.15)';
+    ctx.lineWidth = 1;
+    const kbX = stageBounds.strike[1] * W - 2;
+    ctx.beginPath();
+    ctx.moveTo(kbX + 0.5, H * 0.14);
+    ctx.lineTo(kbX + 0.5, H * 0.86);
+    ctx.stroke();
+  }
+
+  function drawRoll() {
+    // Faint grid lines suggesting quantization
+    const rollL = stageBounds.roll[0] * W;
+    const rollR = stageBounds.roll[1] * W;
+    ctx.strokeStyle = 'rgba(28,27,31,0.05)';
+    ctx.lineWidth = 1;
+    // Vertical grid lines
+    for (let x = rollL; x < rollR; x += gridCellPx) {
+      ctx.beginPath();
+      ctx.moveTo(Math.round(x) + 0.5, H * 0.15);
+      ctx.lineTo(Math.round(x) + 0.5, H * 0.85);
+      ctx.stroke();
+    }
+    // Horizontal grid lines — echo the strings but discretized
+    for (let y = H * 0.18; y < H * 0.82; y += gridCellPx) {
+      ctx.beginPath();
+      ctx.moveTo(rollL, Math.round(y) + 0.5);
+      ctx.lineTo(rollR, Math.round(y) + 0.5);
+      ctx.stroke();
+    }
+
+    // Cells traveling across
+    for (const c of rollCells) {
+      const alpha = 0.45 + 0.55 * c.energy;
+      // Pre-snap: use a soft trail
+      if (!c.snapped) {
+        ctx.fillStyle = withAlpha(palette.gold, alpha * 0.55);
+        ctx.beginPath();
+        ctx.ellipse(c.x, c.y, 12, 3.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        // Post-snap: rectangle cell
+        ctx.fillStyle = withAlpha(palette.gold, alpha);
+        const w = gridCellPx * 0.9;
+        const h = gridCellPx * 0.55;
+        ctx.fillRect(c.x - w/2, c.y - h/2, w, h);
+      }
+    }
+  }
+
+  function drawLife() {
+    const lifeL = stageBounds.life[0] * W;
+    const gridOriginY = H / 2 - lifeRows * gridCellPx / 2;
+
+    // Very faint grid
+    ctx.strokeStyle = 'rgba(28,27,31,0.04)';
+    ctx.lineWidth = 1;
+    for (let c = 0; c <= lifeCols; c++) {
+      const x = lifeL + c * gridCellPx + 0.5;
+      ctx.beginPath();
+      ctx.moveTo(x, gridOriginY);
+      ctx.lineTo(x, gridOriginY + lifeRows * gridCellPx);
+      ctx.stroke();
+    }
+    for (let r = 0; r <= lifeRows; r++) {
+      const y = gridOriginY + r * gridCellPx + 0.5;
+      ctx.beginPath();
+      ctx.moveTo(lifeL, y);
+      ctx.lineTo(lifeL + lifeCols * gridCellPx, y);
+      ctx.stroke();
+    }
+
+    // Cells
+    for (let r = 0; r < lifeRows; r++) {
+      for (let c = 0; c < lifeCols; c++) {
+        const k = r * lifeCols + c;
+        const a = lifeAlpha[k];
+        if (a <= 0.02) continue;
+        const x = lifeL + c * gridCellPx;
+        const y = gridOriginY + r * gridCellPx;
+        // Color varies subtly by column — left is gold, right shifts toward warm gold/red
+        const t = c / (lifeCols - 1);
+        const col = mixColor(palette.gold, palette.red, t * 0.4);
+        ctx.fillStyle = withAlpha(col, Math.min(1, a));
+        ctx.fillRect(x + 1, y + 1, gridCellPx - 2, gridCellPx - 2);
+      }
+    }
+  }
+
+  function drawFallAndPile() {
+    const hg = hourglassPathCache;
+    if (!hg) return;
+
+    // Hourglass — two triangles meeting at a neck, drawn as thin frame lines
+    ctx.strokeStyle = withAlpha(palette.inkSoft, 0.35);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    // Top funnel (upper triangle)
+    ctx.moveTo(hg.cx - hg.topHalfW, hg.topY);
+    ctx.lineTo(hg.cx + hg.topHalfW, hg.topY);
+    ctx.lineTo(hg.cx + hg.neckHalfW, hg.midY);
+    ctx.lineTo(hg.cx - hg.neckHalfW, hg.midY);
+    ctx.closePath();
+    ctx.stroke();
+    // Bottom funnel
+    ctx.beginPath();
+    ctx.moveTo(hg.cx - hg.neckHalfW, hg.midY);
+    ctx.lineTo(hg.cx + hg.neckHalfW, hg.midY);
+    ctx.lineTo(hg.cx + hg.botHalfW, hg.botY);
+    ctx.lineTo(hg.cx - hg.botHalfW, hg.botY);
+    ctx.closePath();
+    ctx.stroke();
+
+    // Grains in flight
+    for (const g of grains) {
+      if (g.settled) continue;
+      // Motion blur trail
+      ctx.fillStyle = withAlpha(g.hue, 0.24);
+      ctx.beginPath();
+      ctx.ellipse(g.x - g.vx * 0.02, g.y - g.vy * 0.02, g.size * 0.6, g.size * 0.35, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Grain body
+      ctx.fillStyle = withAlpha(g.hue, 0.92);
+      ctx.beginPath();
+      ctx.arc(g.x, g.y, g.size * 0.45, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Pile — draw as smoothed silhouette
+    const baseY = H * 0.86;
+    ctx.beginPath();
+    ctx.moveTo(0, baseY + 0.5);
+    for (let i = 0; i < pileBinCount; i++) {
+      const x = i * pileBinPx + pileBinPx * 0.5;
+      const y = baseY - pileHeights[i];
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(W, baseY);
+    ctx.closePath();
+
+    // Pile fill: warm gradient
+    const pg = ctx.createLinearGradient(0, baseY - 60, 0, baseY);
+    pg.addColorStop(0, withAlpha(palette.gold, 0.85));
+    pg.addColorStop(1, withAlpha(palette.red, 0.75));
+    ctx.fillStyle = pg;
+    ctx.fill();
+
+    // Pile crest — thin darker line for definition
+    ctx.strokeStyle = withAlpha(palette.ink, 0.18);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let i = 0; i < pileBinCount; i++) {
+      const x = i * pileBinPx + pileBinPx * 0.5;
+      const y = baseY - pileHeights[i];
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Ground line
+    ctx.strokeStyle = 'rgba(28,27,31,0.12)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, baseY + 0.5);
+    ctx.lineTo(W, baseY + 0.5);
+    ctx.stroke();
+  }
+
+  function drawCenterFade() {
+    // Radial gradient in the intro-card region — dims animation behind text
+    // so overlay content stays readable.
+    const cx = W / 2;
+    const cy = H / 2;
+    const radius = Math.min(W, H) * 0.55;
+    const g = ctx.createRadialGradient(cx, cy, radius * 0.15, cx, cy, radius);
+    g.addColorStop(0, withAlpha(palette.bg, 0.62));
+    g.addColorStop(0.6, withAlpha(palette.bg, 0.18));
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function updateStageLegend() {
+    // Highlight segment whose activity peaks right now (very simple heuristic
+    // — modulate by count of things in each stage).
+    const counts = [
+      strings.reduce((a, s) => a + s.energy, 0),
+      rollCells.length,
+      countLive(),
+      grains.length + pileHeights.reduce((a, h) => a + (h > 0 ? 1 : 0), 0) * 0.1
+    ];
+    const max = Math.max(...counts, 0.001);
+    const segs = document.querySelectorAll('.stage-legend .seg');
+    counts.forEach((v, i) => {
+      const seg = segs[i];
+      if (!seg) return;
+      if (v > max * 0.35) seg.classList.add('active');
+      else seg.classList.remove('active');
+    });
+  }
+
+  function countLive() {
+    let n = 0;
+    for (let i = 0; i < life.length; i++) if (life[i] === 1) n++;
+    return n;
+  }
+
+  // ---------- Reduced-motion fallback ----------
+  function renderStaticFallback() {
+    // Paint one representative "sonified GoL" frame
+    // Force some content:
+    // - strings faintly drawn
+    // - a few roll cells
+    // - a rich life pattern
+    // - a small pile
+    for (let i = 0; i < 8; i++) injectLifeCluster();
+    for (let i = 0; i < 40; i++) stepLife();
+    for (let i = 0; i < pileBinCount; i++) {
+      const t = i / pileBinCount;
+      pileHeights[i] = Math.max(0, 40 * Math.exp(-Math.pow((t - 0.88) * 5, 2)));
+    }
+    // Emit some grains mid-fall
+    for (let i = 0; i < 12; i++) {
+      grains.push({
+        x: (stageBounds.fall[0] + Math.random() * 0.24) * W,
+        y: H * (0.4 + Math.random() * 0.35),
+        vx: 0, vy: 0, size: gridCellPx * 0.55,
+        hue: pickGrainColor(Math.random()),
+        settled: false, age: 0
+      });
+    }
+    render();
+  }
+
+  // ---------- Utilities ----------
+  function debounce(fn, ms) {
+    let t;
+    return function (...args) {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(this, args), ms);
+    };
+  }
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function mapLinear(x, a, b, c, d) {
+    return c + (d - c) * ((x - a) / (b - a));
+  }
+
+  function withAlpha(color, a) {
+    // Accept #rrggbb or #rgb; return rgba().
+    const c = color.trim();
+    if (c.startsWith('rgb')) {
+      return c.replace(/rgba?\(([^)]+)\)/, (m, inner) => {
+        const parts = inner.split(',').map(s => s.trim());
+        return `rgba(${parts[0]}, ${parts[1]}, ${parts[2]}, ${a})`;
+      });
+    }
+    let hex = c.replace('#', '');
+    if (hex.length === 3) hex = hex.split('').map(ch => ch + ch).join('');
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${a})`;
+  }
+
+  function mixColor(a, b, t) {
+    const pa = hexToRgb(a);
+    const pb = hexToRgb(b);
+    const r = Math.round(pa.r + (pb.r - pa.r) * t);
+    const g = Math.round(pa.g + (pb.g - pa.g) * t);
+    const bl = Math.round(pa.b + (pb.b - pa.b) * t);
+    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${bl.toString(16).padStart(2, '0')}`;
+  }
+
+  function hexToRgb(c) {
+    let hex = c.replace('#', '');
+    if (hex.length === 3) hex = hex.split('').map(ch => ch + ch).join('');
+    return {
+      r: parseInt(hex.slice(0, 2), 16),
+      g: parseInt(hex.slice(2, 4), 16),
+      b: parseInt(hex.slice(4, 6), 16)
+    };
+  }
+
+  function pickGrainColor(t) {
+    // Row fraction 0..1 mapped across a warm sequence
+    if (t < 0.33) return palette.gold;
+    if (t < 0.66) return palette.red;
+    return palette.purple;
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.arcTo(x + w, y, x + w, y + r, r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+    ctx.lineTo(x + r, y + h);
+    ctx.arcTo(x, y + h, x, y + h - r, r);
+    ctx.lineTo(x, y + r);
+    ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
+  }
+
+  // Start on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+</body>
+</html>

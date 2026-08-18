@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News &middot; admin</title>
+  <link rel="stylesheet" href="/admin/static/admin.css">
+  <link rel="stylesheet" href="/admin/static/dashboard.css">
+  <link rel="stylesheet" href="/admin/static/news.css">
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>
+    <span>~/admin/</span>
+    <a href="/admin/dashboard" class="nav-link">dashboard</a>
+    <a href="/admin/projects" class="nav-link">projects</a>
+    <a href="/admin/sessions" class="nav-link">sessions</a>
+    <a href="/admin/" class="nav-link">articles</a>
+    <a href="/admin/news" class="nav-link active">news</a>
+    <a href="/admin/hero" class="nav-link">hero</a>
+    <a href="/admin/workflow" class="nav-link">workflow</a>
+  </h1>
+</div>
+
+<div class="news-admin">
+
+  <div class="news-form-card">
+    <h2>Add a news entry</h2>
+    <p class="hint">Shows up on the landing page under <code>// news</code>, sorted by date descending.</p>
+    <form id="news-form">
+      <input type="hidden" id="edit-id" value="">
+
+      <div class="row">
+        <label>
+          <span>Date</span>
+          <input type="date" id="f-date" required>
+        </label>
+        <label>
+          <span>Kind</span>
+          <select id="f-kind">
+            <option value="talk">talk</option>
+            <option value="paper">paper</option>
+            <option value="writing" selected>writing</option>
+            <option value="book">book</option>
+            <option value="demo">demo</option>
+            <option value="code">code</option>
+          </select>
+        </label>
+      </div>
+
+      <label>
+        <span>Headline</span>
+        <input type="text" id="f-headline" required placeholder="e.g. Bach Latent Spaces accepted at the EAIM 2026 workshop.">
+      </label>
+
+      <label>
+        <span>Link (optional)</span>
+        <input type="text" id="f-link" placeholder="https://... or /articles/?slug=...">
+      </label>
+
+      <label>
+        <span>Note (optional)</span>
+        <input type="text" id="f-note" placeholder="short subtitle appended after a middle dot">
+      </label>
+
+      <div class="actions">
+        <button type="submit" class="btn btn--primary" id="submit-btn">add entry</button>
+        <button type="button" class="btn" id="cancel-btn" hidden>cancel</button>
+        <span class="feedback" id="feedback"></span>
+      </div>
+    </form>
+  </div>
+
+  <div class="news-list-card">
+    <h2>Existing entries <span class="count" id="count"></span></h2>
+    <div id="news-list-container">
+      <p class="hint">loading&hellip;</p>
+    </div>
+  </div>
+
+</div>
+
+<script src="/admin/static/news.js"></script>
+</body>
+</html>

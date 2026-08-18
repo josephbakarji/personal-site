@@ -1,0 +1,12 @@
+{
+  "videos": [],
+  "kinds": [
+    { "slug": "talk",        "label": "Talks",        "color": "accent-blue" },
+    { "slug": "demo",        "label": "Instrument demos", "color": "accent-red" },
+    { "slug": "performance", "label": "Performances", "color": "accent-purple" },
+    { "slug": "lecture",     "label": "Lectures",     "color": "accent-green" },
+    { "slug": "essay",       "label": "Video essays", "color": "accent-primary" }
+  ],
+  "notes": "Add entries below. Each entry: {youtube_id, title, kind, date, description, tags}. Kinds: talk, demo, performance, lecture, essay.",
+  "last_updated": "2026-07-06"
+}

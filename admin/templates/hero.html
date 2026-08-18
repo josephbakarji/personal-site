@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero intro &middot; admin</title>
+  <link rel="stylesheet" href="/admin/static/admin.css">
+  <link rel="stylesheet" href="/admin/static/dashboard.css">
+  <link rel="stylesheet" href="/admin/static/hero.css">
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>
+    <span>~/admin/</span>
+    <a href="/admin/dashboard" class="nav-link">dashboard</a>
+    <a href="/admin/projects" class="nav-link">projects</a>
+    <a href="/admin/sessions" class="nav-link">sessions</a>
+    <a href="/admin/" class="nav-link">articles</a>
+    <a href="/admin/news" class="nav-link">news</a>
+    <a href="/admin/hero" class="nav-link active">hero</a>
+    <a href="/admin/workflow" class="nav-link">workflow</a>
+  </h1>
+</div>
+
+<div class="hero-admin">
+
+  <div class="editor-card">
+    <h2>Landing page intro</h2>
+    <p class="hint">
+      This is the paragraph inside the intro card on the landing page.
+      HTML is allowed for links. Save writes to <code>data/hero.json</code>
+      and patches <code>index.html</code>. Refresh the landing to see it.
+    </p>
+    <p class="hint">
+      Link syntax: <code>&lt;a href="URL" target="_blank" rel="noopener"&gt;label&lt;/a&gt;</code>
+      for external links; drop <code>target="_blank"</code> for internal links.
+    </p>
+
+    <textarea id="intro-html" rows="16" spellcheck="false"></textarea>
+
+    <div class="actions">
+      <button type="button" class="btn btn--primary" id="save-btn">save</button>
+      <button type="button" class="btn" id="reset-btn">reset to last saved</button>
+      <span class="feedback" id="feedback"></span>
+    </div>
+  </div>
+
+  <div class="preview-card">
+    <h2>Preview</h2>
+    <p class="hint">Rendered HTML (updates live as you type).</p>
+    <div class="preview-frame">
+      <p class="preview-intro" id="preview"></p>
+    </div>
+    <p class="hint stamp">Last saved: <span id="last-saved">&hellip;</span></p>
+  </div>
+
+</div>
+
+<script src="/admin/static/hero.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Videos — Joseph Bakarji</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/videos.css">
+</head>
+<body>
+
+<div class="page" data-page="videos">
+  <nav class="nav">
+    <a class="nav-logo" href="../">jb</a>
+    <ul class="nav-links">
+      <li><a href="../articles/">articles</a></li>
+      <li><a href="../publications/">publications</a></li>
+      <li><a href="../labs/">labs</a></li>
+      <li><a href="../teaching/">teaching</a></li>
+      <li><a href="../team/">team</a></li>
+      <li><a href="./">videos</a></li>
+      <li><a href="../about/">about</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-body">
+    <h2 class="page-title">videos</h2>
+
+    <p class="page-lede">Talks, instrument demos, performances, and lecture excerpts. Piano and soundcloud <a href="https://soundcloud.com/user-343358875" target="_blank" rel="noopener">→</a></p>
+
+    <!-- Featured tool -->
+    <a class="featured-tool" href="../articles/?slug=piano-of-life">
+      <span class="featured-badge">// featured tool</span>
+      <span class="featured-title">Piano of Life</span>
+      <span class="featured-blurb">Drop a top-down piano video &mdash; hammer strikes seed a shaded Game of Life whose column density becomes a live spectral filter over the piano's own audio. Vanilla JS, open source, MIT.</span>
+      <span class="featured-cta">read the write-up &rarr;</span>
+    </a>
+
+    <div class="video-filter" id="video-filter"></div>
+
+    <div id="video-grid">
+      <p style="color: var(--text-muted);">loading…</p>
+    </div>
+  </div>
+</div>
+
+<script src="../js/videos.js"></script>
+
+</body>
+</html>

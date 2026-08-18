@@ -3,11 +3,29 @@
     "name": "Joseph Bakarji",
     "affiliation": "American University of Beirut",
     "scholar_id": "1zZNV48AAAAJ",
-    "citedby": 359,
-    "h_index": 6,
-    "i10_index": 4
+    "citedby": 438,
+    "h_index": 8,
+    "i10_index": 6
   },
   "publications": [
+    {
+      "title": "Common task framework for a critical evaluation of scientific machine learning algorithms",
+      "authors": "Philippe Wyder and Judah Goldfeder and Alexey Yermakov and Yue Zhao and Stefano Riva and Jan Williams and David Zoro and Amy Rude and Matteo Tomasetto and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and Nathan Kutz",
+      "year": 2026,
+      "venue": "Advances in Neural Information Processing Systems",
+      "citations": 15,
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/f908bc294862a555413fbe43ff08933f-Abstract-Datasets_and_Benchmarks_Track.html",
+      "eprint": ""
+    },
+    {
+      "title": "CTF4Nuclear: Common Task Framework for Nuclear Fission and Fusion Models",
+      "authors": "Stefano Riva and Carolina Introini and Antonio Cammi and Dean Price and Alexey Yermakov and Yue Zhao and Philippe M Wyder and Judah Goldfeder and Jan Williams and Amy Sara Rude and Matteo Tomasetto and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and J Nathan Kutz",
+      "year": 2026,
+      "venue": "arXiv preprint arXiv:2605.15549",
+      "citations": 4,
+      "url": "https://arxiv.org/abs/2605.15549",
+      "eprint": ""
+    },
     {
       "title": "The Circle of Fifths as Latent Geometry in Bach's Well-Tempered Clavier",
       "authors": "Najla Sadek and Joseph Bakarji",
@@ -18,21 +36,39 @@
       "eprint": ""
     },
     {
+      "title": "EML Trees Are Universal Approximators",
+      "authors": "Joe Germany and Elie Abdo and Joseph Bakarji",
+      "year": 2026,
+      "venue": "arXiv preprint arXiv:2606.23179",
+      "citations": 0,
+      "url": "https://arxiv.org/abs/2606.23179",
+      "eprint": ""
+    },
+    {
+      "title": "Discovery of Symbolic Hamiltonian Expressions with Buckingham-Symplectic Networks",
+      "authors": "Joe Germany and Joseph Bakarji and Sara Najem",
+      "year": 2026,
+      "venue": "arXiv preprint arXiv:2604.00576",
+      "citations": 0,
+      "url": "https://arxiv.org/abs/2604.00576",
+      "eprint": ""
+    },
+    {
       "title": "Statistical mechanics of dynamical system identification",
       "authors": "Andrei A Klishin and Joseph Bakarji and J Nathan Kutz and Krithika Manohar",
       "year": 2025,
       "venue": "Physical Review Research",
-      "citations": 6,
+      "citations": 11,
       "url": "https://link.aps.org/doi/10.1103/4d98-tdlp",
       "eprint": ""
     },
     {
-      "title": "Common task framework for a critical evaluation of scientific machine learning algorithms",
-      "authors": "Philippe Martin Wyder and Judah Goldfeder and Alexey Yermakov and Yue Zhao and Stefano Riva and Jan P Williams and David Zoro and Amy Sara Rude and Matteo Tomasetto and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and J Nathan Kutz",
+      "title": "The Seismic Wavefield Common Task Framework",
+      "authors": "Alexey Yermakov and Yue Zhao and Marine Denolle and Yiyu Ni and Philippe M Wyder and Judah Goldfeder and Stefano Riva and Jan Williams and David Zoro and Amy Sara Rude and Matteo Tomasetto and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and J Nathan Kutz",
       "year": 2025,
-      "venue": "arXiv preprint arXiv:2510.23166",
-      "citations": 2,
-      "url": "https://arxiv.org/abs/2510.23166",
+      "venue": "arXiv preprint arXiv:2512.19927",
+      "citations": 7,
+      "url": "https://arxiv.org/abs/2512.19927",
       "eprint": ""
     },
     {
@@ -45,20 +81,11 @@
       "eprint": ""
     },
     {
-      "title": "The Seismic Wavefield Common Task Framework",
-      "authors": "Alexey Yermakov and Yue Zhao and Marine Denolle and Yiyu Ni and Philippe M Wyder and Judah Goldfeder and Stefano Riva and Jan Williams and David Zoro and Amy Sara Rude and Matteo Tomasetto and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and J Nathan Kutz",
-      "year": 2025,
-      "venue": "arXiv preprint arXiv:2512.19927",
-      "citations": 0,
-      "url": "https://arxiv.org/abs/2512.19927",
-      "eprint": ""
-    },
-    {
       "title": "Role of physics in physics-informed machine learning",
       "authors": "Abhishek Chandra and Joseph Bakarji and Daniel M Tartakovsky",
       "year": 2024,
       "venue": "Journal of Machine Learning for Modeling and Computing",
-      "citations": 6,
+      "citations": 8,
       "url": "https://www.dl.begellhouse.com/journals/558048804a15188a,34cd19111b07668e,496e08dc3a24c314.html",
       "eprint": ""
     },
@@ -76,8 +103,8 @@
       "authors": "Joseph Bakarji and Kathleen Champion and J Nathan Kutz and Steven L Brunton",
       "year": 2023,
       "venue": "Proceedings of the Royal Society A, 2023",
-      "citations": 160,
-      "url": "https://royalsocietypublishing.org/rspa/article/479/2276/20230422/82633",
+      "citations": 186,
+      "url": "https://royalsocietypublishing.org/doi/full/10.1098/rspa.2023.0422",
       "eprint": ""
     },
     {
@@ -85,7 +112,7 @@
       "authors": "Joseph Bakarji and Jared Callaham and Steven L Brunton and J Nathan Kutz",
       "year": 2022,
       "venue": "Nature Computational Science",
-      "citations": 76,
+      "citations": 94,
       "url": "https://www.nature.com/articles/s43588-022-00355-5",
       "eprint": ""
     },
@@ -94,7 +121,7 @@
       "authors": "Joseph Bakarji and Daniel M Tartakovsky",
       "year": 2021,
       "venue": "Journal of Computational Physics",
-      "citations": 45,
+      "citations": 46,
       "url": "https://www.sciencedirect.com/science/article/pii/S0021999121001145",
       "eprint": ""
     },
@@ -112,7 +139,7 @@
       "authors": "Joseph Bakarji and Daniel M Tartakovsky",
       "year": 2020,
       "venue": "arXiv preprint arXiv:2002.12479",
-      "citations": 5,
+      "citations": 6,
       "url": "https://arxiv.org/abs/2002.12479",
       "eprint": ""
     },
@@ -148,7 +175,7 @@
       "authors": "Joseph Bakarji and Daniel O’Malley and Velimir V Vesselinov",
       "year": 2017,
       "venue": "Water Resources Management",
-      "citations": 38,
+      "citations": 40,
       "url": "https://link.springer.com/article/10.1007/s11269-017-1713-7",
       "eprint": ""
     },
@@ -189,6 +216,15 @@
       "eprint": ""
     },
     {
+      "title": "Symbolic Hamiltonian Discovery with Buckingham-Symplectic Networks",
+      "authors": "Joe Germany and Sara Najem and Joseph Bakarji",
+      "year": "",
+      "venue": "Available at SSRN 7048502",
+      "citations": 0,
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7048502",
+      "eprint": ""
+    },
+    {
       "title": "When Bigger isn't Better: The Role of Model-Data Complexity in Time Series Forecasts",
       "authors": "Nga Yu Lo and Joseph Bakarji and Yue Zhao and J Nathan Kutz",
       "year": "",
@@ -198,5 +234,5 @@
       "eprint": ""
     }
   ],
-  "fetched": "2026-02-22T16:25:08.043201"
+  "fetched": "2026-07-10T16:26:20.136635"
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sessions — josephbakarji.com</title>
+  <link rel="stylesheet" href="/admin/static/admin.css">
+  <link rel="stylesheet" href="/admin/static/sessions.css">
+</head>
+<body>
+
+<div class="admin-header">
+  <h1>
+    <span>~/admin/</span>
+    <a href="/admin/dashboard" class="nav-link">dashboard</a>
+    <a href="/admin/projects" class="nav-link">projects</a>
+    <a href="/admin/sessions" class="nav-link active">sessions</a>
+    <a href="/admin/" class="nav-link">articles</a>
+    <a href="/admin/news" class="nav-link">news</a>
+    <a href="/admin/hero" class="nav-link">hero</a>
+  </h1>
+</div>
+
+<div class="sessions-page">
+  <div class="sessions-header">
+    <h2>Claude Sessions</h2>
+    <span class="session-total" id="session-total"></span>
+  </div>
+  <div class="session-list" id="session-list"></div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/admin/static/sessions.js"></script>
+</body>
+</html>

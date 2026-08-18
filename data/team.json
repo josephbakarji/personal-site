@@ -1,0 +1,213 @@
+{
+  "labs": [
+    {
+      "slug": "data-driven-modeling",
+      "name": "Data-Driven Modeling Lab",
+      "alias": "DDM",
+      "url": "labs/data-driven-modeling/",
+      "blurb": "Complex systems and artificial intelligence. Discovering governing equations from data, coarse-graining, and dimensional analysis for scientific machine learning."
+    },
+    {
+      "slug": "music-intelligence",
+      "name": "Music Intelligence Lab",
+      "alias": "μ-lab",
+      "url": "labs/music-intelligence/",
+      "blurb": "Music, technology, and intelligence. Intelligent instruments, generative composition, and computational analysis of Arabic music traditions."
+    }
+  ],
+  "director": {
+    "name": "Joseph Bakarji",
+    "role": "Lab Director, Assistant Professor",
+    "labs": ["data-driven-modeling", "music-intelligence"],
+    "bio": "Assistant Professor of Mechanical Engineering and Artificial Intelligence, Data Science, and Computing at AUB.",
+    "email": "jb50@aub.edu.lb",
+    "link": "https://josephbakarji.com"
+  },
+  "current": [
+    {
+      "name": "Khyam Allami",
+      "role": "Postdoctoral Fellow",
+      "labs": ["music-intelligence"],
+      "topic": "Building the Arabic maqam archive (with Ibrahim El Khansa); maqam identification (with Dany Abou Jaoude); maqam and ajnas network modeling (with Sara Najem).",
+      "email": "ka109@aub.edu.lb",
+      "links": [
+        { "label": "khyamallami.com", "href": "https://khyamallami.com" },
+        { "label": "diarmaqar.netlify.app", "href": "https://diarmaqar.netlify.app/" }
+      ]
+    },
+    {
+      "name": "Fatima Fneich",
+      "role": "PhD Student",
+      "labs": ["data-driven-modeling"],
+      "topic": "Computational neuroscience for uncovering multi-scale brain dynamics.",
+      "links": []
+    },
+    {
+      "name": "Ali Tayyar",
+      "role": "MS Student",
+      "labs": ["data-driven-modeling"],
+      "topic": "Reinforcement learning for PDE integrator discovery.",
+      "links": []
+    },
+    {
+      "name": "Helene Jabbour",
+      "role": "MS Student",
+      "labs": ["music-intelligence"],
+      "topic": "Glove music instrument.",
+      "links": []
+    },
+    {
+      "name": "Samir Shaker",
+      "role": "Research Assistant",
+      "labs": ["music-intelligence"],
+      "topic": "Music interface developer and researcher.",
+      "links": []
+    },
+    {
+      "name": "Joe Germany",
+      "role": "Undergraduate Researcher, BS Physics and Applied Math",
+      "labs": ["data-driven-modeling"],
+      "co_supervisor": "Dr. Sara Najem",
+      "topic": "Symplectic Buckingham networks; EML trees as universal approximators.",
+      "email": "jmg15@mail.aub.edu",
+      "links": [
+        { "label": "personal site", "href": "https://joegermany.netlify.app/docs/readme/" },
+        { "label": "Buckingham-Symplectic paper", "href": "https://arxiv.org/abs/2604.00576" },
+        { "label": "EML Trees paper", "href": "https://arxiv.org/abs/2606.23179" }
+      ]
+    }
+  ],
+  "previous": [
+    {
+      "name": "Lama Sleem",
+      "role": "MS Computational Science",
+      "labs": ["data-driven-modeling"],
+      "co_supervisor": "Dr. Arij Daou",
+      "topic": "Computational neuroscience: discovering Hodgkin-Huxley-type neural dynamics from partial measurements using deep-delay SINDy autoencoders and nullcline-regularized equation learning.",
+      "email": "lks09@mail.aub.edu",
+      "links": [
+        { "label": "linkedin", "href": "https://www.linkedin.com/in/lama-sleem-6a82031b5" }
+      ]
+    },
+    {
+      "name": "Issar Amro",
+      "role": "MS Computational Science",
+      "labs": ["data-driven-modeling"],
+      "co_supervisor": "Dr. Sara Najem",
+      "topic": "Data-driven discovery of ecological dynamics from partial measurements of phytoplankton in the Mediterranean.",
+      "email": "iza04@mail.aub.edu",
+      "links": [
+        { "label": "linkedin", "href": "https://www.linkedin.com/in/issaramro" }
+      ]
+    },
+    {
+      "name": "Oussama Ibrahim",
+      "role": "MS Computational Science",
+      "labs": ["data-driven-modeling"],
+      "co_supervisor": "Dr. Sara Najem",
+      "topic": "Hamiltonian equation neuro-symbolic deep learning architectures.",
+      "email": "ohi00@mail.aub.edu",
+      "links": [
+        { "label": "linkedin", "href": "https://www.linkedin.com/in/oussama-ibrahim-5ab162313/" }
+      ]
+    },
+    {
+      "name": "Lana Wayzani",
+      "role": "MS Student",
+      "labs": ["data-driven-modeling"],
+      "topic": "Data-driven discovery of normal-form equations in non-Newtonian fluid dynamics.",
+      "links": []
+    },
+    {
+      "name": "Najla Sadek",
+      "role": "Undergraduate Researcher",
+      "labs": ["music-intelligence"],
+      "topic": "Discovering the latent geometry of Bach's Well-Tempered Clavier.",
+      "links": [
+        { "label": "EAIM 2026 paper", "href": "https://openreview.net/forum?id=HXm5wUgRib" }
+      ]
+    },
+    {
+      "name": "Mohammad El Asal",
+      "role": "Research Assistant",
+      "labs": ["music-intelligence"],
+      "topic": "Maqam identification and the Shawwa algorithm (with Dany Abou Jaoude).",
+      "links": []
+    }
+  ],
+  "collaborators": [
+    {
+      "name": "Daniel Tartakovsky",
+      "affiliation": "Stanford (PhD advisor)",
+      "topic": "Uncertainty quantification, equation learning, PDE modeling, granular materials, multi-scale modeling.",
+      "link": "https://tartakovsky.stanford.edu"
+    },
+    {
+      "name": "Steven Brunton",
+      "affiliation": "University of Washington (postdoc advisor)",
+      "topic": "SINDy, autoencoders, nonlinear dynamics.",
+      "link": "https://www.eigensteve.com"
+    },
+    {
+      "name": "Nathan Kutz",
+      "affiliation": "University of Washington and Autodesk (postdoc advisor)",
+      "topic": "SINDy, common task framework, mechanistic interpretability, time-series foundation model benchmarking.",
+      "link": "https://faculty.washington.edu/kutz/"
+    },
+    {
+      "name": "Sara Najem",
+      "affiliation": "AUB, computational physics, School of Computing and Data Sciences",
+      "topic": "Data-driven discovery of complex systems; network science for music.",
+      "link": null
+    },
+    {
+      "name": "Dany Abou Jaoude",
+      "affiliation": "AUB, Mechanical Engineering",
+      "topic": "Maqam identification.",
+      "link": null
+    },
+    {
+      "name": "Arij Daou",
+      "affiliation": "AUB, Bioengineering",
+      "topic": "Blind-source separation for bird songs.",
+      "link": null
+    },
+    {
+      "name": "Yue Zhao",
+      "affiliation": "SURF, Netherlands",
+      "topic": "Common Task Framework; mechanistic interpretability of time-series foundation models.",
+      "link": null
+    },
+    {
+      "name": "Nareg Karaoghlanian",
+      "affiliation": "Research Associate, AUB",
+      "topic": "Sound-source localization on the slab music project.",
+      "link": null
+    }
+  ],
+  "conversations": {
+    "text": "Also, phenomenal discussions with <strong>Ryan Raut</strong> (from whom I've learned a lot about neuroscience), <strong>Jihad Touma</strong> (on complex systems, networks, and computing), and <strong>Khaled Yassine</strong> (on percussion and Arabic music)."
+  },
+  "funders": [
+    {
+      "name": "Center for Advanced Mathematical Sciences",
+      "alias": "CAMS",
+      "url": "https://cams.aub.edu.lb",
+      "labs": ["data-driven-modeling", "music-intelligence"]
+    },
+    {
+      "name": "Artificial Intelligence, Data Science, and Computing Hub",
+      "alias": "AI Hub",
+      "url": null,
+      "labs": ["data-driven-modeling", "music-intelligence"]
+    },
+    {
+      "name": "American University of Beirut",
+      "alias": "AUB",
+      "url": "https://aub.edu.lb",
+      "labs": ["data-driven-modeling", "music-intelligence"]
+    }
+  ],
+  "notes": "Prospective students, see the labs pages for open topics.",
+  "last_updated": "2026-07-21"
+}

@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About — Joseph Bakarji</title>
+  <title>About &middot; Joseph Bakarji</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/base.css">
@@ -11,14 +15,15 @@
 </head>
 <body>
 
-<div class="page">
+<div class="page" data-page="about">
   <nav class="nav">
     <a class="nav-logo" href="../">jb</a>
     <ul class="nav-links">
       <li><a href="../articles/">articles</a></li>
       <li><a href="../publications/">publications</a></li>
-      <li><a href="../projects/">projects</a></li>
+      <li><a href="../labs/">labs</a></li>
       <li><a href="../teaching/">teaching</a></li>
+      <li><a href="../team/">team</a></li>
       <li><a href="./">about</a></li>
     </ul>
   </nav>
@@ -28,43 +33,125 @@
 
     <div class="article-content">
 
-      <p>I study patterns that repeat across scales. The same compression principles that let you predict a pendulum also let a neural network generate language, and the same self-organization that drives a Game of Life simulation governs the emergence of cities. I work at the intersection of these ideas, using mathematics and computation to make the connections precise.</p>
+      <p><em>Who am I?</em> Writing about myself is an interesting exercise in framing the wide range of interests and projects I have as part of a common thread. Crafting a summary of my identity is a strange thing to do; I highly recommend it. That said, there is a divide between how I would academically introduce myself, and what my underlying motivations are for pursuing the questions and problems I do. For example, here is the short bio I usually share with people who invite me for talks:</p>
 
-      <h2>The Work</h2>
+      <blockquote>
+        Joseph Bakarji is an Assistant Professor in the Department of Mechanical Engineering, and the Artificial Intelligence, Data Science and Computing Hub, at the American University of Beirut. He received his PhD at Stanford University in 2020, working under Daniel Tartakovsky, where he developed multiscale stochastic models for granular materials, receiving the Henry J. Ramey, Jr. and the Frank G. Miller fellowship awards. Subsequently, he spent three years as a postdoctoral fellow at the AI Institute in Dynamic Systems, at the University of Washington, where he developed scientific machine learning methods for complex systems with Nathan Kutz and Steven Brunton. His current research spans a wide range of applications and algorithmic development of AI for scientific discovery, and most recently, algorithmic music composition and music interface design, leading the Music Intelligence Lab.
+      </blockquote>
 
-      <p>My formal training is in computational mechanics. I did my PhD at Stanford, modeling how heterogeneous materials behave under extreme conditions, using stochastic methods to bridge what happens at the grain scale with what you measure at the lab scale. That problem, how structure at one level gives rise to behavior at another, turned out to be the question I keep asking everywhere.</p>
+      <p>It reads as: I am a professor. I work on AI, science, and music. I like complex systems (so I like math and interdisciplinary applications). I got awards and worked with cool people. It does not say much about <em>why</em> I do what I do. So let me try to elaborate.</p>
 
-      <p>After Stanford, I worked with Steve Brunton and Nathan Kutz at the University of Washington, developing data-driven methods for discovering governing equations. The core idea: given time-series observations of a system, can an algorithm recover the equations that generated them? This led to work on sparse regression (SINDy), delay-embedding autoencoders, and dimensionally consistent learning, where physical units are built into the ML architecture itself.</p>
+      <p><em>Maybe you are just looking for a scannable summary of my journey; if so, <a href="#nutshell">scroll all the way down</a>. Otherwise, if you have time, you can read a more elaborate story below.</em></p>
 
-      <p>I'm now at the American University of Beirut, where I run two labs. The <strong>Data-Driven Modeling Lab</strong> works on equation discovery, coarse-graining, and the mathematics of how to extract simple laws from complex data. The <strong>Music Intelligence Lab</strong> builds intelligent instruments, analyzes Arabic maqam traditions through network theory, and explores what it means for a machine to understand music.</p>
+      <h2>Why I do what I do</h2>
 
-      <h2>The Through-Line</h2>
+      <p>I think I take the question <em>who am I?</em> a little too seriously, especially for a computational scientist. Specifically, I would frame that search for what we are (humans, societies, selves, consciousnesses, biological systems, self-organized entities, psychological messes, mysteries, centers of universes, bundles of atoms) as a core motivation for much of my scientific interests. It makes my science and art essentially philosophical, if not sometimes spiritual (going beyond rational inquiry). For one, I find the question both troubling and exciting, because it is paradoxical in many ways.</p>
 
-      <p>The connection between these isn't just thematic. Discovering a governing equation from data is an act of compression: you take a high-dimensional time series and find the sparse, low-dimensional rule that generated it. Building a delay embedding is finding the right coordinate system in which hidden structure becomes visible. Designing an intelligent instrument is closing the action-perception loop between human gesture and machine response. These are all instances of the same problem: how does an observer, with finite capacity, extract useful structure from a world with far more degrees of freedom?</p>
+      <p>If I had to distill the various answers, or hypotheses, into a single sentence, I would say: <strong>we are a multi-dimensional duality (of past and future, self and non-self, action and perception), attempting to resolve our paradoxes through cyclical coupling, out of which emerges intelligence, beauty, peace, and all those things we consider to be good.</strong> That is how I would answer <em>who am I</em> in a nutshell, if I had to.</p>
 
-      <p>I write about this on <a href="https://bakarji.substack.com" target="_blank">The Latent Dimension</a>, where I explore intelligence, coarse-graining, embodiment, and the philosophy of modeling. Some pieces that capture the thread: <a href="https://bakarji.substack.com/p/clustering-as-the-core-of-cognition" target="_blank">Clustering as the Core of Cognition</a>, <a href="https://bakarji.substack.com/p/what-can-world-models-learn-from-the" target="_blank">What Can World Models Learn from the Sciences?</a>, and <a href="https://bakarji.substack.com/p/were-entering-the-age-of-complex" target="_blank">We're Entering the Age of Complex Systems Technologies</a>.</p>
+      <h2>The science</h2>
 
-      <h2>Beyond the Lab</h2>
+      <p>When it comes to the science I explore, I would tell the story starting from my summer internship at Los Alamos in 2014, during my MS at UC San Diego. The two problems I was solving at the time (coupling stochastic differential equations with their <a href="https://www.sciencedirect.com/science/article/pii/S0021999116306866" target="_blank" rel="noopener">Fokker-Planck equivalent in the same domain computationally</a>, and coupling hydrological simulations using LANL&rsquo;s FEHM with social models we got from the literature) amplified a few questions in my mind. It seemed like scientific modeling was practically a collage of models across scales that are not always compatible with each other, and those models look quite different at different scales, coming with many assumptions that are bound to fail when taken beyond the scope of their applicability. So the question of <em>what is scientific modeling, exactly?</em>, which had been accompanying me for years by then, had amplified.</p>
 
-      <p>I'm a pianist and electronic musician. I compose at the intersection of Arabic musical traditions and computational methods, and I think seriously about what it means for machines to participate in music-making rather than just automate it. I've built wearable instruments (a sensor glove that maps hand gestures to sound), basketball shot drum machines, and tools for analyzing the micro-tonal landscape of Arabic maqam.</p>
+      <p>The question I would end up pursuing directly or indirectly since then is: <em>what is it that we do when we do science?</em> And, as a way to answer it: <em>can we automate the process of scientific discovery?</em></p>
 
-      <p>I teach courses in machine learning (<a href="https://ml4science.com" target="_blank">ML for Science</a> and <a href="https://intro2ml.com" target="_blank">Intro to ML</a>) where I try to show students that the same mathematical ideas appear in physics, biology, engineering, and music. I build interactive lecture slides with live simulations because I believe understanding comes from playing with the math, not just reading it.</p>
+      <p>It turns out I would spend my PhD during a time when the computational sciences that had been developed over the past half century were transforming in front of my eyes, to specifically answer this question by more heavily integrating inverse modeling (system identification, data assimilation) into the process of computational modeling, thanks to recent advances in machine learning. While my thesis was still focused on integrating probabilistic multiscale modeling in the world of <a href="https://arxiv.org/abs/2002.12479" target="_blank" rel="noopener">granular materials</a>, where all the challenges and limitations of modeling with limited data emerge, I got to slowly start pursuing the question I really cared about to start with: <em>what is scientific modeling, exactly?</em> How is it that we can project the infinitely complex world we experience into simple equations that we can scribble on a paper? Ultimately this was a question about intelligence: one step closer to what we are. I was lucky to be at the hub of where ML was being developed, and I was, partially reluctantly, pulled into the world of AI. My later project on discovering PDF equations from data, with my PhD advisor Daniel Tartakovsky, made me discover SINDy, developed by Nathan Kutz and Steven Brunton, with whom I ended up doing my postdoc.</p>
 
-      <h2>Conceptual Map</h2>
+      <p>At the University of Washington, the questions started to crystallize more clearly: <em>how do we automatically discover ODE and PDE models of systems that we can only measure partially?</em> The answer in the case of the granular materials problem was to consider simple but probabilistic models instead of complex deterministic ones. The technology I got to develop with Steven Brunton and Nathan Kutz involved a combination of nonlinear transformations supported by embedding theorems (Takens&rsquo;s and Whitney&rsquo;s), a deep learning architecture that would computationally approximate them from data, and learned interpretable sparse equations, all coupled through a heavy-lifting loss function that tries to achieve a series of objectives simultaneously.</p>
 
-      <p>A network of the recurring themes across a decade of notes, recordings, and writings. Nodes are concepts; edges show how often they appear together. The gravity well at the center is action-perception, the idea that intelligence is best understood as a closed loop between acting on the world and sensing its response.</p>
+      <p>The exercise has proven to be far from easy, and we keep trying to tackle it from multiple angles, starting with my postdoc until now with my graduate students, applying it to neuroscience (with Lama Sleem and Arij Daou) and ecological dynamics (with Issar Amro and Sara Najem). The identifiability of a problem, given limited measurements, is a practical hurdle we do not discuss much in a literature that only focuses on the models that do end up generalizing across a dataset. But when you try to implement it in practice, entire fields develop techniques and models that might not be entirely compatible with clearly missing assumptions because of unobservability. Neuroscience is an example. What we cannot measure, we cannot model, and thus we cannot discuss. If our models are representations of reality, you have to realize that it is only a reality that gets distilled out of the measurement devices we can build.</p>
 
-      <div id="mindmap" style="width:100%; height:400px; margin: var(--space-lg) 0; border: 1px solid rgba(97, 175, 239, 0.1); border-radius: 8px; background: rgba(0,0,0,0.2); overflow: hidden;"></div>
+      <h2>The music</h2>
+
+      <p>When I came back to my undergraduate alma mater as a faculty member, I got the great opportunity to explore more of these questions, but also to expand on my life-long passion in music. I established the <a href="../labs/music-intelligence/">Music Intelligence Lab</a>, where we explore questions at the intersection of ML, mechatronics, and music. The main focus, however, emerged from my project on musical interfaces: <em>what does the instrument of the future look like</em>, given the advances in digital audio workstations, synthesizers, and generative AI algorithms?</p>
+
+      <p>Slowly but surely, I discovered that the question is also an ill-posed one, now framed as a design question, of mapping movement to sound. The practical motivation is that we have a lot of computational capabilities in generative sound and music, but the interfaces we have to work with them are not as intuitive and embodied as traditional instruments, making the experience of creating music (of being a musician) disembodied, foreign, and hard to reach a state of both physical and mental flow.</p>
+
+      <p>My venture into this world of instrument design got me to discover rope flow (introduced to me by my friend and trainer Olivier Chiniara), leading to my latest obsession (as of 2026) in turning it into an instrument. I have found that discovering latent spaces shared between movement and sound is a source of many scientific, artistic, and philosophical questions about art, AI, and modeling combined.</p>
+
+      <h2>Reading and themes</h2>
+
+      <p>On the philosophical end of my writing, you can find some things on my Substack, <a href="https://bakarji.substack.com" target="_blank" rel="noopener">The Latent Dimension</a>. If you want to get a sense of the themes I like to explore, here is a graphical representation extracted from a decade of notes.</p>
+
+      <div id="mindmap" style="width:100%; height:400px; margin: var(--space-lg) 0; border: 1px solid var(--border-subtle); border-radius: 8px; background: var(--bg-secondary); overflow: hidden;"></div>
+
+      <p style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--text-muted); font-style: italic;">TODO: swap in the higher-resolution theme graph from the Mirror app.</p>
+
+      <h2 id="nutshell">In a nutshell</h2>
+
+      <h3 class="cv-section">Education</h3>
+      <ul class="cv-list">
+        <li>
+          <span class="cv-when">2017 &ndash; 2020</span>
+          <span class="cv-what"><strong>Ph.D., Granular Materials</strong>. Stanford University, Department of Energy Science and Engineering. Advisor: Daniel Tartakovsky. Thesis: <em>Stochastic multiscale modeling of complex materials</em>.</span>
+        </li>
+        <li>
+          <span class="cv-when">2013 &ndash; 2016</span>
+          <span class="cv-what"><strong>M.S., Fluid Mechanics</strong>. University of California San Diego, Department of Mechanical and Aerospace Engineering. Thesis: <em>Discrete-to-continuum modeling with reverse Brownian motion</em>.</span>
+        </li>
+        <li>
+          <span class="cv-when">2009 &ndash; 2013</span>
+          <span class="cv-what"><strong>B.Eng., Mechanical Engineering</strong>. American University of Beirut.</span>
+        </li>
+      </ul>
+
+      <h3 class="cv-section">Positions</h3>
+      <ul class="cv-list">
+        <li>
+          <span class="cv-when">2024 &ndash; present</span>
+          <span class="cv-what"><strong>Assistant Professor</strong>. Department of Mechanical Engineering, and the Artificial Intelligence, Data Science, and Computing Hub, American University of Beirut. Director of the <a href="../labs/data-driven-modeling/">Data-Driven Modeling Lab</a> and the <a href="../labs/music-intelligence/">Music Intelligence Lab</a>.</span>
+        </li>
+        <li>
+          <span class="cv-when">2020 &ndash; 2023</span>
+          <span class="cv-what"><strong>Postdoctoral Fellow</strong>. AI Institute in Dynamic Systems, University of Washington. With Steve Brunton and Nathan Kutz.</span>
+        </li>
+        <li>
+          <span class="cv-when">Summers 2014, 2016</span>
+          <span class="cv-what"><strong>Research Intern</strong>. Los Alamos National Laboratory.</span>
+        </li>
+        <li>
+          <span class="cv-when">2015 &ndash; 2016</span>
+          <span class="cv-what"><strong>Researcher</strong>. UC San Diego Music Technology Lab.</span>
+        </li>
+      </ul>
+
+      <h3 class="cv-section">Awards and honors</h3>
+      <ul class="cv-list">
+        <li>
+          <span class="cv-when">2022</span>
+          <span class="cv-what">Center for Advanced Mathematical Sciences Fellowship, AUB.</span>
+        </li>
+        <li>
+          <span class="cv-when">2020</span>
+          <span class="cv-what">Henry J. Ramey, Jr. Fellowship Award, Stanford University.</span>
+        </li>
+        <li>
+          <span class="cv-when">2018</span>
+          <span class="cv-what">Frank G. Miller Fellowship Award, Stanford University.</span>
+        </li>
+      </ul>
+
+      <h3 class="cv-section">Teaching</h3>
+      <p>See the <a href="../teaching/">teaching page</a> for the full course list. Highlights:</p>
+      <ul>
+        <li><a href="https://ml4science.com" target="_blank" rel="noopener">Machine Learning for Science and Engineering</a>, AUB, 2022 to present.</li>
+        <li><a href="https://intro2ml.com" target="_blank" rel="noopener">Introduction to Machine Learning</a>, AUB, Fall 2024.</li>
+        <li>Deep Learning for Fluid Dynamics, University of Washington, Spring 2021.</li>
+        <li>Dynamics, AUB, Spring 2025.</li>
+        <li>Multiphase Flow in Porous Media, AUB, Summer 2018.</li>
+      </ul>
 
       <h2>Contact</h2>
 
       <p>
-        Email: joseph.bakarji [at] aub.edu.lb<br>
-        <a href="https://github.com/josephbakarji" target="_blank">GitHub</a> ·
-        <a href="https://scholar.google.com/citations?user=1zZNV48AAAAJ&hl=en" target="_blank">Google Scholar</a> ·
-        <a href="https://bakarji.substack.com" target="_blank">Substack</a> ·
-        <a href="https://soundcloud.com/user-343358875" target="_blank">SoundCloud</a>
+        Email: jb50 [at] aub.edu.lb<br>
+        <a href="https://github.com/josephbakarji" target="_blank" rel="noopener">GitHub</a> &middot;
+        <a href="https://scholar.google.com/citations?user=1zZNV48AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a> &middot;
+        <a href="https://www.linkedin.com/in/joseph-bakarji-62754314b/" target="_blank" rel="noopener">LinkedIn</a> &middot;
+        <a href="https://bakarji.substack.com" target="_blank" rel="noopener">Substack</a> &middot;
+        <a href="https://soundcloud.com/user-343358875" target="_blank" rel="noopener">SoundCloud</a>
       </p>
+
     </div>
   </div>
 </div>

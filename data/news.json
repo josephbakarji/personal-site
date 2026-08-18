@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "id": "20260721000001",
+      "date": "2026-07-21",
+      "kind": "talk",
+      "headline": "Digital Arabic Maqām Archive launch, presented by Dr. Khyam Allami at AUB.",
+      "link": "https://diarmaqar.netlify.app/",
+      "note": "Tonight 6:00 to 8:00 PM, Jassim El Qatami Engineering Lecture Hall (ELH), organized by the Music Intelligence Lab"
+    },
+    {
+      "id": "20260706000001",
+      "date": "2026-07-06",
+      "kind": "demo",
+      "headline": "Piano of Life. A video plus a Game of Life plus filtered piano audio.",
+      "link": "/articles/?slug=piano-of-life",
+      "note": "standalone tool, MIT, drop your own video"
+    },
+    {
+      "id": "20260424000001",
+      "date": "2026-04-24",
+      "kind": "paper",
+      "headline": "Action-conditioned information theory: draft complete, targeting Entropy.",
+      "link": "/publications/",
+      "note": null
+    },
+    {
+      "id": "20260301000001",
+      "date": "2026-03-01",
+      "kind": "talk",
+      "headline": "Bach Latent Spaces accepted at the EAIM 2026 workshop.",
+      "link": "https://openreview.net/forum?id=HXm5wUgRib",
+      "note": "with Najla Sadek"
+    }
+  ],
+  "last_updated": "2026-07-27"
+}

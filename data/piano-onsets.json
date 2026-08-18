@@ -1,0 +1,110 @@
+{
+  "duration": 20.0,
+  "sr": 22050,
+  "onsets": [
+    {
+      "t": 0.3483,
+      "midi": 74,
+      "note": "D5",
+      "confidence": 0.105
+    },
+    {
+      "t": 1.2771,
+      "midi": 57,
+      "note": "A3",
+      "confidence": 0.116
+    },
+    {
+      "t": 4.0635,
+      "midi": 64,
+      "note": "E4",
+      "confidence": 0.08
+    },
+    {
+      "t": 5.6192,
+      "midi": 72,
+      "note": "C5",
+      "confidence": 0.146
+    },
+    {
+      "t": 7.3375,
+      "midi": 72,
+      "note": "C5",
+      "confidence": 0.112
+    },
+    {
+      "t": 7.7787,
+      "midi": 72,
+      "note": "C5",
+      "confidence": 0.105
+    },
+    {
+      "t": 8.5682,
+      "midi": 74,
+      "note": "D5",
+      "confidence": 0.1
+    },
+    {
+      "t": 9.2183,
+      "midi": 72,
+      "note": "C5",
+      "confidence": 0.121
+    },
+    {
+      "t": 9.9149,
+      "midi": 76,
+      "note": "E5",
+      "confidence": 0.119
+    },
+    {
+      "t": 11.0527,
+      "midi": 76,
+      "note": "E5",
+      "confidence": 0.086
+    },
+    {
+      "t": 12.8639,
+      "midi": 74,
+      "note": "D5",
+      "confidence": 0.115
+    },
+    {
+      "t": 13.5837,
+      "midi": 69,
+      "note": "A4",
+      "confidence": 0.205
+    },
+    {
+      "t": 14.884,
+      "midi": 69,
+      "note": "A4",
+      "confidence": 0.183
+    },
+    {
+      "t": 15.8128,
+      "midi": 52,
+      "note": "E3",
+      "confidence": 0.065
+    },
+    {
+      "t": 17.1828,
+      "midi": 74,
+      "note": "D5",
+      "confidence": 0.078
+    },
+    {
+      "t": 18.7385,
+      "midi": 67,
+      "note": "G4",
+      "confidence": 0.062
+    },
+    {
+      "t": 19.3887,
+      "midi": 72,
+      "note": "C5",
+      "confidence": 0.131
+    }
+  ],
+  "video": "piano.mp4",
+  "segment_duration": 20.0
+}
