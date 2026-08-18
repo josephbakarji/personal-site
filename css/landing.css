@@ -27,31 +27,35 @@ body {
   min-height: calc(100vh - 62px); /* subtract nav bar height */
 }
 
-/* Piano video slice: taller strip, positioned to show hammers down to strike point */
+/* Piano video slice: a strip with a FIXED-aspect video inside so the
+   visible hammer band stays constant regardless of window width.
+   Video is 1400 x heightOfStrip (very wide aspect), centered
+   horizontally in the strip so `object-fit: cover` on it always crops
+   the same hammer band. */
 .hero-video-strip {
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 260px;
   overflow: hidden;
   background: #000;
   flex-shrink: 0;
 }
 
-.hero-video-strip video {
+.hero-video-strip video,
+.hero-video-strip .det-overlay {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1400px;
+  max-width: none;   /* override the global img/video max-width: 100% */
   height: 100%;
   object-fit: cover;
-  object-position: center 68%;
+  object-position: center 72%;
   display: block;
 }
 
 .hero-video-strip .det-overlay {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   pointer-events: none;
   z-index: 2;
 }
@@ -722,32 +726,15 @@ body {
     min-height: auto;
   }
 
-  /* Video strip: wider than the container so cover crops to the
-     hammer band. Container overflow hidden clips the excess.
-     Override base inset:0 with explicit left + right:auto so the
-     custom width takes effect. */
+  /* Mobile: shorter strip + smaller fixed video width. Video stays
+     centered and cover-crops to the hammer band consistently. */
   .hero-video-strip {
-    height: 220px;
-    overflow: hidden;
-    position: relative;
+    height: 200px;
   }
-  .hero-video-strip video {
-    position: absolute;
-    top: 0;
-    left: -40%;
-    right: auto;
-    width: 180%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 68%;
-  }
+  .hero-video-strip video,
   .hero-video-strip .det-overlay {
-    position: absolute;
-    top: 0;
-    left: -40%;
-    right: auto;
-    width: 180%;
-    height: 100%;
+    width: 900px;
+    object-position: center 78%;
   }
 
   .hero-clearance { height: 32px; }
