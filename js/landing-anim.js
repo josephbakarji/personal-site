@@ -317,12 +317,46 @@
     detCtx.strokeRect(0.5, y0 + 0.5, w - 1, y1 - y0 - 1);
   }
 
+  // ── RAF lifecycle: only tick while the video is actually playing.
+  // Detection + roll bars + GoL evolution all stop when video is paused
+  // or ended so the page uses ~0 CPU when idle.
+  let rafHandle = null;
+  let running = false;
+
+  function startLoop() {
+    if (running) return;
+    running = true;
+    lastFrameMs = 0;
+    rafHandle = requestAnimationFrame(frame);
+  }
+  function stopLoop() {
+    running = false;
+    if (rafHandle) { cancelAnimationFrame(rafHandle); rafHandle = null; }
+  }
+
+  function syncPauseLabel() {
+    if (!pauseBtn) return;
+    if (video.paused || video.ended) {
+      pauseBtn.textContent = 'play';
+      pauseBtn.setAttribute('aria-pressed', 'true');
+    } else {
+      pauseBtn.textContent = 'pause';
+      pauseBtn.setAttribute('aria-pressed', 'false');
+    }
+  }
+
   // Controls
   function wireControls() {
     if (pauseBtn) {
       pauseBtn.addEventListener('click', () => {
-        if (video.paused) { video.play(); pauseBtn.textContent = 'pause'; pauseBtn.setAttribute('aria-pressed', 'false'); }
-        else              { video.pause(); pauseBtn.textContent = 'play';  pauseBtn.setAttribute('aria-pressed', 'true'); }
+        if (video.paused || video.ended) {
+          // Ended means we hit the end of the single-pass playback;
+          // seek to 0 and play again.
+          if (video.ended) video.currentTime = 0;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
       });
     }
     if (audioBtn) {
@@ -332,23 +366,29 @@
         audioBtn.setAttribute('aria-pressed', video.muted ? 'false' : 'true');
       });
     }
+    // Video state drives the RAF loop and the pause button label
+    video.addEventListener('play',  () => { syncPauseLabel(); startLoop(); });
+    video.addEventListener('playing', () => { syncPauseLabel(); startLoop(); });
+    video.addEventListener('pause', () => { syncPauseLabel(); stopLoop(); });
+    video.addEventListener('ended', () => { syncPauseLabel(); stopLoop(); });
   }
 
-  // Main loop
+  // Main loop: only runs while video is playing
   function frame(now) {
+    if (!running) return;
     const dt = Math.min(50, now - lastFrameMs || 16);
     lastFrameMs = now;
     drawDetectionOverlay();
-    const hits = detectStrikes(now);
-    // Strikes spawn roll bars in the clearance band; when they reach the
-    // bottom of the clearance, they seed GoL cells at the same column.
-    for (const h of hits) {
-      if (rollCanvas) spawnRollBar(h.col, h.strength);
-      else            seedGolTop(h.col, h.strength);
+    if (!video.paused && !video.ended) {
+      const hits = detectStrikes(now);
+      for (const h of hits) {
+        if (rollCanvas) spawnRollBar(h.col, h.strength);
+        else            seedGolTop(h.col, h.strength);
+      }
     }
     drawRollBars(dt);
     drawGol(dt);
-    requestAnimationFrame(frame);
+    rafHandle = requestAnimationFrame(frame);
   }
 
   function init() {
@@ -359,8 +399,19 @@
     wireControls();
     resizeAll();
     window.addEventListener('resize', resizeAll);
-    video.play().catch(() => {});
-    requestAnimationFrame(frame);
+
+    // Video is not looped: it plays once through and stops. On mobile
+    // we don't autoplay at all (poster shows until the user taps play)
+    // so first paint is cheap and the phone doesn't burn power.
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    video.loop = false;
+    if (isMobile) {
+      video.pause();
+      syncPauseLabel();
+    } else {
+      video.play().catch(() => { syncPauseLabel(); });
+    }
+    // startLoop will fire when the 'play' event lands.
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
