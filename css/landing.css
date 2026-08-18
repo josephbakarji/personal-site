@@ -723,22 +723,31 @@ body {
   }
 
   /* Video strip: wider than the container so cover crops to the
-     hammer band. Container overflow hidden clips the excess. */
+     hammer band. Container overflow hidden clips the excess.
+     Override base inset:0 with explicit left + right:auto so the
+     custom width takes effect. */
   .hero-video-strip {
     height: 220px;
     overflow: hidden;
     position: relative;
   }
   .hero-video-strip video {
+    position: absolute;
+    top: 0;
+    left: -40%;
+    right: auto;
     width: 180%;
     height: 100%;
-    margin-left: -40%;
     object-fit: cover;
     object-position: center 68%;
   }
   .hero-video-strip .det-overlay {
-    width: 180%;
+    position: absolute;
+    top: 0;
     left: -40%;
+    right: auto;
+    width: 180%;
+    height: 100%;
   }
 
   .hero-clearance { height: 32px; }

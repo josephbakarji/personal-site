@@ -86,6 +86,8 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
+  // Full reset: wipes the grid and reallocates. Only used when
+  // the grid dimensions (cols × rows) actually change.
   function resetGol() {
     const rect = golCanvas.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
@@ -100,11 +102,29 @@
     gol.tickMs = 0;
   }
 
+  // Soft resync: recalculate cell sizes to fit the new canvas
+  // dimensions, but preserve grid state as long as (cols, rows)
+  // are unchanged. Mobile address-bar toggles fire resize events
+  // that must NOT wipe the substrate.
+  function fitGolPreservingState() {
+    const rect = golCanvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const newCols = cfg.nCols;
+    const newCellW = rect.width / newCols;
+    const newRows = Math.max(6, Math.floor(rect.height / newCellW));
+    if (!gol.grid || newCols !== gol.cols || newRows !== gol.rows) {
+      resetGol();
+    } else {
+      gol.cellW = newCellW;
+      gol.cellH = newCellW;
+    }
+  }
+
   function resizeAll() {
     fitCanvas(golCanvas);
     if (detOverlay) fitCanvas(detOverlay);
     if (rollCanvas) fitCanvas(rollCanvas);
-    resetGol();
+    fitGolPreservingState();
   }
 
   // Piano roll bars falling through the clearance band

@@ -109,16 +109,15 @@ a:hover {
 @media (max-width: 768px) {
   .nav {
     padding: var(--space-sm) var(--space-md);
-    /* Allow horizontal scroll rather than losing items or the ~/ prefix. */
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    flex-wrap: wrap;
+    row-gap: 6px;
+    align-items: flex-start;
   }
-  .nav::-webkit-scrollbar { display: none; }
 
   .nav-links {
-    gap: var(--space-md);
-    flex-wrap: nowrap;
+    gap: 10px 14px;
+    flex-wrap: wrap;
+    row-gap: 6px;
   }
 
   .nav-links a {
@@ -135,7 +134,7 @@ a:hover {
 
 @media (max-width: 480px) {
   .nav-links {
-    gap: 12px;
+    gap: 8px 10px;
   }
   .nav-links a {
     font-size: 10.5px;
