@@ -716,16 +716,57 @@ body {
 /* ---------- Responsive ---------- */
 
 @media (max-width: 768px) {
-  .hero { min-height: calc(100vh - 52px); }
-  .hero-overlay { padding: var(--space-md) var(--space-md); width: calc(100% - var(--space-md) * 2); }
-  .hero-intro { font-size: 1rem; }
+  /* Hero: let it grow to fit content. GoL zone gets a min-height
+     below the flowing overlay so the substrate stays visible. */
+  .hero {
+    min-height: auto;
+  }
 
-  .hero-video-strip { height: 220px; }
+  /* Video strip: wider than the container so cover crops to the
+     hammer band. Container overflow hidden clips the excess. */
+  .hero-video-strip {
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-video-strip video {
+    width: 180%;
+    height: 100%;
+    margin-left: -40%;
+    object-fit: cover;
+    object-position: center 68%;
+  }
+  .hero-video-strip .det-overlay {
+    width: 180%;
+    left: -40%;
+  }
+
   .hero-clearance { height: 32px; }
 
+  /* Overlay: static flow so it sits at top of the GoL zone,
+     letting the substrate render around and below it. */
+  .hero-gol {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: var(--space-lg);
+  }
+  .hero-overlay {
+    position: static;
+    transform: none;
+    max-width: none;
+    width: calc(100% - var(--space-md) * 2);
+    padding: var(--space-md) var(--space-md);
+    margin: 0 auto var(--space-lg);
+  }
+  .hero-intro { font-size: 1rem; }
+
+  /* Controls stay inside the video strip; smaller on mobile so
+     they don't dominate the small viewport. */
   .hero-controls {
     right: var(--space-sm);
-    bottom: var(--space-sm);
+    top: var(--space-sm);
   }
   .hero-ctrl {
     font-size: 10px;
@@ -746,9 +787,13 @@ body {
   .writing-item a {
     grid-template-columns: 90px 1fr;
   }
+
+  /* Landing labs grid: single column at mobile width. */
+  .labs-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
-  .nav--landing .nav-links a::before { content: ''; }
-  .hero-intro { font-size: 1rem; }
+  .hero-intro { font-size: 0.95rem; }
 }

@@ -535,7 +535,20 @@
     font-size: 1.3rem;
   }
 
-  .project-grid {
+  .project-grid,
+  .article-list,
+  .pub-item,
+  .team-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Article-content prose stays inside the viewport */
+  .article-content {
+    max-width: 100%;
+  }
+
+  .article-content pre {
+    max-width: 100%;
+    overflow-x: auto;
   }
 }

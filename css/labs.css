@@ -79,13 +79,27 @@
   border-bottom-color: var(--accent-primary);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .lab-hero {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
     text-align: left;
   }
   .lab-hero-logo { max-width: 180px; }
+
+  /* All lab grids collapse to one column on mobile */
+  .topics-grid,
+  .lab-team,
+  .funders {
+    grid-template-columns: 1fr;
+  }
+
+  .funders {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .funder { min-width: 0; }
 }
 
 /* ─── Section headers within a lab page ─── */
