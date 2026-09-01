@@ -92,7 +92,7 @@
         }
       ],
       "video": null,
-      "featured": false,
+      "featured": true,
       "published": true
     },
     {
@@ -132,9 +132,9 @@
       "published": true
     },
     {
-      "id": "soniqflow",
+      "id": "musical-flow-rope",
       "theme": "music",
-      "title": "Rope Flow Music (SoniqFlow)",
+      "title": "The Musical Flow Rope",
       "thumbnail": "assets/projects/cand-40.png",
       "tags": [
         "Digital Music Interfaces",
@@ -295,7 +295,7 @@
         }
       ],
       "video": null,
-      "featured": false,
+      "featured": true,
       "published": true
     },
     {
