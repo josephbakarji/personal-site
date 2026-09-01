@@ -153,9 +153,16 @@
           "label": "NeurIPS Creative AI submission (PDF)",
           "href": "assets/papers/rope-flow-music-neurips-creative-ai.pdf",
           "type": "paper"
+        },
+        {
+          "label": "YouTube video",
+          "href": "https://www.youtube.com/watch?v=UIkylBomf_M",
+          "type": "video"
         }
       ],
-      "video": null,
+      "video": {
+        "url": "https://www.youtube.com/watch?v=UIkylBomf_M"
+      },
       "featured": true,
       "published": true
     },

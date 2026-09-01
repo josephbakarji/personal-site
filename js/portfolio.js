@@ -105,8 +105,13 @@
       links.map(l => {
         const type = inferType(l);
         const icon = ICONS[type] || ICONS.site;
-        const ext  = isExternal(l.href) ? ' target="_blank" rel="noopener"' : '';
-        return `<li><a class="portfolio-link portfolio-link--${type}" href="${esc(l.href)}"${ext}>${icon}<span>${esc(l.label)}</span></a></li>`;
+        const external = isExternal(l.href);
+        const ext  = external ? ' target="_blank" rel="noopener"' : '';
+        // Local hrefs in portfolio.json are repo-root-relative (same convention
+        // as thumbnails/videos above); this page lives at /projects/, so prepend
+        // ../ for non-external URLs.
+        const href = external ? l.href : `../${l.href}`;
+        return `<li><a class="portfolio-link portfolio-link--${type}" href="${esc(href)}"${ext}>${icon}<span>${esc(l.label)}</span></a></li>`;
       }).join('')
     }</ul>`;
   }
