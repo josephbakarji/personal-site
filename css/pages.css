@@ -17,7 +17,8 @@
   font-family: var(--font-serif);
   font-size: 1.6rem;
   font-weight: 600;
-  margin-bottom: var(--space-lg);
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
 }
 
 .page-title::before {
@@ -241,6 +242,91 @@
   text-align: center;
 }
 
+/* Portrait on the About page: floats to the right of the opening
+   paragraphs on wide screens, stacks above on narrow ones. Gracefully
+   hides when the image isn't in place yet (see is-empty). */
+.about-portrait {
+  float: right;
+  width: 200px;
+  margin: 4px 0 var(--space-md) var(--space-lg);
+  text-align: center;
+}
+.about-portrait img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  display: block;
+}
+.about-portrait-placeholder {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  padding: var(--space-md);
+  border: 1px dashed var(--border-default);
+  border-radius: 8px;
+  aspect-ratio: 4 / 5;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.5;
+}
+.about-portrait.is-empty img { display: none; }
+.about-portrait.is-empty .about-portrait-placeholder { display: flex; }
+
+/* CV quick-links row that sits under the formal bio */
+.about-cv-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  margin: var(--space-md) 0 var(--space-xl);
+}
+/* Higher specificity (.article-content a.about-cv-btn) so the inherited
+   accent-color from `.article-content a` doesn't paint the button label
+   the same colour as the button background. */
+.article-content a.about-cv-btn,
+a.about-cv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  border-radius: 6px;
+  text-decoration: none;
+  text-decoration-color: transparent;
+  border-bottom: none;
+  transition: background 0.12s, transform 0.12s;
+}
+.article-content a.about-cv-btn:hover,
+a.about-cv-btn:hover {
+  background: #7d5f2e;
+  color: var(--bg-primary);
+  transform: translateY(-1px);
+}
+
+/* Soft divider between the CV block and the personal narrative */
+.about-divider {
+  border: 0;
+  border-top: 1px dashed var(--border-default);
+  margin: var(--space-xl) auto;
+  max-width: 200px;
+}
+@media (max-width: 640px) {
+  .about-portrait {
+    float: none;
+    width: 60%;
+    max-width: 220px;
+    margin: 0 auto var(--space-md);
+  }
+}
+
 .article-content figcaption {
   color: var(--text-muted);
   font-size: var(--font-size-xs);
@@ -253,6 +339,12 @@
   margin: var(--space-lg) 0;
   overflow-x: auto;
   padding: var(--space-sm) 0;
+}
+/* Wrapper injected by the markdown renderer around multi-line $$...$$ so
+   the display block sits on its own line before KaTeX auto-renders it. */
+.article-content .math-block {
+  text-align: center;
+  margin: var(--space-lg) 0;
 }
 
 /* Citations */

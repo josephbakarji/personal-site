@@ -3,32 +3,41 @@
     "name": "Joseph Bakarji",
     "affiliation": "American University of Beirut",
     "scholar_id": "1zZNV48AAAAJ",
-    "citedby": 438,
+    "citedby": 476,
     "h_index": 8,
-    "i10_index": 6
+    "i10_index": 7
   },
   "publications": [
     {
       "title": "Common task framework for a critical evaluation of scientific machine learning algorithms",
-      "authors": "Philippe Wyder and Judah Goldfeder and Alexey Yermakov and Yue Zhao and Stefano Riva and Jan Williams and David Zoro and Amy Rude and Matteo Tomasetto and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and Nathan Kutz",
+      "authors": "P. Wyder and J. Goldfeder and A. Yermakov and Y. Zhao and S. Riva and J. Williams and D. Zoro and A. Rude and M. Tomasetto and J. Germany and J. Bakarji and G. Maierhofer and M. Cranmer and N. Kutz",
       "year": 2026,
       "venue": "Advances in Neural Information Processing Systems",
-      "citations": 15,
+      "citations": 20,
       "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/f908bc294862a555413fbe43ff08933f-Abstract-Datasets_and_Benchmarks_Track.html",
       "eprint": ""
     },
     {
+      "title": "The seismic wavefield common task framework",
+      "authors": "A. Yermakov and Y. Zhao and M. Denolle and Y. Ni and P. Wyder and J. Goldfeder and S. Riva and J. Williams and D. Zoro and A. Rude and M. Tomasetto and J. Germany and J. Bakarji and G. Maierhofer and M. Cranmer and N. Kutz",
+      "year": 2026,
+      "venue": "International Conference on Learning Representations",
+      "citations": 8,
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/fb4a7e3522363907b26a86cc5be627ac-Abstract-Conference.html",
+      "eprint": ""
+    },
+    {
       "title": "CTF4Nuclear: Common Task Framework for Nuclear Fission and Fusion Models",
-      "authors": "Stefano Riva and Carolina Introini and Antonio Cammi and Dean Price and Alexey Yermakov and Yue Zhao and Philippe M Wyder and Judah Goldfeder and Jan Williams and Amy Sara Rude and Matteo Tomasetto and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and J Nathan Kutz",
+      "authors": "S. Riva and C. Introini and A. Cammi and D. Price and A. Yermakov and Y. Zhao and P. M. Wyder and J. Goldfeder and J. Williams and A. S. Rude and M. Tomasetto and J. Germany and J. Bakarji and G. Maierhofer and M. Cranmer and J. N. Kutz",
       "year": 2026,
       "venue": "arXiv preprint arXiv:2605.15549",
-      "citations": 4,
+      "citations": 5,
       "url": "https://arxiv.org/abs/2605.15549",
       "eprint": ""
     },
     {
       "title": "The Circle of Fifths as Latent Geometry in Bach's Well-Tempered Clavier",
-      "authors": "Najla Sadek and Joseph Bakarji",
+      "authors": "N. Sadek and J. Bakarji",
       "year": 2026,
       "venue": "1st International Workshop on Emerging AI Technologies for Music",
       "citations": 1,
@@ -37,7 +46,7 @@
     },
     {
       "title": "EML Trees Are Universal Approximators",
-      "authors": "Joe Germany and Elie Abdo and Joseph Bakarji",
+      "authors": "J. Germany and E. Abdo and J. Bakarji",
       "year": 2026,
       "venue": "arXiv preprint arXiv:2606.23179",
       "citations": 0,
@@ -46,7 +55,7 @@
     },
     {
       "title": "Discovery of Symbolic Hamiltonian Expressions with Buckingham-Symplectic Networks",
-      "authors": "Joe Germany and Joseph Bakarji and Sara Najem",
+      "authors": "J. Germany and J. Bakarji and S. Najem",
       "year": 2026,
       "venue": "arXiv preprint arXiv:2604.00576",
       "citations": 0,
@@ -55,7 +64,7 @@
     },
     {
       "title": "Statistical mechanics of dynamical system identification",
-      "authors": "Andrei A Klishin and Joseph Bakarji and J Nathan Kutz and Krithika Manohar",
+      "authors": "A. A. Klishin and J. Bakarji and J. N. Kutz and K. Manohar",
       "year": 2025,
       "venue": "Physical Review Research",
       "citations": 11,
@@ -63,17 +72,8 @@
       "eprint": ""
     },
     {
-      "title": "The Seismic Wavefield Common Task Framework",
-      "authors": "Alexey Yermakov and Yue Zhao and Marine Denolle and Yiyu Ni and Philippe M Wyder and Judah Goldfeder and Stefano Riva and Jan Williams and David Zoro and Amy Sara Rude and Matteo Tomasetto and Joe Germany and Joseph Bakarji and Georg Maierhofer and Miles Cranmer and J Nathan Kutz",
-      "year": 2025,
-      "venue": "arXiv preprint arXiv:2512.19927",
-      "citations": 7,
-      "url": "https://arxiv.org/abs/2512.19927",
-      "eprint": ""
-    },
-    {
-      "title": "Semantic Tree Inference on Text Corpa using a Nested Density Approach together with Large Language Model Embeddings",
-      "authors": "Thomas Haschka and Joseph Bakarji",
+      "title": "Discovering Multi-Scale Semantic Structure in Text Corpora Using Density-Based Trees and LLM Embeddings",
+      "authors": "T. Haschka and J. Bakarji",
       "year": 2025,
       "venue": "arXiv preprint arXiv:2512.23471",
       "citations": 0,
@@ -81,17 +81,26 @@
       "eprint": ""
     },
     {
+      "title": "Semantic Tree Inference on Text Corpa using a Nested Density Approach together with Large Language Model Embeddings",
+      "authors": "T. Haschka and J. Bakarji",
+      "year": 2025,
+      "venue": "arXiv preprint arXiv:2512.23471",
+      "citations": 0,
+      "url": "https://www.sciencestack.ai/paper/2512.23471",
+      "eprint": ""
+    },
+    {
       "title": "Role of physics in physics-informed machine learning",
-      "authors": "Abhishek Chandra and Joseph Bakarji and Daniel M Tartakovsky",
+      "authors": "A. Chandra and J. Bakarji and D. M. Tartakovsky",
       "year": 2024,
       "venue": "Journal of Machine Learning for Modeling and Computing",
-      "citations": 8,
+      "citations": 10,
       "url": "https://www.dl.begellhouse.com/journals/558048804a15188a,34cd19111b07668e,496e08dc3a24c314.html",
       "eprint": ""
     },
     {
-      "title": "Distilling data into code",
-      "authors": "Joseph Bakarji",
+      "title": "Distilling data into code: Algorithm discovery",
+      "authors": "J. Bakarji",
       "year": 2024,
       "venue": "Nature Computational Science",
       "citations": 0,
@@ -100,34 +109,34 @@
     },
     {
       "title": "Discovering governing equations from partial measurements with deep delay autoencoders",
-      "authors": "Joseph Bakarji and Kathleen Champion and J Nathan Kutz and Steven L Brunton",
+      "authors": "J. Bakarji and K. Champion and J. N. Kutz and S. L. Brunton",
       "year": 2023,
       "venue": "Proceedings of the Royal Society A, 2023",
-      "citations": 186,
-      "url": "https://royalsocietypublishing.org/doi/full/10.1098/rspa.2023.0422",
+      "citations": 202,
+      "url": "https://royalsocietypublishing.org/doi/pdf/10.1098/rspa.2023.0422",
       "eprint": ""
     },
     {
       "title": "Dimensionally consistent learning with Buckingham Pi",
-      "authors": "Joseph Bakarji and Jared Callaham and Steven L Brunton and J Nathan Kutz",
+      "authors": "J. Bakarji and J. Callaham and S. L. Brunton and J. N. Kutz",
       "year": 2022,
       "venue": "Nature Computational Science",
-      "citations": 94,
+      "citations": 104,
       "url": "https://www.nature.com/articles/s43588-022-00355-5",
       "eprint": ""
     },
     {
       "title": "Data-driven discovery of coarse-grained equations",
-      "authors": "Joseph Bakarji and Daniel M Tartakovsky",
+      "authors": "J. Bakarji and D. M. Tartakovsky",
       "year": 2021,
       "venue": "Journal of Computational Physics",
-      "citations": 46,
+      "citations": 47,
       "url": "https://www.sciencedirect.com/science/article/pii/S0021999121001145",
       "eprint": ""
     },
     {
       "title": "Unsupervised Learning of Dimensionless Groups and Minimally Parametrized Equations",
-      "authors": "Joseph Bakarji and Steven Brunton and Nathan Kutz and Jared Callaham",
+      "authors": "J. Bakarji and S. Brunton and N. Kutz and J. Callaham",
       "year": 2021,
       "venue": "APS Division of Fluid Dynamics Meeting Abstracts",
       "citations": 0,
@@ -136,7 +145,7 @@
     },
     {
       "title": "Stochastic pore collapse models in granular materials",
-      "authors": "Joseph Bakarji and Daniel M Tartakovsky",
+      "authors": "J. Bakarji and D. M. Tartakovsky",
       "year": 2020,
       "venue": "arXiv preprint arXiv:2002.12479",
       "citations": 6,
@@ -145,16 +154,16 @@
     },
     {
       "title": "Stochastic Multiscale Modeling of Complex Materials",
-      "authors": "Joseph Bakarji",
+      "authors": "J. Bakarji",
       "year": 2020,
       "venue": "",
-      "citations": 1,
+      "citations": 2,
       "url": "https://search.proquest.com/openview/f17117dfc17504aafc93032e2b36991c/1?pq-origsite=gscholar&cbl=44156",
       "eprint": ""
     },
     {
       "title": "Machine Learning for a Music Glove Instrument",
-      "authors": "Joseph Bakarji",
+      "authors": "J. Bakarji",
       "year": 2020,
       "venue": "arXiv preprint arXiv:2001.09551",
       "citations": 0,
@@ -163,7 +172,7 @@
     },
     {
       "title": "Microstructural heterogeneity drives reaction initiation in granular materials",
-      "authors": "Joseph Bakarji and Daniel M Tartakovsky",
+      "authors": "J. Bakarji and D. M. Tartakovsky",
       "year": 2019,
       "venue": "Applied physics letters",
       "citations": 9,
@@ -172,7 +181,7 @@
     },
     {
       "title": "Agent-based socio-hydrological hybrid modeling for water resource management",
-      "authors": "Joseph Bakarji and Daniel O’Malley and Velimir V Vesselinov",
+      "authors": "J. Bakarji and D. O’Malley and V. V. Vesselinov",
       "year": 2017,
       "venue": "Water Resources Management",
       "citations": 40,
@@ -181,7 +190,7 @@
     },
     {
       "title": "On the use of reverse Brownian motion to accelerate hybrid simulations",
-      "authors": "Joseph Bakarji and Daniel M Tartakovsky",
+      "authors": "J. Bakarji and D. M. Tartakovsky",
       "year": 2017,
       "venue": "Journal of Computational Physics",
       "citations": 6,
@@ -190,16 +199,16 @@
     },
     {
       "title": "When was it written?",
-      "authors": "Joseph Bakarji and Dimitrios Belivanis and Sepehr Nezami",
+      "authors": "J. Bakarji and D. Belivanis and S. Nezami",
       "year": 2017,
-      "venue": "JOURNAL OF MACHINE LEARNING CS229",
-      "citations": 2,
+      "venue": "Journal Of Machine Learning",
+      "citations": 3,
       "url": "https://cs229.stanford.edu/proj2017/final-reports/5241765.pdf",
       "eprint": ""
     },
     {
       "title": "Multiscale Simulations of Reactive Transport",
-      "authors": "Daniel M Tartakovsky and Joseph Bakarji",
+      "authors": "D. M. Tartakovsky and J. Bakarji",
       "year": 2014,
       "venue": "AGU Fall Meeting Abstracts",
       "citations": 0,
@@ -208,7 +217,7 @@
     },
     {
       "title": "A reduced-order model of a microfluidic transistor",
-      "authors": "Joseph Bakarji and Khoudor Keniar and Mohammad Cheikh and Issam Lakkis",
+      "authors": "J. Bakarji and K. Keniar and M. Cheikh and I. Lakkis",
       "year": 2013,
       "venue": "ASME International Mechanical Engineering Congress and Exposition",
       "citations": 2,
@@ -217,7 +226,7 @@
     },
     {
       "title": "Symbolic Hamiltonian Discovery with Buckingham-Symplectic Networks",
-      "authors": "Joe Germany and Sara Najem and Joseph Bakarji",
+      "authors": "J. Germany and S. Najem and J. Bakarji",
       "year": "",
       "venue": "Available at SSRN 7048502",
       "citations": 0,
@@ -226,7 +235,7 @@
     },
     {
       "title": "When Bigger isn't Better: The Role of Model-Data Complexity in Time Series Forecasts",
-      "authors": "Nga Yu Lo and Joseph Bakarji and Yue Zhao and J Nathan Kutz",
+      "authors": "N. Y. Lo and J. Bakarji and Y. Zhao and J. N. Kutz",
       "year": "",
       "venue": "",
       "citations": 0,
@@ -234,5 +243,5 @@
       "eprint": ""
     }
   ],
-  "fetched": "2026-07-10T16:26:20.136635"
+  "fetched": "2026-08-31T17:34:10.681644"
 }

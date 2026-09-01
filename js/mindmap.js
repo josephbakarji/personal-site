@@ -1,215 +1,240 @@
 /**
- * Mind Map visualization
- * Force-directed graph of core conceptual themes from the idiolect network.
- * Uses D3.js v7, One Dark palette.
+ * Themes network: force-directed tag co-occurrence graph.
+ * Source data: static snapshot exported from the Mirror app
+ * (data/tag-network.json). Warm-paper palette to match the site.
  */
 
 (function () {
   const container = document.getElementById('mindmap');
   if (!container) return;
 
-  // Idiolect network data (embedded to avoid CORS/fetch issues on static site)
-  const graphData = {
-    nodes: [
-      { id: 0, name: "action\nperception", count: 580, is_core: true },
-      { id: 1, name: "perception\nfield", count: 194, is_core: true },
-      { id: 2, name: "internal\nexternal", count: 156, is_core: true },
-      { id: 3, name: "external\nworld", count: 122, is_core: true },
-      { id: 4, name: "living\nthings", count: 111, is_core: true },
-      { id: 5, name: "building\nblocks", count: 84, is_core: true },
-      { id: 6, name: "space\ntime", count: 69, is_core: true },
-      { id: 7, name: "hypothesis\nclass", count: 68, is_core: true },
-      { id: 8, name: "boundary\nconditions", count: 50, is_core: false },
-      { id: 9, name: "multiple\nscales", count: 48, is_core: false },
-      { id: 10, name: "self\nnon-self", count: 3, is_core: false },
-      { id: 11, name: "coarse\ngraining", count: 2, is_core: false }
-    ],
-    links: [
-      { source: 0, target: 5, value: 71, strength: 0.845 },
-      { source: 0, target: 9, value: 43, strength: 0.896 },
-      { source: 0, target: 4, value: 95, strength: 0.856 },
-      { source: 0, target: 2, value: 132, strength: 0.846 },
-      { source: 2, target: 4, value: 34, strength: 0.306 },
-      { source: 2, target: 1, value: 62, strength: 0.397 },
-      { source: 0, target: 1, value: 164, strength: 0.845 },
-      { source: 0, target: 7, value: 59, strength: 0.868 },
-      { source: 0, target: 6, value: 55, strength: 0.797 },
-      { source: 7, target: 9, value: 8, strength: 0.167 },
-      { source: 7, target: 6, value: 6, strength: 0.088 },
-      { source: 7, target: 4, value: 14, strength: 0.206 },
-      { source: 9, target: 6, value: 4, strength: 0.083 },
-      { source: 4, target: 9, value: 8, strength: 0.167 },
-      { source: 4, target: 6, value: 18, strength: 0.261 },
-      { source: 0, target: 8, value: 44, strength: 0.880 },
-      { source: 8, target: 7, value: 10, strength: 0.200 },
-      { source: 0, target: 3, value: 100, strength: 0.820 },
-      { source: 9, target: 1, value: 13, strength: 0.271 },
-      { source: 8, target: 2, value: 14, strength: 0.280 },
-      { source: 8, target: 1, value: 13, strength: 0.260 },
-      { source: 4, target: 1, value: 46, strength: 0.414 },
-      { source: 11, target: 6, value: 1, strength: 0.500 },
-      { source: 0, target: 11, value: 2, strength: 1.000 },
-      { source: 1, target: 6, value: 27, strength: 0.391 },
-      { source: 3, target: 4, value: 36, strength: 0.324 },
-      { source: 7, target: 1, value: 15, strength: 0.221 },
-      { source: 3, target: 7, value: 20, strength: 0.294 },
-      { source: 5, target: 2, value: 18, strength: 0.214 },
-      { source: 2, target: 6, value: 18, strength: 0.261 },
-      { source: 5, target: 3, value: 19, strength: 0.226 },
-      { source: 5, target: 9, value: 10, strength: 0.208 },
-      { source: 2, target: 9, value: 13, strength: 0.271 },
-      { source: 5, target: 4, value: 8, strength: 0.095 },
-      { source: 3, target: 1, value: 43, strength: 0.352 },
-      { source: 5, target: 1, value: 25, strength: 0.298 },
-      { source: 5, target: 7, value: 13, strength: 0.191 },
-      { source: 3, target: 6, value: 9, strength: 0.130 },
-      { source: 3, target: 2, value: 11, strength: 0.090 },
-      { source: 5, target: 6, value: 7, strength: 0.101 },
-    ]
-  };
-
-  // Color mapping for nodes
-  const coreColors = [
-    '#c4a46c', // action perception - warm gold
-    '#a589b8', // perception field - lavender
-    '#d4b06a', // internal external - amber
-    '#7aaca2', // external world - teal
-    '#8aad7a', // living things - green
-    '#c97a6e', // building blocks - terracotta
-    '#7a9ec4', // space time - steel blue
-    '#a589b8', // hypothesis class - lavender
-  ];
-
-  function getNodeColor(d) {
-    if (d.is_core && d.id < coreColors.length) return coreColors[d.id];
-    return '#6b645c';
-  }
-
-  function getNodeRadius(d) {
-    return Math.max(6, Math.sqrt(d.count) * 1.5);
-  }
-
-  // Setup SVG
-  const width = container.clientWidth;
-  const height = container.clientHeight || 400;
-
-  const svg = d3.select(container)
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height)
-    .attr('viewBox', `0 0 ${width} ${height}`);
-
-  // Glow filter
-  const defs = svg.append('defs');
-  const filter = defs.append('filter').attr('id', 'glow');
-  filter.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'coloredBlur');
-  const feMerge = filter.append('feMerge');
-  feMerge.append('feMergeNode').attr('in', 'coloredBlur');
-  feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
-
-  // Force simulation
-  const simulation = d3.forceSimulation(graphData.nodes)
-    .force('link', d3.forceLink(graphData.links)
-      .id(d => d.id)
-      .distance(d => 80 / (d.strength + 0.1))
-      .strength(d => d.strength * 0.3)
-    )
-    .force('charge', d3.forceManyBody().strength(-200))
-    .force('center', d3.forceCenter(width / 2, height / 2))
-    .force('collision', d3.forceCollide().radius(d => getNodeRadius(d) + 15));
-
-  // Links
-  const link = svg.append('g')
-    .selectAll('line')
-    .data(graphData.links)
-    .join('line')
-    .attr('stroke', 'rgba(196, 164, 108, 0.10)')
-    .attr('stroke-width', d => Math.max(0.5, d.value / 40));
-
-  // Nodes
-  const node = svg.append('g')
-    .selectAll('g')
-    .data(graphData.nodes)
-    .join('g')
-    .call(d3.drag()
-      .on('start', dragstarted)
-      .on('drag', dragged)
-      .on('end', dragended)
-    );
-
-  node.append('circle')
-    .attr('r', d => getNodeRadius(d))
-    .attr('fill', d => getNodeColor(d))
-    .attr('fill-opacity', d => d.is_core ? 0.8 : 0.4)
-    .attr('stroke', d => getNodeColor(d))
-    .attr('stroke-width', 1)
-    .attr('stroke-opacity', 0.5)
-    .style('filter', d => d.is_core ? 'url(#glow)' : 'none')
-    .style('cursor', 'grab');
-
-  // Labels
-  node.each(function(d) {
-    const lines = d.name.split('\n');
-    const g = d3.select(this);
-    lines.forEach((line, i) => {
-      g.append('text')
-        .text(line)
-        .attr('dy', `${(i - (lines.length - 1) / 2) * 1.1 + 0.35}em`)
-        .attr('text-anchor', 'middle')
-        .attr('fill', d.is_core ? '#e8e2d9' : '#9a938a')
-        .attr('font-size', d.is_core ? '9px' : '8px')
-        .attr('font-family', "'JetBrains Mono', monospace")
-        .attr('pointer-events', 'none')
-        .attr('y', getNodeRadius(d) + 12);
+  fetch('../data/tag-network.json', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(render)
+    .catch(err => {
+      console.warn('tag-network load failed', err);
+      container.innerHTML = '<p style="padding:1rem;color:var(--text-muted);font-family:var(--font-mono);font-size:12px;">could not load themes network.</p>';
     });
-  });
 
-  // Tick
-  simulation.on('tick', () => {
-    link
-      .attr('x1', d => d.source.x)
-      .attr('y1', d => d.source.y)
-      .attr('x2', d => d.target.x)
-      .attr('y2', d => d.target.y);
+  function render(data) {
+    const nodes = data.nodes.map(n => ({ ...n }));
+    const links = data.links.map(l => ({ ...l }));
 
-    node.attr('transform', d => {
-      d.x = Math.max(30, Math.min(width - 30, d.x));
-      d.y = Math.max(30, Math.min(height - 30, d.y));
-      return `translate(${d.x},${d.y})`;
+    const palette = {
+      bg: 'transparent',
+      node: '#a6844e',         // gold accent
+      nodeAlt: '#7aaca2',      // teal
+      nodeSmall: '#8a7f6f',    // muted brown
+      link: 'rgba(120, 96, 60, 0.14)',
+      linkHi: 'rgba(166, 132, 78, 0.85)',
+      nodeHi: '#c97a6e',       // terracotta
+      textDim: '#7d746a',
+      textDefault: '#3a352d',
+      textHi: '#1c1b1f',
+    };
+
+    const width = container.clientWidth;
+    const height = container.clientHeight || 520;
+
+    // Clear anything previously rendered
+    container.innerHTML = '';
+
+    const svg = d3.select(container).append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .style('display', 'block');
+
+    // Zoom + pan
+    const g = svg.append('g');
+    const zoom = d3.zoom().scaleExtent([0.3, 4])
+      .on('zoom', (e) => g.attr('transform', e.transform));
+    svg.call(zoom);
+    svg.on('dblclick.zoom', null);
+
+    // Glow filter for large nodes
+    const defs = svg.append('defs');
+    const glow = defs.append('filter').attr('id', 'tn-glow')
+      .attr('x', '-50%').attr('y', '-50%').attr('width', '200%').attr('height', '200%');
+    glow.append('feGaussianBlur').attr('stdDeviation', 2.5).attr('result', 'blur');
+    const merge = glow.append('feMerge');
+    merge.append('feMergeNode').attr('in', 'blur');
+    merge.append('feMergeNode').attr('in', 'SourceGraphic');
+
+    const radius = c => Math.max(4, Math.log(c + 1) * 3.6 + 2);
+    const nodeColor = d => {
+      if (d.count >= 200) return palette.node;
+      if (d.count >= 100) return palette.nodeAlt;
+      return palette.nodeSmall;
+    };
+
+    const sim = d3.forceSimulation(nodes)
+      .force('link', d3.forceLink(links)
+        .id(d => d.id)
+        .distance(d => 60 + (1 - (d.strength || 0.3)) * 60)
+        .strength(d => Math.min(0.6, (d.strength || 0.3) * 0.5)))
+      .force('charge', d3.forceManyBody().strength(d => -radius(d.count) * 12).distanceMax(320))
+      .force('center', d3.forceCenter(width / 2, height / 2).strength(0.05))
+      .force('collide', d3.forceCollide().radius(d => radius(d.count) + 5).strength(0.75))
+      .force('x', d3.forceX(width / 2).strength(0.04))
+      .force('y', d3.forceY(height / 2).strength(0.04))
+      .alphaDecay(0.02)
+      .velocityDecay(0.42);
+
+    const linkSel = g.append('g').attr('stroke-linecap', 'round')
+      .selectAll('line')
+      .data(links)
+      .join('line')
+      .attr('stroke', palette.link)
+      .attr('stroke-opacity', d => Math.max(0.12, (d.strength || 0.2) * 0.55))
+      .attr('stroke-width', d => Math.max(0.5, Math.log(d.value + 1) * 0.9));
+
+    const nodeSel = g.append('g')
+      .selectAll('g')
+      .data(nodes)
+      .join('g')
+      .style('cursor', 'grab')
+      .call(d3.drag()
+        .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+        .on('drag',  (e, d) => { d.fx = e.x; d.fy = e.y; })
+        .on('end',   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
+
+    nodeSel.append('circle')
+      .attr('r', d => radius(d.count))
+      .attr('fill', d => nodeColor(d))
+      .attr('fill-opacity', 0.82)
+      .attr('stroke', d => nodeColor(d))
+      .attr('stroke-opacity', 0.5)
+      .attr('stroke-width', 1)
+      .style('filter', d => d.count >= 120 ? 'url(#tn-glow)' : 'none');
+
+    // Only label the top ~40% of nodes to avoid clutter
+    const counts = nodes.map(n => n.count).sort(d3.ascending);
+    const labelThresh = d3.quantile(counts, 0.55) || 0;
+
+    nodeSel.filter(d => d.count >= labelThresh)
+      .append('text')
+      .text(d => d.name.replace(/_/g, ' '))
+      .attr('dy', d => radius(d.count) + 10)
+      .attr('text-anchor', 'middle')
+      .attr('fill', palette.textDefault)
+      .attr('font-family', "'JetBrains Mono', ui-monospace, monospace")
+      .attr('font-size', d => Math.min(11, 7.5 + Math.log(d.count + 1) * 0.55) + 'px')
+      .attr('pointer-events', 'none')
+      .style('paint-order', 'stroke')
+      .style('stroke', 'var(--bg-primary, #faf8f3)')
+      .style('stroke-width', '3px')
+      .style('stroke-linejoin', 'round');
+
+    // Adjacency for hover highlight
+    const adj = new Map();
+    links.forEach(l => {
+      const s = typeof l.source === 'object' ? l.source.id : l.source;
+      const t = typeof l.target === 'object' ? l.target.id : l.target;
+      if (!adj.has(s)) adj.set(s, new Set());
+      if (!adj.has(t)) adj.set(t, new Set());
+      adj.get(s).add(t); adj.get(t).add(s);
     });
-  });
 
-  // Drag functions
-  function dragstarted(event, d) {
-    if (!event.active) simulation.alphaTarget(0.3).restart();
-    d.fx = d.x;
-    d.fy = d.y;
+    // Tooltip
+    container.style.position = 'relative';
+    const tip = document.createElement('div');
+    Object.assign(tip.style, {
+      position: 'absolute', pointerEvents: 'none', opacity: '0',
+      background: 'var(--bg-primary, #faf8f3)',
+      border: '1px solid var(--border-default, #d4c9b3)',
+      borderRadius: '6px',
+      padding: '6px 10px',
+      color: 'var(--text-primary, #1c1b1f)',
+      fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+      fontSize: '11px',
+      boxShadow: '0 4px 12px rgba(28,27,31,0.12)',
+      transition: 'opacity 0.15s ease',
+      zIndex: '5',
+      whiteSpace: 'nowrap',
+    });
+    container.appendChild(tip);
+
+    nodeSel.on('mouseover', function (event, d) {
+      const nbrs = adj.get(d.id) || new Set();
+      nodeSel.select('circle')
+        .attr('fill-opacity', n => n.id === d.id ? 1 : nbrs.has(n.id) ? 0.85 : 0.15)
+        .attr('fill', n => n.id === d.id ? palette.nodeHi : nodeColor(n));
+      nodeSel.selectAll('text')
+        .attr('fill-opacity', n => (n.id === d.id || nbrs.has(n.id)) ? 1 : 0.15);
+      linkSel
+        .attr('stroke', l => {
+          const s = typeof l.source === 'object' ? l.source.id : l.source;
+          const t = typeof l.target === 'object' ? l.target.id : l.target;
+          return (s === d.id || t === d.id) ? palette.linkHi : palette.link;
+        })
+        .attr('stroke-opacity', l => {
+          const s = typeof l.source === 'object' ? l.source.id : l.source;
+          const t = typeof l.target === 'object' ? l.target.id : l.target;
+          return (s === d.id || t === d.id) ? 0.8 : 0.04;
+        });
+
+      const rect = container.getBoundingClientRect();
+      tip.textContent = `${d.name.replace(/_/g, ' ')}  ·  ${d.count} entr${d.count === 1 ? 'y' : 'ies'}`;
+      tip.style.left = (event.clientX - rect.left + 12) + 'px';
+      tip.style.top  = (event.clientY - rect.top - 8) + 'px';
+      tip.style.opacity = '1';
+    })
+    .on('mousemove', function (event) {
+      const rect = container.getBoundingClientRect();
+      tip.style.left = (event.clientX - rect.left + 12) + 'px';
+      tip.style.top  = (event.clientY - rect.top - 8) + 'px';
+    })
+    .on('mouseout', function () {
+      nodeSel.select('circle')
+        .attr('fill-opacity', 0.82)
+        .attr('fill', n => nodeColor(n));
+      nodeSel.selectAll('text').attr('fill-opacity', 1);
+      linkSel
+        .attr('stroke', palette.link)
+        .attr('stroke-opacity', d => Math.max(0.12, (d.strength || 0.2) * 0.55));
+      tip.style.opacity = '0';
+    });
+
+    sim.on('tick', () => {
+      const pad = 20;
+      nodes.forEach(n => {
+        n.x = Math.max(pad, Math.min(width - pad, n.x));
+        n.y = Math.max(pad, Math.min(height - pad, n.y));
+      });
+      linkSel
+        .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+      nodeSel.attr('transform', d => `translate(${d.x},${d.y})`);
+    });
+
+    // Caption with stats
+    const stats = data.stats || {};
+    if (stats.total_recordings) {
+      const caption = document.createElement('div');
+      Object.assign(caption.style, {
+        position: 'absolute', bottom: '8px', left: '10px',
+        fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+        fontSize: '10.5px', color: 'var(--text-muted, #7d746a)',
+        pointerEvents: 'none', letterSpacing: '0.02em',
+      });
+      caption.textContent = `${stats.total_tags} themes  ·  ${stats.total_cooccurrences} links  ·  from ${stats.total_recordings} notes and recordings`;
+      container.appendChild(caption);
+    }
+
+    // Resize
+    let rt;
+    window.addEventListener('resize', () => {
+      clearTimeout(rt);
+      rt = setTimeout(() => {
+        const w = container.clientWidth;
+        const h = container.clientHeight || 520;
+        svg.attr('width', w).attr('height', h).attr('viewBox', `0 0 ${w} ${h}`);
+        sim.force('center', d3.forceCenter(w / 2, h / 2).strength(0.05));
+        sim.force('x', d3.forceX(w / 2).strength(0.04));
+        sim.force('y', d3.forceY(h / 2).strength(0.04));
+        sim.alpha(0.3).restart();
+      }, 120);
+    });
   }
-
-  function dragged(event, d) {
-    d.fx = event.x;
-    d.fy = event.y;
-  }
-
-  function dragended(event, d) {
-    if (!event.active) simulation.alphaTarget(0);
-    d.fx = null;
-    d.fy = null;
-  }
-
-  // Gentle float animation — periodically reheat slightly
-  let floatInterval = setInterval(() => {
-    simulation.alpha(0.05).restart();
-  }, 8000);
-
-  // Resize handler
-  function resize() {
-    const w = container.clientWidth;
-    const h = container.clientHeight || 400;
-    svg.attr('width', w).attr('height', h).attr('viewBox', `0 0 ${w} ${h}`);
-    simulation.force('center', d3.forceCenter(w / 2, h / 2));
-    simulation.alpha(0.3).restart();
-  }
-
-  window.addEventListener('resize', resize);
 })();

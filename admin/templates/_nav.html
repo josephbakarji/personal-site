@@ -1,0 +1,21 @@
+{#
+  Shared admin nav. Included by every admin template so the header
+  is identical everywhere. Templates set `current_nav` to one of the
+  keys below; the matching link picks up the .active class.
+  Dynamic page entries (about, labs, ...) are auto-generated from the
+  PAGES config injected by the context processor in server.py.
+#}
+<h1>
+  <span>~/admin/</span>
+  <a href="/admin/dashboard" class="nav-link {% if current_nav == 'dashboard' %}active{% endif %}">dashboard</a>
+  <a href="/admin/projects"  class="nav-link {% if current_nav == 'projects'  %}active{% endif %}">projects</a>
+  <a href="/admin/sessions"  class="nav-link {% if current_nav == 'sessions'  %}active{% endif %}">sessions</a>
+  <a href="/admin/"          class="nav-link {% if current_nav == 'articles'  %}active{% endif %}">articles</a>
+  <a href="/admin/news"      class="nav-link {% if current_nav == 'news'      %}active{% endif %}">news</a>
+  <a href="/admin/portfolio" class="nav-link {% if current_nav == 'portfolio' %}active{% endif %}">portfolio</a>
+  <a href="/admin/hero"      class="nav-link {% if current_nav == 'hero'      %}active{% endif %}">hero</a>
+  {% for s, c in pages.items() %}
+    <a href="/admin/page/{{ s }}" class="nav-link {% if current_nav == 'page:' ~ s %}active{% endif %}">{{ c.title }}</a>
+  {% endfor %}
+  <a href="/admin/workflow"  class="nav-link {% if current_nav == 'workflow'  %}active{% endif %}">workflow</a>
+</h1>

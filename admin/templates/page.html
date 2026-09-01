@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ cfg.title }} &middot; admin</title>
+  <meta name="page-slug"     content="{{ slug }}">
+  <meta name="page-live-url" content="{{ cfg.live_url }}">
+  <meta name="page-preview-class" content="{{ cfg.preview_class }}">
+  <link rel="stylesheet" href="/admin/static/admin.css">
+  <link rel="stylesheet" href="/admin/static/dashboard.css">
+  <link rel="stylesheet" href="/admin/static/hero.css">
+  <link rel="stylesheet" href="/admin/static/page.css">
+</head>
+<body>
+
+<div class="admin-header">
+  {% include '_nav.html' %}
+</div>
+
+<div class="page-admin">
+
+  <div class="editor-card">
+    <h2>{{ cfg.title }} page body</h2>
+    <p class="hint">
+      This is the HTML inside <code>&lt;div class="page-body"&gt;</code>
+      on <a href="{{ cfg.live_url }}" target="_blank" rel="noopener">{{ cfg.live_url }}</a>.
+      Save writes to <code>data/{{ slug }}.json</code> and patches the source HTML file.
+    </p>
+    <p class="hint">
+      HTML is allowed everywhere. Use <code>&lt;h2&gt;</code> for section headings,
+      <code>&lt;a href&gt;</code> for links, <code>&lt;em&gt;</code> / <code>&lt;strong&gt;</code> for emphasis.
+      Reactive bits (mindmap, team list, news list) render their own scripts on the live page.
+    </p>
+
+    <textarea id="page-html" spellcheck="false"></textarea>
+
+    <div class="actions">
+      <button type="button" class="btn btn--primary" id="save-btn">save</button>
+      <button type="button" class="btn" id="reset-btn">reset to last saved</button>
+      <a class="btn" href="{{ cfg.live_url }}" target="_blank" rel="noopener">open live page</a>
+      <span class="feedback" id="feedback"></span>
+    </div>
+  </div>
+
+  <div class="preview-card">
+    <h2>Preview</h2>
+    <p class="hint">Rendered HTML (updates live as you type). Warm-paper background matches the site.</p>
+    <div class="preview-frame">
+      <div class="{{ cfg.preview_class }}" id="preview"></div>
+    </div>
+    <p class="hint stamp">Last saved: <span id="last-saved">&hellip;</span></p>
+  </div>
+
+</div>
+
+<script src="/admin/static/page.js"></script>
+</body>
+</html>

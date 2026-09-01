@@ -1,0 +1,302 @@
+/* =========================================================
+   PORTFOLIO (Projects page)
+   ========================================================= */
+
+/* ─── Page header ─── */
+
+/* Header: logos row centered on top, intro paragraph below. Logos are
+   sized so their baked-in wordmarks stay legible without dominating,
+   and each carries a plain-text caption underneath. */
+.portfolio-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0 var(--space-xl);
+  margin-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: center;
+}
+.portfolio-head-logos {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 56px;
+  flex-wrap: wrap;
+}
+.portfolio-lab-mark {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  /* Caption "Data-Driven Modeling Lab" needs room on one line — 240px
+     comfortably fits it in italic serif. */
+  max-width: 260px;
+  /* A soft warm card so the marks don't feel like they're floating on
+     bare page — echoes the tile treatment from the earlier /labs/ page
+     without going all the way back to a full "read more" card. */
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(166, 132, 78, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  min-width: 220px;
+}
+.portfolio-lab-mark img {
+  display: block;
+  height: 130px;
+  width: auto;
+  max-width: 100%;
+  opacity: 0.9;
+}
+.portfolio-lab-mark figcaption {
+  /* Italic serif keeps the caption in the same family as the μ-lab
+     wordmark's "Music Intelligence Lab" italic, and pairs better with
+     the hand-drawn DDM signature than a mono label did. */
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.92rem;
+  letter-spacing: 0.1px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.portfolio-head-intro {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-prose);
+  line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 780px;
+  text-align: left;
+}
+.portfolio-head-intro p         { margin-bottom: var(--space-md); }
+.portfolio-head-intro p:last-child { margin-bottom: 0; }
+@media (max-width: 640px) {
+  .portfolio-head-logos { gap: var(--space-lg); }
+  .portfolio-lab-mark img { height: 64px; }
+}
+
+/* ─── Theme sections ─── */
+
+.portfolio-themes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxl, 56px);
+}
+.portfolio-theme {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+.portfolio-theme-head {
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.portfolio-theme-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+.portfolio-theme-title::before {
+  content: '// ';
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 0.85em;
+}
+.portfolio-theme-blurb {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+  color: var(--text-muted);
+  max-width: 720px;
+  margin: 0;
+}
+
+.portfolio-empty {
+  padding: var(--space-lg);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  border: 1px dashed var(--border-subtle);
+  border-radius: 8px;
+}
+
+/* ─── Uniform horizontal cards, one per row ─── */
+
+.portfolio-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.portfolio-card {
+  display: grid;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  gap: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  scroll-margin-top: 80px;
+}
+.portfolio-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -20px rgba(28, 27, 31, 0.18);
+}
+.portfolio-card--skeleton {
+  display: block;
+  padding: var(--space-lg);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  border-style: dashed;
+}
+
+/* ─── Card media (image / video / gif / placeholder) ─── */
+
+.portfolio-media {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--bg-secondary);
+  display: block;
+  border-right: 1px solid var(--border-subtle);
+  overflow: hidden;
+  position: relative;
+}
+.portfolio-media img,
+.portfolio-media video,
+.portfolio-media iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: 0;
+}
+.portfolio-media--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.05em;
+}
+
+/* Stack image above body on narrow screens */
+@media (max-width: 720px) {
+  .portfolio-card { grid-template-columns: 1fr; }
+  .portfolio-media {
+    aspect-ratio: 16 / 9;
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+}
+
+/* ─── Card body: title / tags / description / people / links ─── */
+
+.portfolio-card-body {
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+.portfolio-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin: 0;
+}
+.portfolio-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.portfolio-tag {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+}
+.portfolio-card-blurb {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.portfolio-card-desc {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.portfolio-card-people {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: auto;
+  padding-top: var(--space-xs);
+}
+.portfolio-card-people-label {
+  color: var(--text-muted);
+  margin-right: 4px;
+  font-style: italic;
+}
+
+/* ─── Typed link chips ─── */
+
+.portfolio-card-links {
+  list-style: none;
+  padding: var(--space-xs) 0 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.portfolio-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 8px;
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+}
+.portfolio-link:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  background: rgba(166, 132, 78, 0.05);
+}
+.portfolio-link svg {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  color: var(--text-muted);
+}
+.portfolio-link:hover svg { color: var(--accent-primary); }
+.portfolio-link--paper  svg,
+.portfolio-link--github svg,
+.portfolio-link--video  svg,
+.portfolio-link--demo   svg,
+.portfolio-link--essay  svg { color: var(--text-muted); }

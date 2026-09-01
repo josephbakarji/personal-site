@@ -1,6 +1,8 @@
 # Piano of Life: A Piano Video Triggered Game of Life
 
-What would be a good representation of the various projects I like to work on. How about I combine two of my passions: 1. discovering patterns in complex systems and simulating them. The game of life is a good toy representaiton of that. 2. Playing the piano and discovery new sounds. 
+This is a toy I've come up with as a design for my website's landing page. It's supposed to be a good representation of the interdisciplinarity of the projects I like to work on: 1. discovering patterns in complex systems and simulating them. The game of life is a good toy representaiton of that. 2. Playing the piano, and music technology. 
+
+![Piano hammers striking, with the seeded Game of Life pixels emerging below in a warm palette.](../assets/articles/piano-of-life-hammers-gol.jpeg "Top-down view of the piano hammers, with the seeded Game of Life growing underneath. The same horizontal axis is a detector for the top half and a frequency axis for the bottom half.")
 
 So here's a short experiment where a piano video seeds a Game of Life whose column density becomes a live spectral filter over the piano's own audio. The whole thing runs in a browser, has no dependencies beyond vanilla JavaScript, Canvas 2D, and Web Audio, and works on any top-down piano video. Fork the code on github: [github.com/josephbakarji/piano-of-life](https://github.com/josephbakarji/piano-of-life). If you want to play with it now: **[open the standalone](https://josephbakarji.github.io/piano-of-life)**, drop in a video, click *GoL filter: OFF* to turn it *ON*, and unmute the video.
 
@@ -18,7 +20,7 @@ where $B_c$ is the band-column strip and $Y(x, y, t) = 0.299 R + 0.587 G + 0.114
 
 $$\Delta \mu_c(t) \;=\; \mu_c(t) - \mu_c(t - \delta t),$$
 
-tells you two directions independently: $\Delta \mu_c < 0$ means the band *darkened* at column $c$ (felt tip left the band, moving up — **strike**); $\Delta \mu_c > 0$ means the band *brightened* (felt returned into the band — **return**). A discrete hit at column $c$ fires when $|\Delta \mu_c|$ exceeds a threshold $\tau$, the sign matches your chosen direction, and no hit has fired at column $c$ in the last $\Delta_c$ milliseconds (per-column cooldown).
+tells you two directions independently: $\Delta \mu_c < 0$ means the band *darkened* at column $c$ (felt tip left the band, moving up, a **strike**); $\Delta \mu_c > 0$ means the band *brightened* (felt returned into the band, a **return**). A discrete hit at column $c$ fires when $|\Delta \mu_c|$ exceeds a threshold $\tau$, the sign matches your chosen direction, and no hit has fired at column $c$ in the last $\Delta_c$ milliseconds (per-column cooldown).
 
 That's the whole detector. It works because the geometry of the observable does the work. This is a lazy implementation that doesn't segment the hammers themselves but would work across videos with the same nature. Please do extend it to hammer segmentation if you're interested. The advantage is that anything with a well-defined bright/dark interface that moves cyclically will produce clean hits: mallets on a marimba, drumsticks on a snare, keys on a keyboard, feet on a treadmill. The Game of Life would still work.
 
@@ -34,13 +36,13 @@ $$\alpha_{ij}(t+1) \;=\; \begin{cases}
 0.55 \cdot \alpha_{ij}(t) & \text{if died this tick}
 \end{cases}$$
 
-Newly-alive cells snap to full alpha, cells alive for a while hold near 1, cells that just died fade slowly. The rendered grid is a continuous texture rather than binary on/off — perceptually closer to what you'd expect a "state" to look like, and it makes the spectral filter behave more musically because bands don't cut off the instant a cell dies.
+Newly-alive cells snap to full alpha, cells alive for a while hold near 1, cells that just died fade slowly. The rendered grid is a continuous texture rather than binary on/off, perceptually closer to what you'd expect a "state" to look like, and it makes the spectral filter behave more musically because bands don't cut off the instant a cell dies.
 
 ### 3. Column PMF as a spectral shape
 
-The GoL grid has columns. If you sum the shaded alpha down each column, you get a distribution (call it $\pi_c$) that changes over time as the GoL evolves. This is the moment the piece I like about this project happens: **the same axis** the detector used to place hits, and the GoL uses to lay out cells, becomes a **frequency axis** for the filter. Column $c$ maps to a filter band $b_c$, with center frequency log-spaced between $f_\min$ and $f_\max$ (defaults A2 = 110 Hz to C7 = 2093 Hz across 32 bands):
+The GoL grid has columns. If you sum the shaded alpha down each column, you get a distribution (call it $\pi_c$) that changes over time as the GoL evolves. This is the moment the piece I like about this project happens: **the same axis** the detector used to place hits, and the GoL uses to lay out cells, becomes a **frequency axis** for the filter. Column $c$ maps to a filter band $b_c$, with center frequency log-spaced between $f_{\min}$ and $f_{\max}$ (defaults A2 = 110 Hz to C7 = 2093 Hz across 32 bands):
 
-$$f(b) \;=\; f_\min \left( \frac{f_\max}{f_\min} \right)^{b / (B - 1)}$$
+$$f(b) \;=\; f_{\min} \left( \frac{f_{\max}}{f_{\min}} \right)^{b / (B - 1)}$$
 
 Each band's normalized weight is
 
@@ -50,7 +52,7 @@ and each band's gain smoothly follows $w_b$ with an 80 ms time constant so the f
 
 ### 4. Applying the filter
 
-The piano's own audio is routed through Web Audio via `MediaElementAudioSource`. Each of the 32 bandpass filters (Q ≈ 9) receives the full signal in parallel; each has its own gain node driven by $w_b$; the outputs sum through a wet mix. A dry path sums in a scaled copy of the raw signal for reference. The piano still sounds like a piano; but its *timbre* — which partials are prominent — is now shaped by the current GoL state. Where the GoL has developed structure in some column range, the corresponding piano frequencies bloom. A drifting glider walks a formant across the piano's range. A blob-oscillator holds a resonance. A stable still-life bakes in a fixed vowel-like coloration.
+The piano's own audio is routed through Web Audio via `MediaElementAudioSource`. Each of the 32 bandpass filters (Q ≈ 9) receives the full signal in parallel; each has its own gain node driven by $w_b$; the outputs sum through a wet mix. A dry path sums in a scaled copy of the raw signal for reference. The piano still sounds like a piano, but its *timbre*, which partials are prominent, is now shaped by the current GoL state. Where the GoL has developed structure in some column range, the corresponding piano frequencies bloom. A drifting glider walks a formant across the piano's range. A blob-oscillator holds a resonance. A stable still-life bakes in a fixed vowel-like coloration.
 
 ## Why it's a nice representation of a framework I've been thinking about
 

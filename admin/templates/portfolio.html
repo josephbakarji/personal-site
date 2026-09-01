@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio &middot; admin</title>
+  <link rel="stylesheet" href="/admin/static/admin.css">
+  <link rel="stylesheet" href="/admin/static/dashboard.css">
+  <link rel="stylesheet" href="/admin/static/hero.css">
+  <link rel="stylesheet" href="/admin/static/portfolio.css">
+</head>
+<body>
+
+<div class="admin-header">
+  {% include '_nav.html' %}
+  <div class="toolbar">
+    <button class="btn btn-green" id="btn-new">+ new project</button>
+    <a class="btn" href="/projects/" target="_blank" rel="noopener">open live page</a>
+  </div>
+</div>
+
+<div class="portfolio-admin">
+
+  <!-- Left: list of projects -->
+  <div class="pf-list-panel">
+    <div class="pf-list-header">
+      <h2>Projects <span id="pf-count"></span></h2>
+      <p class="hint">Drag to reorder. Featured projects float to the top on the live page.</p>
+    </div>
+    <ul id="pf-list" class="pf-list">
+      <li class="pf-loading">loading...</li>
+    </ul>
+  </div>
+
+  <!-- Right: editor for the selected project -->
+  <div id="pf-editor" class="pf-editor">
+    <div class="pf-empty">Select a project on the left, or click <em>+ new project</em>.</div>
+  </div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/admin/static/portfolio.js"></script>
+</body>
+</html>

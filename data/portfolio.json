@@ -1,0 +1,336 @@
+{
+  "themes": [
+    {
+      "id": "scientific-ml",
+      "title": "Scientific ML",
+      "blurb": "Learning interpretable dynamics from data: equation discovery, dimensional consistency, and multi-scale modeling."
+    },
+    {
+      "id": "music",
+      "title": "Music & Instruments",
+      "blurb": "Instruments, generative composition, and computational analysis of music, with a soft spot for Arabic maqam and body-driven sound."
+    },
+    {
+      "id": "complex-systems",
+      "title": "Complex Systems & Society",
+      "blurb": "Emergent dynamics of coupled agents, from social and hydrological systems to ecological interactions."
+    },
+    {
+      "id": "tools",
+      "title": "Learning & Language Tools",
+      "blurb": "Systems that help humans think, learn, and reflect: knowledge graphs, note archives, and interactive teaching platforms."
+    }
+  ],
+  "projects": [
+    {
+      "id": "equation-discovery",
+      "theme": "scientific-ml",
+      "title": "Equation Discovery from Partial Measurements",
+      "thumbnail": "assets/projects/ddm-delay-sindy.jpg",
+      "tags": [
+        "scientific ML",
+        "SINDy",
+        "dynamical systems"
+      ],
+      "collaborators": [
+        "Steven Brunton",
+        "Nathan Kutz",
+        "Lama Sleem",
+        "Issar Amro",
+        "Sara Najem",
+        "Arij Daou"
+      ],
+      "blurb": "Deep delay autoencoders, Takens theorem, partial measurements, null-cline regularization, etc.",
+      "description": "Real-world systems, from neurons to ecosystems, are rarely observed in full: we see projections, partial measurements, or noisy signals. This line of work asks how far we can push equation discovery when the full state is hidden. It combines deep-delay embeddings (inspired by Takens' theorem), sparse regression (SINDy), and geometry-informed regularizers, applied to problems in neuroscience, Mediterranean phytoplankton dynamics, videos of a Malkus waterwheel, chaotic systems, and others.",
+      "links": [
+        {
+          "label": "Deep-Delay Auto paper",
+          "href": "https://royalsocietypublishing.org/rspa/article/479/2276/20230422/82633/Discovering-governing-equations-from-partial",
+          "type": "paper"
+        },
+        {
+          "label": "all publications",
+          "href": "publications/",
+          "type": "site"
+        }
+      ],
+      "video": null,
+      "featured": true,
+      "published": true
+    },
+    {
+      "id": "dimensionally-consistent-learning",
+      "theme": "scientific-ml",
+      "title": "Dimensionally Consistent Learning",
+      "thumbnail": "assets/projects/ddm-buckinet.jpeg",
+      "tags": [
+        "scientific ML",
+        "dimensional analysis"
+      ],
+      "collaborators": [
+        "Nathan Kutz",
+        "Steven Brunton",
+        "Sara Najem",
+        "Joe Germany"
+      ],
+      "blurb": "Buckingham Pi Theorem, symplectic networks, BuckiNet, Dimensionless SINDy",
+      "description": "All measurements have units. Any attempt at bringing physics with ML should account for this. Modern deep learning algorithms rarely do. This work builds architectures where dimensional analysis, symplectic structure, and interpretable primitives are enforced by construction rather than learned. This principle generalizes to the discovery of Hamiltonian expressions (which have units of Energy) using Symplectic-Buckingham networks.",
+      "links": [
+        {
+          "label": "Buckingham-Symplectic paper",
+          "href": "https://arxiv.org/abs/2604.00576",
+          "type": "paper"
+        },
+        {
+          "label": "Dimensionally Consistent Learning",
+          "href": "https://www.nature.com/articles/s43588-022-00355-5",
+          "type": "paper"
+        },
+        {
+          "label": "YouTube Vid.",
+          "href": "https://www.youtube.com/watch?v=TaTb6RsSEiQ"
+        }
+      ],
+      "video": null,
+      "featured": false,
+      "published": true
+    },
+    {
+      "id": "granular-materials",
+      "theme": "complex-systems",
+      "title": "Granular Materials & Multi-Scale Modeling",
+      "thumbnail": "assets/projects/screenshot-2026-08-31-at-5-57-23-pm.png",
+      "tags": [
+        "Granular Materials",
+        "Multi-scale Modeling",
+        "PDF Equations"
+      ],
+      "collaborators": [
+        "Daniel Tartakovsky"
+      ],
+      "blurb": "Coarse-graining rules learned from data for granular flows and other multi-scale systems.",
+      "description": "The multi-scale problem in granular media: micro-scale particle interactions produce macro-scale flow behaviour that no closed-form constitutive law captures cleanly. My PhD with Daniel Tartakovsky at Stanford developed probabilistic coarse-graining techniques that bridge micro and macro-scale desciptions. The framing (probabilistic multi-scale) is what later carried into many scientific-ML projects.",
+      "links": [
+        {
+          "label": "Pore Collapse Models",
+          "href": "https://arxiv.org/abs/2002.12479",
+          "type": "paper"
+        },
+        {
+          "label": "Reverse Brownian motion",
+          "href": "https://www.sciencedirect.com/science/article/pii/S0021999116306866",
+          "type": "paper"
+        },
+        {
+          "label": "PDF Equation Learning",
+          "href": "https://www.sciencedirect.com/science/article/pii/S0021999121001145",
+          "type": "paper"
+        }
+      ],
+      "video": null,
+      "featured": false,
+      "published": true
+    },
+    {
+      "id": "soniqflow",
+      "theme": "music",
+      "title": "Rope Flow Music (SoniqFlow)",
+      "thumbnail": "assets/projects/cand-40.png",
+      "tags": [
+        "Digital Music Interfaces",
+        "ML",
+        "Music",
+        "Rope Flow"
+      ],
+      "collaborators": [
+        "Olivier Chiniara",
+        "Samir Shaker"
+      ],
+      "blurb": "Turning full-body motion into music: IMU-on-flow-rope streamed live into a classifier, tokenizer, and DAW/synth pipeline.",
+      "description": "A spinning flow rope has an M5Stack IMU that broadcasts over BLE to a live pipeline: movement classification (12-label taxonomy), transition-sparse VQ tokenization, latent-space discovery via UMAP and a Hilbert transform, and audio synthesis via Ableton Live. This is an application of the \"Music in Motion\" project, funded by the Arab Fund for Arts and Culture (AFAC).",
+      "links": [
+        {
+          "label": "NeurIPS Creative AI submission (PDF)",
+          "href": "assets/papers/rope-flow-music-neurips-creative-ai.pdf",
+          "type": "paper"
+        }
+      ],
+      "video": null,
+      "featured": true,
+      "published": true
+    },
+    {
+      "id": "gluvn",
+      "theme": "music",
+      "title": "A Glove Music Instrument",
+      "thumbnail": "assets/projects/mu-lab-gluvn.jpg",
+      "tags": [
+        "mechatronics",
+        "music",
+        "wearable"
+      ],
+      "collaborators": [
+        "Helene Jabbour"
+      ],
+      "blurb": "A wearable glove instrument mapping hand posture and gesture to expressive musical control.",
+      "description": "A five-finger flex/FSR sensor glove that turns joint angles, gestures, and finger contacts into continuous musical control signals. It's an experiment in what an intuitive movement-to-sound mapping actually looks like when the interface maps the high dimensional degrees of freedom of the hands. The instrument is an experiment in \"Music in Motion\", exploiting the fact that most instruments are played with hands. The complexity is in finding intuitive gesture-to-sound maps.",
+      "links": [
+        {
+          "label": "article",
+          "href": "articles/?slug=gluvn",
+          "type": "essay"
+        },
+        {
+          "label": "Gluvn Preprint",
+          "href": "https://arxiv.org/abs/2001.09551",
+          "type": "paper"
+        }
+      ],
+      "video": null,
+      "featured": false,
+      "published": true
+    },
+    {
+      "id": "arabic-maqam-archive",
+      "theme": "music",
+      "title": "Arabic Maqam Archive & Identification",
+      "thumbnail": "assets/projects/mu-lab-arabic-music.jpg",
+      "tags": [
+        "MIR",
+        "audio ML",
+        "Maqam",
+        "Archive",
+        "Arabic Music"
+      ],
+      "collaborators": [
+        "Khyam Allami",
+        "Ibrahim El Khansa",
+        "Mohammad El Asal",
+        "Dany Abou Jaoude",
+        "Sara Najem",
+        "and others"
+      ],
+      "blurb": "An open, computational archive of Arabic maqam music, and deep learning  maqam identification algorithms.",
+      "description": "Arabic maqam is a modal system with rich intonation, subtle transitions between ajnas (Sayr), and a corpus underrepresented in mainstream MIR. Khyam Allami has leads a project on a digital arabic maqam archive (DiArMaqAr); learning to better Maqam identification from audio, and a deeper understanding of modulations, as introduced by Sami El Shawwa. Papers at ISMIR 2026.",
+      "links": [
+        {
+          "label": "DiArMaqAr",
+          "href": "https://diarmaqar.netlify.app/",
+          "type": "site"
+        }
+      ],
+      "video": null,
+      "featured": false,
+      "published": true
+    },
+    {
+      "id": "bach-circle",
+      "theme": "music",
+      "title": "Circle of Fifths from Bach's Well-Tempered Clavier",
+      "thumbnail": "assets/projects/mu-lab-architecture.png",
+      "tags": [
+        "music",
+        "ML"
+      ],
+      "collaborators": [
+        "Najla Sadek"
+      ],
+      "blurb": "Discovering ML nto well-tempered and microtonal geometries.",
+      "description": "Can unsupervised deep learning methods encode fundamental music-theoretic features? We answer this question by training an autoencoder on J.S. Bach’s Well-Tempered Clavier and analyzing its latent space via principal component analysis. Sequences in the first two principal components are clustered hierarchically into pieces and keys that spontaneously arrange in a circle-of-fifths geometry.",
+      "links": [
+        {
+          "label": "Bach AAAI paper",
+          "href": "https://openreview.net/forum?id=HXm5wUgRib",
+          "type": "paper"
+        }
+      ],
+      "video": null,
+      "featured": false,
+      "published": true
+    },
+    {
+      "id": "agent-based-social",
+      "theme": "complex-systems",
+      "title": "Agent-Based Models of Social & Ecological Systems",
+      "thumbnail": "assets/projects/ddm-socio-hydro.png",
+      "tags": [
+        "Agent-based models",
+        "socio-hydrology"
+      ],
+      "collaborators": [
+        "Dan O'Malley",
+        "Velimir V Vesselinov"
+      ],
+      "blurb": "Discovering macroscopic dynamics from agent-level interactions in socio-hydrological and ecological systems.",
+      "description": "How do you get from an ABM of thousands of agents to a compact macroscopic model that still captures the phenomenon? This project, started as part of an internship at Los Alamos National Lab, coupling hydrology to social response, applies hybrid stochastic social and ecological agent-based modeling in combination with methods in control theory to inform decision making and minimize the risk of contracting disease from polluted acquifers.",
+      "links": [
+        {
+          "label": "Paper",
+          "href": "https://link.springer.com/article/10.1007/s11269-017-1713-7",
+          "type": "paper"
+        }
+      ],
+      "video": null,
+      "featured": false,
+      "published": true
+    },
+    {
+      "id": "sematlas",
+      "theme": "tools",
+      "title": "SemAtlas",
+      "thumbnail": "assets/projects/sematlas.png",
+      "tags": [
+        "knowledge graph",
+        "digital humanities",
+        "language"
+      ],
+      "collaborators": [],
+      "blurb": "An interactive knowledge-graph atlas for exploring conceptual territories, from personal notes to public corpora.",
+      "description": "SemAtlas is a tool for making the structure of a body of writing visible, currently built on Wikipedia. Nodes are articles, edges are hyperlink connections, and the layout is a semantic map you can zoom, filter, and drill through. It is built using the D3js library.",
+      "links": [
+        {
+          "label": "sematlas.com",
+          "href": "https://www.sematlas.com",
+          "type": "site"
+        }
+      ],
+      "video": null,
+      "featured": false,
+      "published": true
+    },
+    {
+      "id": "learnslides",
+      "theme": "tools",
+      "title": "Sematlas LearnSlides",
+      "thumbnail": "assets/projects/screenshot-2026-08-31-at-7-01-09-pm.png",
+      "tags": [
+        "education",
+        "teaching"
+      ],
+      "collaborators": [],
+      "blurb": "An open framework for teaching material where slides are shareable HTML, notebooks live alongside them, and LLMs (local or remote) can help generate or answer questions",
+      "description": "LearnSlides is the platform underneath ml4science and intro2ml. Slides are structured HTML in a stable grammar (RevealJS based). A slide-context chat layer can answer questions based on the lecture decks. The goal is an open, local-model-friendly, remixable teaching material where every course can be leveraged for the next.",
+      "links": [
+        {
+          "label": "ml4science.com",
+          "href": "https://ml4science.com",
+          "type": "site"
+        },
+        {
+          "label": "intro2ml.com",
+          "href": "https://intro2ml.com",
+          "type": "site"
+        },
+        {
+          "label": "LearnSlides",
+          "href": "https://learn.sematlas.com",
+          "type": "site"
+        }
+      ],
+      "video": null,
+      "featured": false,
+      "published": true
+    }
+  ],
+  "last_updated": "2026-08-31"
+}

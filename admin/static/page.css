@@ -1,0 +1,180 @@
+/* Shared editor for full static HTML pages (about, labs, ...).
+   Same shape as hero, but textarea + preview are much taller because
+   the body is a full page. */
+
+.page-admin {
+  padding: 24px 32px;
+  max-width: 1600px;
+  display: grid;
+  grid-template-columns: minmax(400px, 1fr) minmax(400px, 1fr);
+  gap: 28px;
+  align-items: start;
+  height: calc(100vh - 49px);
+  overflow-y: auto;
+  color: var(--text-primary);
+}
+
+.page-admin .editor-card,
+.page-admin .preview-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-default);
+  border-radius: 6px;
+  padding: 18px 22px;
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+}
+
+#page-html {
+  flex: 1;
+  width: 100%;
+  min-height: 520px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  resize: vertical;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 2;
+}
+
+#page-html:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.page-admin .preview-frame {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px;
+  background: #faf8f3;
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.preview-about, .preview-lab {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #1c1b1f;
+}
+
+.preview-about, .preview-lab h2 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 20px;
+  color: #a6844e;
+  font-weight: 600;
+  margin: 26px 0 10px;
+}
+
+.preview-about, .preview-lab h3 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 15px;
+  color: #a6844e;
+  margin: 20px 0 6px;
+}
+
+.preview-about, .preview-lab h2::before {
+  content: '// ';
+  font-family: ui-monospace, monospace;
+  color: #a6a19a;
+  font-weight: 400;
+}
+
+.preview-about, .preview-lab p          { margin-bottom: 12px; }
+.preview-about, .preview-lab blockquote {
+  border-left: 3px solid #d4c9b3;
+  padding: 4px 14px;
+  margin: 12px 0;
+  color: #4a463f;
+  font-style: italic;
+}
+.preview-about, .preview-lab a {
+  color: #a6844e;
+  border-bottom: 1px solid rgba(166, 132, 78, 0.35);
+  padding-bottom: 1px;
+  text-decoration: none;
+}
+.preview-about, .preview-lab code {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #7d5f2e;
+}
+.preview-about ul, .preview-lab ul { padding-left: 22px; margin-bottom: 12px; }
+.preview-about li, .preview-lab li { margin-bottom: 6px; }
+
+/* Elements that require a script to render (mindmap, team list, news list)
+   are inert in preview. Show a clear placeholder so the editor knows why
+   they look empty. */
+#preview #mindmap,
+#preview #team-content,
+#preview #news-list {
+  min-height: 0 !important;
+  height: auto !important;
+  min-height: 60px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.03) !important;
+  color: #7d746a;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  padding: 12px;
+}
+#preview #mindmap::before {
+  content: '[themes network renders here on the live page]';
+}
+#preview #team-content::before {
+  content: '[team list loads from team.json on the live page]';
+}
+#preview #news-list::before {
+  content: '[news items load on the live page]';
+}
+
+/* Labs page specifics: lab-intro, projects, funders, etc. */
+.preview-lab .lab-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 20px; margin-bottom: 12px;
+}
+.preview-lab .lab-head-logos { display: flex; gap: 12px; align-items: center; }
+.preview-lab .lab-head-logos img { height: 40px; width: auto; opacity: 0.85; }
+.preview-lab .lab-intro { color: #4a463f; margin-bottom: 20px; }
+.preview-lab .project-item,
+.preview-lab .pub-list li,
+.preview-lab .funder {
+  background: #fff; border: 1px solid #d4c9b3; border-radius: 6px;
+  padding: 10px 14px; margin-bottom: 8px;
+}
+.preview-lab .projects-list, .preview-lab .pub-list, .preview-lab .funders {
+  list-style: none; padding: 0;
+}
+.preview-lab .project-name { font-weight: 600; color: #1c1b1f; }
+.preview-lab .project-tag {
+  display: inline-block; margin-left: 6px; font-family: ui-monospace, monospace;
+  font-size: 11px; color: #7d746a; padding: 1px 6px;
+  border: 1px solid #d4c9b3; border-radius: 999px;
+}
+.preview-lab .project-blurb { font-size: 14px; color: #4a463f; margin-top: 4px; }
+.preview-lab .project-links { margin-top: 4px; font-family: ui-monospace, monospace; font-size: 12px; }
+.preview-lab .project-links a { margin-right: 12px; }
+.preview-lab .funders { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px; }
+.preview-lab .funder-name { font-weight: 600; }
+.preview-lab .funder-alias { display: block; font-family: ui-monospace, monospace; font-size: 11px; color: #7d746a; }
+
+.page-admin .cv-list      { list-style: none; padding-left: 0; }
+.page-admin .cv-list li   { display: grid; grid-template-columns: 130px 1fr; gap: 12px; margin-bottom: 8px; }
+.page-admin .cv-when      { font-family: ui-monospace, monospace; font-size: 12px; color: #a6a19a; }
+
+@media (max-width: 1100px) {
+  .page-admin { grid-template-columns: 1fr; height: auto; }
+  .page-admin .editor-card,
+  .page-admin .preview-card { min-height: 0; }
+}

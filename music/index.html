@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music &middot; Joseph Bakarji</title>
+  <meta name="description" content="Piano pieces, Rope Flow performances, and a physics simulation of the rope-as-instrument experiment.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/music.css">
+</head>
+<body>
+
+<div class="page" data-page="music">
+  <nav class="nav">
+    <a class="nav-logo" href="../">jb</a>
+    <ul class="nav-links">
+      <li><a href="../projects/">projects</a></li>
+      <li><a href="../publications/">publications</a></li>
+      <li><a href="../teaching/">teaching</a></li>
+      <li><a href="../articles/">articles</a></li>
+      <li><a href="./">music</a></li>
+      <li><a href="../team/">team</a></li>
+      <li><a href="../about/">about</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-body">
+    <h2 class="page-title">music</h2>
+
+    <div class="music-intro" id="music-intro"></div>
+
+    <p class="music-wip" id="music-wip"></p>
+
+    <section class="music-section">
+      <h2 class="music-section-title">// piano pieces and improvisations</h2>
+      <p class="music-section-blurb" id="piano-note"></p>
+      <div class="music-list" id="piano-list">
+        <p class="music-empty">loading pieces...</p>
+      </div>
+    </section>
+
+    <section class="music-section">
+      <h2 class="music-section-title">// rope flow music</h2>
+      <p class="music-section-blurb">Performances from the ongoing rope-flow-music experiment.</p>
+      <div class="music-list" id="rope-list">
+        <p class="music-empty">loading videos...</p>
+      </div>
+    </section>
+
+    <!-- Rope-flow physics simulator: staged out of this page until we write
+         a dedicated article about it. The HTML lives at
+         assets/music/sim/ropeflow.html and the JSON stub in music.json's
+         `simulation` field is unused for now. -->
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <ul class="footer-nav">
+      <li><a href="../projects/">projects</a></li>
+      <li><a href="../publications/">publications</a></li>
+      <li><a href="../teaching/">teaching</a></li>
+      <li><a href="../articles/">articles</a></li>
+      <li><a href="./">music</a></li>
+      <li><a href="../team/">team</a></li>
+      <li><a href="../about/">about</a></li>
+    </ul>
+    <div class="ext-links">
+      <a class="ext-link" href="https://bakarji.substack.com" target="_blank" rel="noopener">substack</a>
+      <a class="ext-link" href="https://github.com/josephbakarji" target="_blank" rel="noopener">github</a>
+      <a class="ext-link" href="https://scholar.google.com/citations?user=1zZNV48AAAAJ&hl=en" target="_blank" rel="noopener">scholar</a>
+      <a class="ext-link" href="https://soundcloud.com/user-343358875" target="_blank" rel="noopener">soundcloud</a>
+      <a class="ext-link" href="https://www.sematlas.com" target="_blank" rel="noopener">sematlas</a>
+      <a class="ext-link" href="https://ml4science.com" target="_blank" rel="noopener">ml4science</a>
+    </div>
+    <p class="footer-note">joseph.bakarji [at] aub.edu.lb &middot; beirut</p>
+  </div>
+</footer>
+
+<script src="../js/nav.js"></script>
+<script src="../js/piano-of-life-embed.js"></script>
+<script src="../js/music.js"></script>
+</body>
+</html>

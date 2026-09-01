@@ -1,0 +1,67 @@
+{
+  "intro_html": "<p>The piano has been my doorway to music. I grew up with Bach, Scriabin, and Wagner, have done some composing in contemporary and neo-classical music, enjoy exploring improvisational styles, and have been getting into looping and Rope Flow Music (an instrument I'm currently building obsessively). Find some things here and there below. It's still under construction and I'm imagining fun things for it; starting with the <a href=\"../articles/?slug=piano-of-life\">Piano of Life</a>. If you're curious about older pieces, most of my earlier recordings live on <a href=\"https://soundcloud.com/user-343358875\" target=\"_blank\" rel=\"noopener\">SoundCloud</a>.</p>",
+  "under_construction_note": "This page is still under construction — the video layout, the Piano of Life coupling, and the piece list are all works in progress. It also doesn't work on mobile yet; we're figuring that out.",
+  "piano_note": "Enjoy watching Game of Life patterns emerge from the keys, but note that it runs live in your browser and might make your laptop a bit unhappy. You can stop it via the button at the top right of each simulation.",
+  "piano": [
+    {
+      "id": "home-beyond-the-horizon",
+      "title": "Home Beyond The Horizon (improv)",
+      "year": 2026,
+      "video": {
+        "type": "local",
+        "src": "assets/music/video/home-beyond-the-horizon.mp4"
+      },
+      "gol": true,
+      "pol": {
+        "band": {
+          "axis": "x",
+          "position": 0.4,
+          "thickness": 0.05
+        },
+        "flipCols": false
+      }
+    },
+    {
+      "id": "the-truth-can-be-found",
+      "title": "The truth can be found",
+      "year": 2026,
+      "description": "This is an excerpt from an improv with layered vocals and strings on top. Audio from iPhone, but not too bad!",
+      "video": {
+        "type": "local",
+        "src": "assets/music/video/the-truth-can-be-found.mp4"
+      },
+      "gol": true,
+      "pol": {
+        "band": {
+          "axis": "x",
+          "position": 0.42,
+          "thickness": 0.06
+        },
+        "flipCols": false
+      }
+    }
+  ],
+  "ropeflow": [
+    {
+      "id": "rope-flow-with-piano",
+      "title": "Accompanied Rope Flow",
+      "year": 2026,
+      "description": "The three rope movements (underhand, overhand, and dragon-roll) are identified in real time from IMU sensors on the rope, via an ML algorithm on the laptop, and mapped to a Voice-like Wavetable in Ableton, with frequency and volume control, over three chords: Dm7, G7/D, C7Maj (essentially ii&ndash;V&ndash;I) streamed live to a Bluetooth speaker (hence the less-than-ideal audio quality). I'm keeping the live audio here to show you what I'm hearing (and because I forgot to record it in Ableton); you can hear the raw rope-flow audio on its own in the <a href=\"#rope-flow-music\">Unaccompanied Rope Flow</a> video below. The other instruments are piano, shaker, and harmonica.",
+      "video": {
+        "type": "local",
+        "src": "assets/music/video/rope-flow-with-piano.mp4"
+      }
+    },
+    {
+      "id": "rope-flow-music",
+      "title": "Unaccompanied Rope Flow",
+      "year": 2026,
+      "description": "An improvisation using rope flow motion as the primary musical interface.",
+      "video": {
+        "type": "local",
+        "src": "assets/music/video/rope-flow-music.mp4"
+      }
+    }
+  ],
+  "last_updated": "2026-08-26"
+}

@@ -1,0 +1,2924 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "name": "philosophy",
+      "count": 955
+    },
+    {
+      "id": 1,
+      "name": "existential",
+      "count": 368
+    },
+    {
+      "id": 2,
+      "name": "ai_ml",
+      "count": 257
+    },
+    {
+      "id": 3,
+      "name": "theory",
+      "count": 255
+    },
+    {
+      "id": 4,
+      "name": "consciousness",
+      "count": 223
+    },
+    {
+      "id": 5,
+      "name": "life_philosophy",
+      "count": 217
+    },
+    {
+      "id": 6,
+      "name": "complex_systems",
+      "count": 200
+    },
+    {
+      "id": 7,
+      "name": "creativity",
+      "count": 200
+    },
+    {
+      "id": 8,
+      "name": "growth",
+      "count": 197
+    },
+    {
+      "id": 9,
+      "name": "education",
+      "count": 170
+    },
+    {
+      "id": 10,
+      "name": "identity",
+      "count": 162
+    },
+    {
+      "id": 11,
+      "name": "machine_learning",
+      "count": 160
+    },
+    {
+      "id": 12,
+      "name": "epistemology",
+      "count": 146
+    },
+    {
+      "id": 13,
+      "name": "introspection",
+      "count": 138
+    },
+    {
+      "id": 14,
+      "name": "metaphysics",
+      "count": 134
+    },
+    {
+      "id": 15,
+      "name": "ethics",
+      "count": 130
+    },
+    {
+      "id": 16,
+      "name": "relationships",
+      "count": 127
+    },
+    {
+      "id": 17,
+      "name": "innovation",
+      "count": 119
+    },
+    {
+      "id": 18,
+      "name": "data_science",
+      "count": 114
+    },
+    {
+      "id": 19,
+      "name": "spirituality",
+      "count": 113
+    },
+    {
+      "id": 20,
+      "name": "complexity",
+      "count": 111
+    },
+    {
+      "id": 21,
+      "name": "existence",
+      "count": 105
+    },
+    {
+      "id": 22,
+      "name": "modeling",
+      "count": 71
+    },
+    {
+      "id": 23,
+      "name": "intelligence",
+      "count": 65
+    },
+    {
+      "id": 24,
+      "name": "collaboration",
+      "count": 63
+    },
+    {
+      "id": 25,
+      "name": "social_interaction",
+      "count": 57
+    },
+    {
+      "id": 26,
+      "name": "systems_thinking",
+      "count": 54
+    },
+    {
+      "id": 27,
+      "name": "self",
+      "count": 53
+    },
+    {
+      "id": 28,
+      "name": "neural_networks",
+      "count": 52
+    },
+    {
+      "id": 29,
+      "name": "truth",
+      "count": 49
+    },
+    {
+      "id": 30,
+      "name": "mathematics",
+      "count": 48
+    },
+    {
+      "id": 31,
+      "name": "brainstorm_session",
+      "count": 45
+    },
+    {
+      "id": 32,
+      "name": "freedom",
+      "count": 45
+    },
+    {
+      "id": 33,
+      "name": "learning",
+      "count": 44
+    },
+    {
+      "id": 34,
+      "name": "methodology",
+      "count": 44
+    },
+    {
+      "id": 35,
+      "name": "interdisciplinary",
+      "count": 43
+    },
+    {
+      "id": 36,
+      "name": "happiness",
+      "count": 42
+    },
+    {
+      "id": 37,
+      "name": "voice_memo",
+      "count": 42
+    },
+    {
+      "id": 38,
+      "name": "community",
+      "count": 41
+    },
+    {
+      "id": 39,
+      "name": "understanding",
+      "count": 40
+    },
+    {
+      "id": 40,
+      "name": "algorithms",
+      "count": 39
+    },
+    {
+      "id": 41,
+      "name": "physics",
+      "count": 39
+    },
+    {
+      "id": 42,
+      "name": "personal growth",
+      "count": 37
+    },
+    {
+      "id": 43,
+      "name": "perception",
+      "count": 36
+    },
+    {
+      "id": 44,
+      "name": "engineering",
+      "count": 35
+    },
+    {
+      "id": 45,
+      "name": "communication",
+      "count": 32
+    },
+    {
+      "id": 46,
+      "name": "experiment",
+      "count": 32
+    },
+    {
+      "id": 47,
+      "name": "presentation",
+      "count": 32
+    },
+    {
+      "id": 48,
+      "name": "design_thinking",
+      "count": 31
+    },
+    {
+      "id": 49,
+      "name": "emergence",
+      "count": 31
+    },
+    {
+      "id": 50,
+      "name": "programming",
+      "count": 31
+    },
+    {
+      "id": 51,
+      "name": "reality",
+      "count": 29
+    },
+    {
+      "id": 52,
+      "name": "computational",
+      "count": 28
+    },
+    {
+      "id": 53,
+      "name": "entropy",
+      "count": 28
+    },
+    {
+      "id": 54,
+      "name": "self-discovery",
+      "count": 28
+    },
+    {
+      "id": 55,
+      "name": "interconnectedness",
+      "count": 27
+    },
+    {
+      "id": 56,
+      "name": "artistic",
+      "count": 26
+    },
+    {
+      "id": 57,
+      "name": "hypothesis",
+      "count": 25
+    },
+    {
+      "id": 58,
+      "name": "knowledge",
+      "count": 25
+    },
+    {
+      "id": 59,
+      "name": "patterns",
+      "count": 25
+    },
+    {
+      "id": 60,
+      "name": "meaning",
+      "count": 24
+    },
+    {
+      "id": 61,
+      "name": "paradox",
+      "count": 24
+    },
+    {
+      "id": 62,
+      "name": "phenomenology",
+      "count": 24
+    },
+    {
+      "id": 63,
+      "name": "time",
+      "count": 24
+    },
+    {
+      "id": 64,
+      "name": "love",
+      "count": 23
+    },
+    {
+      "id": 65,
+      "name": "moral_theory",
+      "count": 23
+    },
+    {
+      "id": 66,
+      "name": "unity",
+      "count": 23
+    },
+    {
+      "id": 67,
+      "name": "abstraction",
+      "count": 22
+    },
+    {
+      "id": 68,
+      "name": "determinism",
+      "count": 22
+    },
+    {
+      "id": 69,
+      "name": "purpose",
+      "count": 22
+    },
+    {
+      "id": 70,
+      "name": "self-awareness",
+      "count": 22
+    }
+  ],
+  "links": [
+    {
+      "source": 38,
+      "target": 17,
+      "value": 7,
+      "strength": 0.059
+    },
+    {
+      "source": 44,
+      "target": 17,
+      "value": 7,
+      "strength": 0.059
+    },
+    {
+      "source": 9,
+      "target": 44,
+      "value": 7,
+      "strength": 0.041
+    },
+    {
+      "source": 24,
+      "target": 48,
+      "value": 7,
+      "strength": 0.111
+    },
+    {
+      "source": 4,
+      "target": 49,
+      "value": 7,
+      "strength": 0.031
+    },
+    {
+      "source": 40,
+      "target": 20,
+      "value": 7,
+      "strength": 0.063
+    },
+    {
+      "source": 32,
+      "target": 36,
+      "value": 7,
+      "strength": 0.156
+    },
+    {
+      "source": 2,
+      "target": 25,
+      "value": 7,
+      "strength": 0.027
+    },
+    {
+      "source": 9,
+      "target": 15,
+      "value": 7,
+      "strength": 0.041
+    },
+    {
+      "source": 22,
+      "target": 47,
+      "value": 7,
+      "strength": 0.099
+    },
+    {
+      "source": 24,
+      "target": 11,
+      "value": 7,
+      "strength": 0.044
+    },
+    {
+      "source": 2,
+      "target": 37,
+      "value": 7,
+      "strength": 0.027
+    },
+    {
+      "source": 5,
+      "target": 37,
+      "value": 7,
+      "strength": 0.032
+    },
+    {
+      "source": 31,
+      "target": 46,
+      "value": 7,
+      "strength": 0.156
+    },
+    {
+      "source": 5,
+      "target": 63,
+      "value": 7,
+      "strength": 0.032
+    },
+    {
+      "source": 69,
+      "target": 19,
+      "value": 7,
+      "strength": 0.062
+    },
+    {
+      "source": 21,
+      "target": 51,
+      "value": 7,
+      "strength": 0.067
+    },
+    {
+      "source": 5,
+      "target": 51,
+      "value": 7,
+      "strength": 0.032
+    },
+    {
+      "source": 38,
+      "target": 1,
+      "value": 7,
+      "strength": 0.019
+    },
+    {
+      "source": 38,
+      "target": 5,
+      "value": 7,
+      "strength": 0.032
+    },
+    {
+      "source": 5,
+      "target": 61,
+      "value": 7,
+      "strength": 0.032
+    },
+    {
+      "source": 12,
+      "target": 13,
+      "value": 7,
+      "strength": 0.048
+    },
+    {
+      "source": 23,
+      "target": 13,
+      "value": 7,
+      "strength": 0.051
+    },
+    {
+      "source": 13,
+      "target": 51,
+      "value": 7,
+      "strength": 0.051
+    },
+    {
+      "source": 2,
+      "target": 44,
+      "value": 7,
+      "strength": 0.027
+    },
+    {
+      "source": 20,
+      "target": 53,
+      "value": 7,
+      "strength": 0.063
+    },
+    {
+      "source": 55,
+      "target": 14,
+      "value": 7,
+      "strength": 0.052
+    },
+    {
+      "source": 45,
+      "target": 4,
+      "value": 7,
+      "strength": 0.031
+    },
+    {
+      "source": 21,
+      "target": 61,
+      "value": 7,
+      "strength": 0.067
+    },
+    {
+      "source": 21,
+      "target": 60,
+      "value": 7,
+      "strength": 0.067
+    },
+    {
+      "source": 8,
+      "target": 25,
+      "value": 7,
+      "strength": 0.036
+    },
+    {
+      "source": 15,
+      "target": 19,
+      "value": 7,
+      "strength": 0.054
+    },
+    {
+      "source": 7,
+      "target": 48,
+      "value": 7,
+      "strength": 0.035
+    },
+    {
+      "source": 38,
+      "target": 16,
+      "value": 7,
+      "strength": 0.055
+    },
+    {
+      "source": 18,
+      "target": 15,
+      "value": 7,
+      "strength": 0.054
+    },
+    {
+      "source": 20,
+      "target": 39,
+      "value": 7,
+      "strength": 0.063
+    },
+    {
+      "source": 21,
+      "target": 8,
+      "value": 7,
+      "strength": 0.036
+    },
+    {
+      "source": 21,
+      "target": 55,
+      "value": 7,
+      "strength": 0.067
+    },
+    {
+      "source": 21,
+      "target": 16,
+      "value": 7,
+      "strength": 0.055
+    },
+    {
+      "source": 14,
+      "target": 39,
+      "value": 7,
+      "strength": 0.052
+    },
+    {
+      "source": 5,
+      "target": 70,
+      "value": 7,
+      "strength": 0.032
+    },
+    {
+      "source": 7,
+      "target": 47,
+      "value": 7,
+      "strength": 0.035
+    },
+    {
+      "source": 31,
+      "target": 24,
+      "value": 7,
+      "strength": 0.111
+    },
+    {
+      "source": 42,
+      "target": 37,
+      "value": 7,
+      "strength": 0.167
+    },
+    {
+      "source": 44,
+      "target": 3,
+      "value": 8,
+      "strength": 0.031
+    },
+    {
+      "source": 32,
+      "target": 8,
+      "value": 8,
+      "strength": 0.041
+    },
+    {
+      "source": 64,
+      "target": 19,
+      "value": 8,
+      "strength": 0.071
+    },
+    {
+      "source": 9,
+      "target": 22,
+      "value": 8,
+      "strength": 0.047
+    },
+    {
+      "source": 30,
+      "target": 22,
+      "value": 8,
+      "strength": 0.113
+    },
+    {
+      "source": 20,
+      "target": 35,
+      "value": 8,
+      "strength": 0.072
+    },
+    {
+      "source": 20,
+      "target": 22,
+      "value": 8,
+      "strength": 0.072
+    },
+    {
+      "source": 2,
+      "target": 46,
+      "value": 8,
+      "strength": 0.031
+    },
+    {
+      "source": 1,
+      "target": 62,
+      "value": 8,
+      "strength": 0.022
+    },
+    {
+      "source": 7,
+      "target": 23,
+      "value": 8,
+      "strength": 0.04
+    },
+    {
+      "source": 18,
+      "target": 28,
+      "value": 8,
+      "strength": 0.07
+    },
+    {
+      "source": 4,
+      "target": 26,
+      "value": 8,
+      "strength": 0.036
+    },
+    {
+      "source": 21,
+      "target": 63,
+      "value": 8,
+      "strength": 0.076
+    },
+    {
+      "source": 5,
+      "target": 54,
+      "value": 8,
+      "strength": 0.037
+    },
+    {
+      "source": 13,
+      "target": 14,
+      "value": 8,
+      "strength": 0.058
+    },
+    {
+      "source": 56,
+      "target": 0,
+      "value": 8,
+      "strength": 0.008
+    },
+    {
+      "source": 10,
+      "target": 69,
+      "value": 8,
+      "strength": 0.049
+    },
+    {
+      "source": 12,
+      "target": 10,
+      "value": 8,
+      "strength": 0.049
+    },
+    {
+      "source": 12,
+      "target": 62,
+      "value": 8,
+      "strength": 0.055
+    },
+    {
+      "source": 6,
+      "target": 34,
+      "value": 8,
+      "strength": 0.04
+    },
+    {
+      "source": 13,
+      "target": 63,
+      "value": 8,
+      "strength": 0.058
+    },
+    {
+      "source": 36,
+      "target": 16,
+      "value": 8,
+      "strength": 0.063
+    },
+    {
+      "source": 6,
+      "target": 15,
+      "value": 8,
+      "strength": 0.04
+    },
+    {
+      "source": 8,
+      "target": 17,
+      "value": 8,
+      "strength": 0.041
+    },
+    {
+      "source": 12,
+      "target": 8,
+      "value": 8,
+      "strength": 0.041
+    },
+    {
+      "source": 15,
+      "target": 3,
+      "value": 8,
+      "strength": 0.031
+    },
+    {
+      "source": 56,
+      "target": 17,
+      "value": 8,
+      "strength": 0.067
+    },
+    {
+      "source": 34,
+      "target": 3,
+      "value": 8,
+      "strength": 0.031
+    },
+    {
+      "source": 12,
+      "target": 59,
+      "value": 8,
+      "strength": 0.055
+    },
+    {
+      "source": 45,
+      "target": 1,
+      "value": 8,
+      "strength": 0.022
+    },
+    {
+      "source": 1,
+      "target": 58,
+      "value": 8,
+      "strength": 0.022
+    },
+    {
+      "source": 3,
+      "target": 63,
+      "value": 8,
+      "strength": 0.031
+    },
+    {
+      "source": 14,
+      "target": 19,
+      "value": 8,
+      "strength": 0.06
+    },
+    {
+      "source": 4,
+      "target": 66,
+      "value": 8,
+      "strength": 0.036
+    },
+    {
+      "source": 31,
+      "target": 9,
+      "value": 8,
+      "strength": 0.047
+    },
+    {
+      "source": 7,
+      "target": 25,
+      "value": 8,
+      "strength": 0.04
+    },
+    {
+      "source": 45,
+      "target": 16,
+      "value": 8,
+      "strength": 0.063
+    },
+    {
+      "source": 7,
+      "target": 54,
+      "value": 8,
+      "strength": 0.04
+    },
+    {
+      "source": 1,
+      "target": 64,
+      "value": 8,
+      "strength": 0.022
+    },
+    {
+      "source": 10,
+      "target": 29,
+      "value": 8,
+      "strength": 0.049
+    },
+    {
+      "source": 7,
+      "target": 46,
+      "value": 8,
+      "strength": 0.04
+    },
+    {
+      "source": 4,
+      "target": 55,
+      "value": 8,
+      "strength": 0.036
+    },
+    {
+      "source": 7,
+      "target": 18,
+      "value": 8,
+      "strength": 0.04
+    },
+    {
+      "source": 15,
+      "target": 8,
+      "value": 8,
+      "strength": 0.041
+    },
+    {
+      "source": 7,
+      "target": 19,
+      "value": 8,
+      "strength": 0.04
+    },
+    {
+      "source": 38,
+      "target": 9,
+      "value": 8,
+      "strength": 0.047
+    },
+    {
+      "source": 7,
+      "target": 59,
+      "value": 8,
+      "strength": 0.04
+    },
+    {
+      "source": 40,
+      "target": 9,
+      "value": 8,
+      "strength": 0.047
+    },
+    {
+      "source": 18,
+      "target": 30,
+      "value": 8,
+      "strength": 0.07
+    },
+    {
+      "source": 24,
+      "target": 18,
+      "value": 8,
+      "strength": 0.07
+    },
+    {
+      "source": 24,
+      "target": 38,
+      "value": 9,
+      "strength": 0.143
+    },
+    {
+      "source": 17,
+      "target": 3,
+      "value": 9,
+      "strength": 0.035
+    },
+    {
+      "source": 4,
+      "target": 32,
+      "value": 9,
+      "strength": 0.04
+    },
+    {
+      "source": 4,
+      "target": 8,
+      "value": 9,
+      "strength": 0.04
+    },
+    {
+      "source": 30,
+      "target": 41,
+      "value": 9,
+      "strength": 0.188
+    },
+    {
+      "source": 20,
+      "target": 28,
+      "value": 9,
+      "strength": 0.081
+    },
+    {
+      "source": 44,
+      "target": 22,
+      "value": 9,
+      "strength": 0.127
+    },
+    {
+      "source": 15,
+      "target": 25,
+      "value": 9,
+      "strength": 0.069
+    },
+    {
+      "source": 23,
+      "target": 11,
+      "value": 9,
+      "strength": 0.056
+    },
+    {
+      "source": 67,
+      "target": 4,
+      "value": 9,
+      "strength": 0.04
+    },
+    {
+      "source": 9,
+      "target": 50,
+      "value": 9,
+      "strength": 0.053
+    },
+    {
+      "source": 46,
+      "target": 17,
+      "value": 9,
+      "strength": 0.076
+    },
+    {
+      "source": 14,
+      "target": 61,
+      "value": 9,
+      "strength": 0.067
+    },
+    {
+      "source": 9,
+      "target": 12,
+      "value": 9,
+      "strength": 0.053
+    },
+    {
+      "source": 52,
+      "target": 18,
+      "value": 9,
+      "strength": 0.079
+    },
+    {
+      "source": 6,
+      "target": 44,
+      "value": 9,
+      "strength": 0.045
+    },
+    {
+      "source": 18,
+      "target": 17,
+      "value": 9,
+      "strength": 0.076
+    },
+    {
+      "source": 4,
+      "target": 16,
+      "value": 9,
+      "strength": 0.04
+    },
+    {
+      "source": 42,
+      "target": 16,
+      "value": 9,
+      "strength": 0.071
+    },
+    {
+      "source": 67,
+      "target": 14,
+      "value": 9,
+      "strength": 0.067
+    },
+    {
+      "source": 5,
+      "target": 66,
+      "value": 9,
+      "strength": 0.041
+    },
+    {
+      "source": 43,
+      "target": 3,
+      "value": 9,
+      "strength": 0.035
+    },
+    {
+      "source": 3,
+      "target": 39,
+      "value": 9,
+      "strength": 0.035
+    },
+    {
+      "source": 13,
+      "target": 70,
+      "value": 9,
+      "strength": 0.065
+    },
+    {
+      "source": 5,
+      "target": 60,
+      "value": 9,
+      "strength": 0.041
+    },
+    {
+      "source": 25,
+      "target": 3,
+      "value": 9,
+      "strength": 0.035
+    },
+    {
+      "source": 36,
+      "target": 19,
+      "value": 9,
+      "strength": 0.08
+    },
+    {
+      "source": 55,
+      "target": 5,
+      "value": 9,
+      "strength": 0.041
+    },
+    {
+      "source": 1,
+      "target": 39,
+      "value": 9,
+      "strength": 0.024
+    },
+    {
+      "source": 21,
+      "target": 32,
+      "value": 9,
+      "strength": 0.086
+    },
+    {
+      "source": 13,
+      "target": 54,
+      "value": 9,
+      "strength": 0.065
+    },
+    {
+      "source": 13,
+      "target": 60,
+      "value": 9,
+      "strength": 0.065
+    },
+    {
+      "source": 7,
+      "target": 16,
+      "value": 9,
+      "strength": 0.045
+    },
+    {
+      "source": 9,
+      "target": 34,
+      "value": 9,
+      "strength": 0.053
+    },
+    {
+      "source": 4,
+      "target": 28,
+      "value": 9,
+      "strength": 0.04
+    },
+    {
+      "source": 9,
+      "target": 35,
+      "value": 9,
+      "strength": 0.053
+    },
+    {
+      "source": 13,
+      "target": 37,
+      "value": 9,
+      "strength": 0.065
+    },
+    {
+      "source": 4,
+      "target": 70,
+      "value": 10,
+      "strength": 0.045
+    },
+    {
+      "source": 20,
+      "target": 11,
+      "value": 10,
+      "strength": 0.062
+    },
+    {
+      "source": 20,
+      "target": 43,
+      "value": 10,
+      "strength": 0.09
+    },
+    {
+      "source": 7,
+      "target": 33,
+      "value": 10,
+      "strength": 0.05
+    },
+    {
+      "source": 7,
+      "target": 11,
+      "value": 10,
+      "strength": 0.05
+    },
+    {
+      "source": 11,
+      "target": 50,
+      "value": 10,
+      "strength": 0.062
+    },
+    {
+      "source": 2,
+      "target": 1,
+      "value": 10,
+      "strength": 0.027
+    },
+    {
+      "source": 7,
+      "target": 3,
+      "value": 10,
+      "strength": 0.039
+    },
+    {
+      "source": 67,
+      "target": 12,
+      "value": 10,
+      "strength": 0.068
+    },
+    {
+      "source": 7,
+      "target": 35,
+      "value": 10,
+      "strength": 0.05
+    },
+    {
+      "source": 12,
+      "target": 51,
+      "value": 10,
+      "strength": 0.068
+    },
+    {
+      "source": 53,
+      "target": 1,
+      "value": 10,
+      "strength": 0.027
+    },
+    {
+      "source": 15,
+      "target": 14,
+      "value": 10,
+      "strength": 0.075
+    },
+    {
+      "source": 14,
+      "target": 43,
+      "value": 10,
+      "strength": 0.075
+    },
+    {
+      "source": 12,
+      "target": 27,
+      "value": 10,
+      "strength": 0.068
+    },
+    {
+      "source": 15,
+      "target": 11,
+      "value": 10,
+      "strength": 0.062
+    },
+    {
+      "source": 19,
+      "target": 66,
+      "value": 10,
+      "strength": 0.088
+    },
+    {
+      "source": 5,
+      "target": 64,
+      "value": 10,
+      "strength": 0.046
+    },
+    {
+      "source": 45,
+      "target": 25,
+      "value": 10,
+      "strength": 0.175
+    },
+    {
+      "source": 32,
+      "target": 19,
+      "value": 10,
+      "strength": 0.088
+    },
+    {
+      "source": 9,
+      "target": 3,
+      "value": 10,
+      "strength": 0.039
+    },
+    {
+      "source": 31,
+      "target": 0,
+      "value": 10,
+      "strength": 0.01
+    },
+    {
+      "source": 8,
+      "target": 3,
+      "value": 10,
+      "strength": 0.039
+    },
+    {
+      "source": 33,
+      "target": 11,
+      "value": 10,
+      "strength": 0.062
+    },
+    {
+      "source": 8,
+      "target": 23,
+      "value": 10,
+      "strength": 0.051
+    },
+    {
+      "source": 31,
+      "target": 11,
+      "value": 10,
+      "strength": 0.062
+    },
+    {
+      "source": 49,
+      "target": 26,
+      "value": 10,
+      "strength": 0.185
+    },
+    {
+      "source": 4,
+      "target": 7,
+      "value": 11,
+      "strength": 0.049
+    },
+    {
+      "source": 4,
+      "target": 68,
+      "value": 11,
+      "strength": 0.049
+    },
+    {
+      "source": 40,
+      "target": 0,
+      "value": 11,
+      "strength": 0.012
+    },
+    {
+      "source": 6,
+      "target": 57,
+      "value": 11,
+      "strength": 0.055
+    },
+    {
+      "source": 11,
+      "target": 30,
+      "value": 11,
+      "strength": 0.069
+    },
+    {
+      "source": 1,
+      "target": 43,
+      "value": 11,
+      "strength": 0.03
+    },
+    {
+      "source": 13,
+      "target": 61,
+      "value": 11,
+      "strength": 0.08
+    },
+    {
+      "source": 18,
+      "target": 50,
+      "value": 11,
+      "strength": 0.096
+    },
+    {
+      "source": 5,
+      "target": 14,
+      "value": 11,
+      "strength": 0.051
+    },
+    {
+      "source": 6,
+      "target": 18,
+      "value": 11,
+      "strength": 0.055
+    },
+    {
+      "source": 6,
+      "target": 9,
+      "value": 11,
+      "strength": 0.055
+    },
+    {
+      "source": 1,
+      "target": 23,
+      "value": 11,
+      "strength": 0.03
+    },
+    {
+      "source": 9,
+      "target": 47,
+      "value": 11,
+      "strength": 0.065
+    },
+    {
+      "source": 20,
+      "target": 8,
+      "value": 11,
+      "strength": 0.056
+    },
+    {
+      "source": 55,
+      "target": 19,
+      "value": 11,
+      "strength": 0.097
+    },
+    {
+      "source": 20,
+      "target": 49,
+      "value": 11,
+      "strength": 0.099
+    },
+    {
+      "source": 21,
+      "target": 29,
+      "value": 11,
+      "strength": 0.105
+    },
+    {
+      "source": 54,
+      "target": 19,
+      "value": 11,
+      "strength": 0.097
+    },
+    {
+      "source": 21,
+      "target": 27,
+      "value": 11,
+      "strength": 0.105
+    },
+    {
+      "source": 19,
+      "target": 29,
+      "value": 11,
+      "strength": 0.097
+    },
+    {
+      "source": 2,
+      "target": 48,
+      "value": 12,
+      "strength": 0.047
+    },
+    {
+      "source": 15,
+      "target": 10,
+      "value": 12,
+      "strength": 0.074
+    },
+    {
+      "source": 16,
+      "target": 25,
+      "value": 12,
+      "strength": 0.094
+    },
+    {
+      "source": 4,
+      "target": 19,
+      "value": 12,
+      "strength": 0.054
+    },
+    {
+      "source": 17,
+      "target": 11,
+      "value": 12,
+      "strength": 0.075
+    },
+    {
+      "source": 52,
+      "target": 22,
+      "value": 12,
+      "strength": 0.169
+    },
+    {
+      "source": 57,
+      "target": 3,
+      "value": 12,
+      "strength": 0.047
+    },
+    {
+      "source": 7,
+      "target": 37,
+      "value": 12,
+      "strength": 0.06
+    },
+    {
+      "source": 18,
+      "target": 22,
+      "value": 12,
+      "strength": 0.105
+    },
+    {
+      "source": 5,
+      "target": 69,
+      "value": 12,
+      "strength": 0.055
+    },
+    {
+      "source": 20,
+      "target": 1,
+      "value": 12,
+      "strength": 0.033
+    },
+    {
+      "source": 1,
+      "target": 54,
+      "value": 12,
+      "strength": 0.033
+    },
+    {
+      "source": 0,
+      "target": 54,
+      "value": 12,
+      "strength": 0.013
+    },
+    {
+      "source": 6,
+      "target": 30,
+      "value": 12,
+      "strength": 0.06
+    },
+    {
+      "source": 27,
+      "target": 19,
+      "value": 12,
+      "strength": 0.106
+    },
+    {
+      "source": 10,
+      "target": 60,
+      "value": 12,
+      "strength": 0.074
+    },
+    {
+      "source": 20,
+      "target": 14,
+      "value": 12,
+      "strength": 0.09
+    },
+    {
+      "source": 5,
+      "target": 29,
+      "value": 12,
+      "strength": 0.055
+    },
+    {
+      "source": 4,
+      "target": 29,
+      "value": 12,
+      "strength": 0.054
+    },
+    {
+      "source": 35,
+      "target": 3,
+      "value": 12,
+      "strength": 0.047
+    },
+    {
+      "source": 6,
+      "target": 53,
+      "value": 12,
+      "strength": 0.06
+    },
+    {
+      "source": 9,
+      "target": 30,
+      "value": 13,
+      "strength": 0.076
+    },
+    {
+      "source": 2,
+      "target": 50,
+      "value": 13,
+      "strength": 0.051
+    },
+    {
+      "source": 6,
+      "target": 1,
+      "value": 13,
+      "strength": 0.035
+    },
+    {
+      "source": 2,
+      "target": 52,
+      "value": 13,
+      "strength": 0.051
+    },
+    {
+      "source": 11,
+      "target": 47,
+      "value": 13,
+      "strength": 0.081
+    },
+    {
+      "source": 18,
+      "target": 47,
+      "value": 13,
+      "strength": 0.114
+    },
+    {
+      "source": 8,
+      "target": 36,
+      "value": 13,
+      "strength": 0.066
+    },
+    {
+      "source": 2,
+      "target": 33,
+      "value": 13,
+      "strength": 0.051
+    },
+    {
+      "source": 6,
+      "target": 41,
+      "value": 13,
+      "strength": 0.065
+    },
+    {
+      "source": 4,
+      "target": 51,
+      "value": 13,
+      "strength": 0.058
+    },
+    {
+      "source": 1,
+      "target": 66,
+      "value": 13,
+      "strength": 0.035
+    },
+    {
+      "source": 53,
+      "target": 3,
+      "value": 13,
+      "strength": 0.051
+    },
+    {
+      "source": 2,
+      "target": 8,
+      "value": 13,
+      "strength": 0.051
+    },
+    {
+      "source": 13,
+      "target": 29,
+      "value": 13,
+      "strength": 0.094
+    },
+    {
+      "source": 33,
+      "target": 0,
+      "value": 13,
+      "strength": 0.014
+    },
+    {
+      "source": 20,
+      "target": 9,
+      "value": 13,
+      "strength": 0.076
+    },
+    {
+      "source": 15,
+      "target": 16,
+      "value": 13,
+      "strength": 0.1
+    },
+    {
+      "source": 6,
+      "target": 35,
+      "value": 13,
+      "strength": 0.065
+    },
+    {
+      "source": 64,
+      "target": 0,
+      "value": 14,
+      "strength": 0.015
+    },
+    {
+      "source": 6,
+      "target": 28,
+      "value": 14,
+      "strength": 0.07
+    },
+    {
+      "source": 4,
+      "target": 62,
+      "value": 14,
+      "strength": 0.063
+    },
+    {
+      "source": 24,
+      "target": 7,
+      "value": 14,
+      "strength": 0.07
+    },
+    {
+      "source": 2,
+      "target": 4,
+      "value": 14,
+      "strength": 0.054
+    },
+    {
+      "source": 0,
+      "target": 37,
+      "value": 14,
+      "strength": 0.015
+    },
+    {
+      "source": 6,
+      "target": 14,
+      "value": 14,
+      "strength": 0.07
+    },
+    {
+      "source": 11,
+      "target": 34,
+      "value": 14,
+      "strength": 0.087
+    },
+    {
+      "source": 5,
+      "target": 42,
+      "value": 14,
+      "strength": 0.065
+    },
+    {
+      "source": 6,
+      "target": 25,
+      "value": 14,
+      "strength": 0.07
+    },
+    {
+      "source": 8,
+      "target": 13,
+      "value": 14,
+      "strength": 0.071
+    },
+    {
+      "source": 10,
+      "target": 14,
+      "value": 14,
+      "strength": 0.086
+    },
+    {
+      "source": 1,
+      "target": 70,
+      "value": 14,
+      "strength": 0.038
+    },
+    {
+      "source": 10,
+      "target": 27,
+      "value": 14,
+      "strength": 0.086
+    },
+    {
+      "source": 38,
+      "target": 8,
+      "value": 14,
+      "strength": 0.071
+    },
+    {
+      "source": 6,
+      "target": 8,
+      "value": 14,
+      "strength": 0.07
+    },
+    {
+      "source": 24,
+      "target": 0,
+      "value": 15,
+      "strength": 0.016
+    },
+    {
+      "source": 1,
+      "target": 3,
+      "value": 15,
+      "strength": 0.041
+    },
+    {
+      "source": 57,
+      "target": 0,
+      "value": 15,
+      "strength": 0.016
+    },
+    {
+      "source": 23,
+      "target": 3,
+      "value": 15,
+      "strength": 0.059
+    },
+    {
+      "source": 2,
+      "target": 47,
+      "value": 15,
+      "strength": 0.058
+    },
+    {
+      "source": 1,
+      "target": 63,
+      "value": 15,
+      "strength": 0.041
+    },
+    {
+      "source": 2,
+      "target": 34,
+      "value": 15,
+      "strength": 0.058
+    },
+    {
+      "source": 18,
+      "target": 34,
+      "value": 15,
+      "strength": 0.132
+    },
+    {
+      "source": 12,
+      "target": 23,
+      "value": 15,
+      "strength": 0.103
+    },
+    {
+      "source": 13,
+      "target": 27,
+      "value": 15,
+      "strength": 0.109
+    },
+    {
+      "source": 20,
+      "target": 23,
+      "value": 15,
+      "strength": 0.135
+    },
+    {
+      "source": 49,
+      "target": 3,
+      "value": 15,
+      "strength": 0.059
+    },
+    {
+      "source": 26,
+      "target": 3,
+      "value": 15,
+      "strength": 0.059
+    },
+    {
+      "source": 10,
+      "target": 54,
+      "value": 15,
+      "strength": 0.093
+    },
+    {
+      "source": 18,
+      "target": 3,
+      "value": 16,
+      "strength": 0.063
+    },
+    {
+      "source": 6,
+      "target": 20,
+      "value": 16,
+      "strength": 0.08
+    },
+    {
+      "source": 12,
+      "target": 43,
+      "value": 16,
+      "strength": 0.11
+    },
+    {
+      "source": 8,
+      "target": 33,
+      "value": 16,
+      "strength": 0.081
+    },
+    {
+      "source": 20,
+      "target": 26,
+      "value": 16,
+      "strength": 0.144
+    },
+    {
+      "source": 12,
+      "target": 29,
+      "value": 16,
+      "strength": 0.11
+    },
+    {
+      "source": 8,
+      "target": 37,
+      "value": 16,
+      "strength": 0.081
+    },
+    {
+      "source": 4,
+      "target": 15,
+      "value": 16,
+      "strength": 0.072
+    },
+    {
+      "source": 42,
+      "target": 0,
+      "value": 16,
+      "strength": 0.017
+    },
+    {
+      "source": 4,
+      "target": 39,
+      "value": 16,
+      "strength": 0.072
+    },
+    {
+      "source": 14,
+      "target": 27,
+      "value": 16,
+      "strength": 0.119
+    },
+    {
+      "source": 24,
+      "target": 9,
+      "value": 17,
+      "strength": 0.1
+    },
+    {
+      "source": 6,
+      "target": 11,
+      "value": 17,
+      "strength": 0.085
+    },
+    {
+      "source": 1,
+      "target": 69,
+      "value": 17,
+      "strength": 0.046
+    },
+    {
+      "source": 0,
+      "target": 69,
+      "value": 17,
+      "strength": 0.018
+    },
+    {
+      "source": 40,
+      "target": 18,
+      "value": 17,
+      "strength": 0.149
+    },
+    {
+      "source": 11,
+      "target": 28,
+      "value": 17,
+      "strength": 0.106
+    },
+    {
+      "source": 4,
+      "target": 43,
+      "value": 17,
+      "strength": 0.076
+    },
+    {
+      "source": 0,
+      "target": 41,
+      "value": 17,
+      "strength": 0.018
+    },
+    {
+      "source": 30,
+      "target": 0,
+      "value": 17,
+      "strength": 0.018
+    },
+    {
+      "source": 12,
+      "target": 39,
+      "value": 17,
+      "strength": 0.116
+    },
+    {
+      "source": 12,
+      "target": 58,
+      "value": 17,
+      "strength": 0.116
+    },
+    {
+      "source": 8,
+      "target": 54,
+      "value": 17,
+      "strength": 0.086
+    },
+    {
+      "source": 24,
+      "target": 17,
+      "value": 18,
+      "strength": 0.151
+    },
+    {
+      "source": 8,
+      "target": 19,
+      "value": 18,
+      "strength": 0.091
+    },
+    {
+      "source": 7,
+      "target": 13,
+      "value": 18,
+      "strength": 0.09
+    },
+    {
+      "source": 6,
+      "target": 23,
+      "value": 18,
+      "strength": 0.09
+    },
+    {
+      "source": 4,
+      "target": 23,
+      "value": 18,
+      "strength": 0.081
+    },
+    {
+      "source": 13,
+      "target": 16,
+      "value": 18,
+      "strength": 0.13
+    },
+    {
+      "source": 21,
+      "target": 14,
+      "value": 18,
+      "strength": 0.134
+    },
+    {
+      "source": 1,
+      "target": 55,
+      "value": 18,
+      "strength": 0.049
+    },
+    {
+      "source": 48,
+      "target": 17,
+      "value": 19,
+      "strength": 0.16
+    },
+    {
+      "source": 20,
+      "target": 4,
+      "value": 19,
+      "strength": 0.085
+    },
+    {
+      "source": 1,
+      "target": 36,
+      "value": 19,
+      "strength": 0.052
+    },
+    {
+      "source": 31,
+      "target": 17,
+      "value": 19,
+      "strength": 0.16
+    },
+    {
+      "source": 31,
+      "target": 7,
+      "value": 19,
+      "strength": 0.095
+    },
+    {
+      "source": 40,
+      "target": 11,
+      "value": 19,
+      "strength": 0.119
+    },
+    {
+      "source": 21,
+      "target": 19,
+      "value": 19,
+      "strength": 0.168
+    },
+    {
+      "source": 2,
+      "target": 24,
+      "value": 20,
+      "strength": 0.078
+    },
+    {
+      "source": 59,
+      "target": 0,
+      "value": 20,
+      "strength": 0.021
+    },
+    {
+      "source": 2,
+      "target": 20,
+      "value": 20,
+      "strength": 0.078
+    },
+    {
+      "source": 64,
+      "target": 16,
+      "value": 20,
+      "strength": 0.157
+    },
+    {
+      "source": 22,
+      "target": 0,
+      "value": 20,
+      "strength": 0.021
+    },
+    {
+      "source": 32,
+      "target": 5,
+      "value": 20,
+      "strength": 0.092
+    },
+    {
+      "source": 2,
+      "target": 31,
+      "value": 20,
+      "strength": 0.078
+    },
+    {
+      "source": 28,
+      "target": 3,
+      "value": 20,
+      "strength": 0.078
+    },
+    {
+      "source": 7,
+      "target": 10,
+      "value": 20,
+      "strength": 0.1
+    },
+    {
+      "source": 0,
+      "target": 66,
+      "value": 20,
+      "strength": 0.021
+    },
+    {
+      "source": 15,
+      "target": 65,
+      "value": 20,
+      "strength": 0.154
+    },
+    {
+      "source": 1,
+      "target": 60,
+      "value": 20,
+      "strength": 0.054
+    },
+    {
+      "source": 0,
+      "target": 70,
+      "value": 21,
+      "strength": 0.022
+    },
+    {
+      "source": 16,
+      "target": 19,
+      "value": 21,
+      "strength": 0.165
+    },
+    {
+      "source": 6,
+      "target": 49,
+      "value": 21,
+      "strength": 0.105
+    },
+    {
+      "source": 1,
+      "target": 61,
+      "value": 21,
+      "strength": 0.057
+    },
+    {
+      "source": 1,
+      "target": 51,
+      "value": 21,
+      "strength": 0.057
+    },
+    {
+      "source": 15,
+      "target": 5,
+      "value": 21,
+      "strength": 0.097
+    },
+    {
+      "source": 60,
+      "target": 0,
+      "value": 21,
+      "strength": 0.022
+    },
+    {
+      "source": 38,
+      "target": 0,
+      "value": 22,
+      "strength": 0.023
+    },
+    {
+      "source": 68,
+      "target": 0,
+      "value": 22,
+      "strength": 0.023
+    },
+    {
+      "source": 2,
+      "target": 15,
+      "value": 22,
+      "strength": 0.086
+    },
+    {
+      "source": 28,
+      "target": 0,
+      "value": 22,
+      "strength": 0.023
+    },
+    {
+      "source": 67,
+      "target": 0,
+      "value": 22,
+      "strength": 0.023
+    },
+    {
+      "source": 65,
+      "target": 0,
+      "value": 22,
+      "strength": 0.023
+    },
+    {
+      "source": 6,
+      "target": 12,
+      "value": 23,
+      "strength": 0.115
+    },
+    {
+      "source": 11,
+      "target": 22,
+      "value": 23,
+      "strength": 0.144
+    },
+    {
+      "source": 13,
+      "target": 19,
+      "value": 24,
+      "strength": 0.174
+    },
+    {
+      "source": 35,
+      "target": 0,
+      "value": 24,
+      "strength": 0.025
+    },
+    {
+      "source": 2,
+      "target": 22,
+      "value": 24,
+      "strength": 0.093
+    },
+    {
+      "source": 62,
+      "target": 0,
+      "value": 24,
+      "strength": 0.025
+    },
+    {
+      "source": 2,
+      "target": 23,
+      "value": 24,
+      "strength": 0.093
+    },
+    {
+      "source": 22,
+      "target": 3,
+      "value": 24,
+      "strength": 0.094
+    },
+    {
+      "source": 14,
+      "target": 3,
+      "value": 24,
+      "strength": 0.094
+    },
+    {
+      "source": 4,
+      "target": 5,
+      "value": 24,
+      "strength": 0.108
+    },
+    {
+      "source": 0,
+      "target": 63,
+      "value": 24,
+      "strength": 0.025
+    },
+    {
+      "source": 61,
+      "target": 0,
+      "value": 24,
+      "strength": 0.025
+    },
+    {
+      "source": 18,
+      "target": 0,
+      "value": 24,
+      "strength": 0.025
+    },
+    {
+      "source": 30,
+      "target": 3,
+      "value": 24,
+      "strength": 0.094
+    },
+    {
+      "source": 7,
+      "target": 5,
+      "value": 25,
+      "strength": 0.115
+    },
+    {
+      "source": 6,
+      "target": 26,
+      "value": 25,
+      "strength": 0.125
+    },
+    {
+      "source": 56,
+      "target": 7,
+      "value": 25,
+      "strength": 0.125
+    },
+    {
+      "source": 58,
+      "target": 0,
+      "value": 25,
+      "strength": 0.026
+    },
+    {
+      "source": 9,
+      "target": 17,
+      "value": 26,
+      "strength": 0.153
+    },
+    {
+      "source": 36,
+      "target": 5,
+      "value": 26,
+      "strength": 0.12
+    },
+    {
+      "source": 7,
+      "target": 9,
+      "value": 26,
+      "strength": 0.13
+    },
+    {
+      "source": 41,
+      "target": 3,
+      "value": 26,
+      "strength": 0.102
+    },
+    {
+      "source": 8,
+      "target": 42,
+      "value": 26,
+      "strength": 0.132
+    },
+    {
+      "source": 2,
+      "target": 40,
+      "value": 26,
+      "strength": 0.101
+    },
+    {
+      "source": 55,
+      "target": 0,
+      "value": 26,
+      "strength": 0.027
+    },
+    {
+      "source": 45,
+      "target": 0,
+      "value": 26,
+      "strength": 0.027
+    },
+    {
+      "source": 4,
+      "target": 13,
+      "value": 26,
+      "strength": 0.117
+    },
+    {
+      "source": 6,
+      "target": 22,
+      "value": 27,
+      "strength": 0.135
+    },
+    {
+      "source": 9,
+      "target": 33,
+      "value": 27,
+      "strength": 0.159
+    },
+    {
+      "source": 2,
+      "target": 6,
+      "value": 27,
+      "strength": 0.105
+    },
+    {
+      "source": 53,
+      "target": 0,
+      "value": 27,
+      "strength": 0.028
+    },
+    {
+      "source": 6,
+      "target": 4,
+      "value": 28,
+      "strength": 0.126
+    },
+    {
+      "source": 10,
+      "target": 16,
+      "value": 28,
+      "strength": 0.173
+    },
+    {
+      "source": 4,
+      "target": 10,
+      "value": 28,
+      "strength": 0.126
+    },
+    {
+      "source": 12,
+      "target": 1,
+      "value": 28,
+      "strength": 0.076
+    },
+    {
+      "source": 0,
+      "target": 51,
+      "value": 28,
+      "strength": 0.029
+    },
+    {
+      "source": 4,
+      "target": 27,
+      "value": 28,
+      "strength": 0.126
+    },
+    {
+      "source": 49,
+      "target": 0,
+      "value": 29,
+      "strength": 0.03
+    },
+    {
+      "source": 10,
+      "target": 5,
+      "value": 29,
+      "strength": 0.134
+    },
+    {
+      "source": 2,
+      "target": 28,
+      "value": 29,
+      "strength": 0.113
+    },
+    {
+      "source": 1,
+      "target": 29,
+      "value": 29,
+      "strength": 0.079
+    },
+    {
+      "source": 5,
+      "target": 19,
+      "value": 29,
+      "strength": 0.134
+    },
+    {
+      "source": 7,
+      "target": 1,
+      "value": 30,
+      "strength": 0.082
+    },
+    {
+      "source": 20,
+      "target": 12,
+      "value": 30,
+      "strength": 0.205
+    },
+    {
+      "source": 15,
+      "target": 1,
+      "value": 30,
+      "strength": 0.082
+    },
+    {
+      "source": 10,
+      "target": 19,
+      "value": 30,
+      "strength": 0.185
+    },
+    {
+      "source": 1,
+      "target": 8,
+      "value": 30,
+      "strength": 0.082
+    },
+    {
+      "source": 1,
+      "target": 32,
+      "value": 31,
+      "strength": 0.084
+    },
+    {
+      "source": 1,
+      "target": 16,
+      "value": 32,
+      "strength": 0.087
+    },
+    {
+      "source": 43,
+      "target": 0,
+      "value": 33,
+      "strength": 0.035
+    },
+    {
+      "source": 36,
+      "target": 0,
+      "value": 33,
+      "strength": 0.035
+    },
+    {
+      "source": 12,
+      "target": 14,
+      "value": 33,
+      "strength": 0.226
+    },
+    {
+      "source": 21,
+      "target": 10,
+      "value": 33,
+      "strength": 0.204
+    },
+    {
+      "source": 18,
+      "target": 9,
+      "value": 34,
+      "strength": 0.2
+    },
+    {
+      "source": 21,
+      "target": 13,
+      "value": 34,
+      "strength": 0.246
+    },
+    {
+      "source": 20,
+      "target": 3,
+      "value": 35,
+      "strength": 0.137
+    },
+    {
+      "source": 10,
+      "target": 13,
+      "value": 35,
+      "strength": 0.216
+    },
+    {
+      "source": 9,
+      "target": 11,
+      "value": 36,
+      "strength": 0.212
+    },
+    {
+      "source": 8,
+      "target": 10,
+      "value": 36,
+      "strength": 0.183
+    },
+    {
+      "source": 11,
+      "target": 3,
+      "value": 37,
+      "strength": 0.145
+    },
+    {
+      "source": 7,
+      "target": 8,
+      "value": 37,
+      "strength": 0.185
+    },
+    {
+      "source": 2,
+      "target": 7,
+      "value": 37,
+      "strength": 0.144
+    },
+    {
+      "source": 4,
+      "target": 21,
+      "value": 37,
+      "strength": 0.166
+    },
+    {
+      "source": 12,
+      "target": 3,
+      "value": 37,
+      "strength": 0.145
+    },
+    {
+      "source": 5,
+      "target": 16,
+      "value": 38,
+      "strength": 0.175
+    },
+    {
+      "source": 8,
+      "target": 16,
+      "value": 38,
+      "strength": 0.193
+    },
+    {
+      "source": 11,
+      "target": 0,
+      "value": 39,
+      "strength": 0.041
+    },
+    {
+      "source": 32,
+      "target": 0,
+      "value": 40,
+      "strength": 0.042
+    },
+    {
+      "source": 0,
+      "target": 39,
+      "value": 40,
+      "strength": 0.042
+    },
+    {
+      "source": 4,
+      "target": 3,
+      "value": 40,
+      "strength": 0.157
+    },
+    {
+      "source": 1,
+      "target": 27,
+      "value": 40,
+      "strength": 0.109
+    },
+    {
+      "source": 0,
+      "target": 26,
+      "value": 42,
+      "strength": 0.044
+    },
+    {
+      "source": 21,
+      "target": 5,
+      "value": 42,
+      "strength": 0.194
+    },
+    {
+      "source": 8,
+      "target": 5,
+      "value": 42,
+      "strength": 0.194
+    },
+    {
+      "source": 2,
+      "target": 3,
+      "value": 43,
+      "strength": 0.167
+    },
+    {
+      "source": 2,
+      "target": 9,
+      "value": 45,
+      "strength": 0.175
+    },
+    {
+      "source": 0,
+      "target": 25,
+      "value": 45,
+      "strength": 0.047
+    },
+    {
+      "source": 7,
+      "target": 17,
+      "value": 45,
+      "strength": 0.225
+    },
+    {
+      "source": 13,
+      "target": 5,
+      "value": 45,
+      "strength": 0.207
+    },
+    {
+      "source": 0,
+      "target": 29,
+      "value": 46,
+      "strength": 0.048
+    },
+    {
+      "source": 18,
+      "target": 11,
+      "value": 47,
+      "strength": 0.294
+    },
+    {
+      "source": 17,
+      "target": 0,
+      "value": 48,
+      "strength": 0.05
+    },
+    {
+      "source": 4,
+      "target": 12,
+      "value": 48,
+      "strength": 0.215
+    },
+    {
+      "source": 9,
+      "target": 8,
+      "value": 48,
+      "strength": 0.244
+    },
+    {
+      "source": 0,
+      "target": 27,
+      "value": 53,
+      "strength": 0.055
+    },
+    {
+      "source": 2,
+      "target": 18,
+      "value": 54,
+      "strength": 0.21
+    },
+    {
+      "source": 2,
+      "target": 17,
+      "value": 55,
+      "strength": 0.214
+    },
+    {
+      "source": 23,
+      "target": 0,
+      "value": 58,
+      "strength": 0.061
+    },
+    {
+      "source": 9,
+      "target": 0,
+      "value": 58,
+      "strength": 0.061
+    },
+    {
+      "source": 1,
+      "target": 14,
+      "value": 63,
+      "strength": 0.171
+    },
+    {
+      "source": 4,
+      "target": 14,
+      "value": 66,
+      "strength": 0.296
+    },
+    {
+      "source": 1,
+      "target": 19,
+      "value": 72,
+      "strength": 0.196
+    },
+    {
+      "source": 0,
+      "target": 16,
+      "value": 77,
+      "strength": 0.081
+    },
+    {
+      "source": 0,
+      "target": 19,
+      "value": 83,
+      "strength": 0.087
+    },
+    {
+      "source": 20,
+      "target": 0,
+      "value": 90,
+      "strength": 0.094
+    },
+    {
+      "source": 1,
+      "target": 10,
+      "value": 91,
+      "strength": 0.247
+    },
+    {
+      "source": 1,
+      "target": 13,
+      "value": 92,
+      "strength": 0.25
+    },
+    {
+      "source": 21,
+      "target": 0,
+      "value": 98,
+      "strength": 0.103
+    },
+    {
+      "source": 21,
+      "target": 1,
+      "value": 101,
+      "strength": 0.274
+    },
+    {
+      "source": 4,
+      "target": 1,
+      "value": 102,
+      "strength": 0.277
+    },
+    {
+      "source": 7,
+      "target": 0,
+      "value": 102,
+      "strength": 0.107
+    },
+    {
+      "source": 2,
+      "target": 0,
+      "value": 105,
+      "strength": 0.11
+    },
+    {
+      "source": 13,
+      "target": 0,
+      "value": 106,
+      "strength": 0.111
+    },
+    {
+      "source": 6,
+      "target": 3,
+      "value": 106,
+      "strength": 0.416
+    },
+    {
+      "source": 8,
+      "target": 0,
+      "value": 111,
+      "strength": 0.116
+    },
+    {
+      "source": 1,
+      "target": 5,
+      "value": 114,
+      "strength": 0.31
+    },
+    {
+      "source": 2,
+      "target": 11,
+      "value": 122,
+      "strength": 0.475
+    },
+    {
+      "source": 15,
+      "target": 0,
+      "value": 122,
+      "strength": 0.128
+    },
+    {
+      "source": 10,
+      "target": 0,
+      "value": 123,
+      "strength": 0.129
+    },
+    {
+      "source": 14,
+      "target": 0,
+      "value": 134,
+      "strength": 0.14
+    },
+    {
+      "source": 12,
+      "target": 0,
+      "value": 146,
+      "strength": 0.153
+    },
+    {
+      "source": 6,
+      "target": 0,
+      "value": 148,
+      "strength": 0.155
+    },
+    {
+      "source": 5,
+      "target": 0,
+      "value": 160,
+      "strength": 0.168
+    },
+    {
+      "source": 0,
+      "target": 3,
+      "value": 181,
+      "strength": 0.19
+    },
+    {
+      "source": 4,
+      "target": 0,
+      "value": 215,
+      "strength": 0.225
+    },
+    {
+      "source": 1,
+      "target": 0,
+      "value": 337,
+      "strength": 0.353
+    }
+  ],
+  "stats": {
+    "total_tags": 71,
+    "total_cooccurrences": 426,
+    "total_recordings": 1458,
+    "min_count": 22,
+    "min_cooccurrence": 7
+  }
+}

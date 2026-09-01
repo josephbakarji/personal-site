@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Joseph Bakarji</title>
-  <meta name="description" content="Joseph Bakarji. Modeling physical systems, scientific machine learning, music technology, mechatronic instrument design. Assistant Professor at the American University of Beirut.">
+  <meta name="description" content="Joseph Bakarji. Researcher and instrument designer at the American University of Beirut, working across scientific machine learning, music technology, mechatronics, and complex systems.">
 
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/portfolio.css">
   <link rel="stylesheet" href="css/landing.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,52 +20,74 @@
 <nav class="nav">
   <a class="nav-logo" href="/">jb</a>
   <ul class="nav-links">
-    <li><a href="articles/">articles</a></li>
-    <li><a href="publications/">publications</a></li>
-    <li><a href="labs/">labs</a></li>
-    <li><a href="teaching/">teaching</a></li>
-    <li><a href="team/">team</a></li>
-    <li><a href="about/">about</a></li>
-  </ul>
+      <li><a href="projects/">projects</a></li>
+      <li><a href="publications/">publications</a></li>
+      <li><a href="teaching/">teaching</a></li>
+      <li><a href="articles/">articles</a></li>
+      <li><a href="music/">music</a></li>
+      <li><a href="team/">team</a></li>
+      <li><a href="about/">about</a></li>
+    </ul>
 </nav>
 
-<!-- ============ HERO ============ -->
-<section class="hero" data-section="hero">
+<!-- ============ HEADER ============ -->
+<header class="landing-head">
+  <div class="landing-head-inner">
+    <aside class="landing-head-side">
+      <figure class="landing-portrait">
+        <img src="assets/about/joseph.jpg" alt="Joseph Bakarji"
+             onerror="this.parentElement.classList.add('is-empty')">
+        <span class="landing-portrait-placeholder">portrait: drop a photo at <code>assets/about/joseph.jpg</code></span>
+      </figure>
 
-  <!-- Piano video slice: shows hammers down to the strike point -->
-  <div class="hero-video-strip" id="hero-video-strip">
-    <video id="hero-video" autoplay muted playsinline
-           poster="assets/hero/piano-poster.jpg" preload="metadata" aria-hidden="true">
-      <source src="assets/hero/piano.webm" type="video/webm">
-      <source src="assets/hero/piano.mp4" type="video/mp4">
-    </video>
-    <canvas id="det-overlay" class="det-overlay" aria-hidden="true"></canvas>
-    <div class="hero-controls" aria-label="animation controls">
-      <button class="hero-ctrl" id="hero-ctrl-pause" type="button" aria-pressed="false" title="pause / resume">pause</button>
-      <button class="hero-ctrl" id="hero-ctrl-audio" type="button" aria-pressed="false" title="unmute video audio">audio: off</button>
-    </div>
-  </div>
+      <ul class="landing-social" aria-label="links">
+        <li>
+          <a class="landing-social-icon" href="https://scholar.google.com/citations?user=1zZNV48AAAAJ&hl=en" target="_blank" rel="noopener" title="Google Scholar" aria-label="Google Scholar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5.242 13.769L0.5 9.5 12 1l11.5 8.5-4.742 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 100 14 7 7 0 000-14z"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="landing-social-icon" href="https://github.com/josephbakarji" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+        </li>
+        <li><a class="landing-social-text" href="about/">Bio</a></li>
+      </ul>
+      <p class="landing-email">joseph.bakarji [at] aub.edu.lb</p>
+    </aside>
 
-  <!-- Clearance band: piano-roll bars fall from strikes into the substrate -->
-  <div class="hero-clearance" aria-hidden="true">
-    <canvas id="hero-roll-canvas"></canvas>
-  </div>
+    <div class="landing-head-text">
+      <h1 class="landing-name">Joseph Bakarji</h1>
 
-  <!-- Game of Life zone: fills the remaining hero band -->
-  <div class="hero-gol" id="hero-gol">
-    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="landing-affiliation">
+        <p>Assistant Professor at the American University of Beirut</p>
+        <p>MechE at <a class="soft-link" href="https://www.aub.edu.lb/msfea/departments/me/Pages/default.aspx" target="_blank" rel="noopener">MSFEA</a> and Data Science at <a class="soft-link" href="https://scds.aub.edu.lb/" target="_blank" rel="noopener">SCDS</a></p>
+      </div>
 
-    <div class="hero-overlay">
-      <p class="hero-intro">
-        My name is Joseph (Joe) Bakarji. I'm an assistant professor at the <a href="https://aub.edu.lb" target="_blank" rel="noopener">American University of Beirut</a>, where I teach <a href="https://intro2ml.com" target="_blank" rel="noopener">intro to ML</a> and <a href="https://ml4science.com" target="_blank" rel="noopener">ML for science</a>, and I research problems at the intersection of <a href="labs/data-driven-modeling/">data-driven equation discovery</a>, <a href="labs/music-intelligence/">mechatronic design of digital musical instruments</a>, and complex systems modeling and simulation. I'm driven by questions you can find me wrestling with on <a href="https://bakarji.substack.com" target="_blank" rel="noopener">my blog</a>, and you can find the people who have joined me on this journey on the <a href="team/">team page</a>. I'm also a musician (pianist and composer/improviser) enjoying sounds across neo-classical, jazz, and arabic music on <a href="https://soundcloud.com/user-343358875" target="_blank" rel="noopener">SoundCloud</a>. I enjoy bringing together loosely related ideas, hence the background simulation: a <a href="articles/?slug=piano-of-life">piano-triggered game of life</a>.
+      <ul class="landing-interests">
+        <li>Scientific Machine Learning for Complex Systems</li>
+        <li>Data-Driven Embodied Music Instrument Design</li>
+        <li>And a bunch of other obsessions</li>
+      </ul>
+
+      <p class="landing-bio">
+        <em>What is it that we do when we do science?</em> and <em>what is a well-designed movement-to-sound musical interface?</em> Two of my latest obsessions, and you can find more on the <a href="projects/">projects</a> page. The unifying theme is intelligence. Automating scientific discovery asks about some of the most cerebral things we do; music and physical performance are intelligences in their own right, arguably more responsible for our survival than Newton's second law. I wrestle with these on <a href="https://bakarji.substack.com" target="_blank" rel="noopener">The Latent Dimension</a>, and teach them on <a href="https://ml4science.com" target="_blank" rel="noopener">ml4science.com</a> and <a href="https://intro2ml.com" target="_blank" rel="noopener">intro2ml.com</a>. Welcome; enjoy the tour, and feel free to ping me an email.
       </p>
     </div>
   </div>
+</header>
 
-  <a class="hero-scroll" href="#news" aria-label="scroll to news">
-    <span class="hero-scroll-label">news</span>
-    <span class="hero-scroll-chev" aria-hidden="true"></span>
-  </a>
+<!-- ============ SELECTED PROJECTS ============ -->
+<section class="section section--featured" data-section="projects">
+  <div class="section-inner">
+    <header class="section-head">
+      <h2 class="section-title"><span class="section-tag">// selected projects</span></h2>
+      <a class="section-more" href="projects/">see all projects &rsaquo;</a>
+    </header>
+    <div class="featured-grid" id="featured-grid">
+      <div class="featured-card featured-card--skeleton">loading...</div>
+    </div>
+  </div>
 </section>
 
 <!-- ============ NEWS ============ -->
@@ -79,32 +102,6 @@
   </div>
 </section>
 
-<!-- ============ LABS ============ -->
-<section class="section section--labs" data-section="labs">
-  <div class="section-inner">
-    <header class="section-head">
-      <h2 class="section-title"><span class="section-tag">// labs</span></h2>
-    </header>
-    <div class="labs-grid">
-
-      <a class="lab-card" href="labs/data-driven-modeling/">
-        <img class="lab-card-img" src="assets/labs/ddm-lab-hero.png" alt="Data-Driven Modeling Lab" loading="lazy">
-        <span class="lab-name">Data-Driven Modeling Lab <span class="lab-alias">(DDM)</span></span>
-        <p class="lab-blurb">Discovering governing equations from data. Dimensional analysis, multi-scale modeling of granular materials, and agent-based simulations for social systems.</p>
-        <span class="lab-link">read more</span>
-      </a>
-
-      <a class="lab-card" href="labs/music-intelligence/">
-        <img class="lab-card-img lab-card-img--contain" src="assets/labs/bakarji-labs-logo.png" alt="Music Intelligence Lab" loading="lazy">
-        <span class="lab-name">Music Intelligence Lab <span class="lab-alias">(&micro;-lab)</span></span>
-        <p class="lab-blurb">Intelligent instruments, generative composition with alternate tuning systems, computational analysis of Arabic maqam and the maqam archive project.</p>
-        <span class="lab-link">read more</span>
-      </a>
-
-    </div>
-  </div>
-</section>
-
 <!-- ============ RECENT WRITING ============ -->
 <section class="section section--writing" data-section="writing">
   <div class="section-inner">
@@ -114,13 +111,35 @@
     <ul class="writing-list" id="recent-articles">
       <li class="writing-item writing-item--skeleton">loading...</li>
     </ul>
-    <a class="section-more" href="articles/">all articles</a>
+    <a class="section-more" href="articles/">all articles &rsaquo;</a>
+  </div>
+</section>
+
+<!-- ============ SELECTED PUBLICATIONS ============ -->
+<section class="section section--pubs" data-section="pubs">
+  <div class="section-inner">
+    <header class="section-head">
+      <h2 class="section-title"><span class="section-tag">// selected publications</span></h2>
+      <a class="section-more" href="publications/">all publications &rsaquo;</a>
+    </header>
+    <ul class="pubs-list" id="selected-pubs">
+      <li class="pubs-item pubs-item--skeleton">loading...</li>
+    </ul>
   </div>
 </section>
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="footer-inner">
+    <ul class="footer-nav">
+      <li><a href="projects/">projects</a></li>
+      <li><a href="publications/">publications</a></li>
+      <li><a href="teaching/">teaching</a></li>
+      <li><a href="articles/">articles</a></li>
+      <li><a href="music/">music</a></li>
+      <li><a href="team/">team</a></li>
+      <li><a href="about/">about</a></li>
+    </ul>
     <div class="ext-links">
       <a class="ext-link" href="https://bakarji.substack.com" target="_blank" rel="noopener">substack</a>
       <a class="ext-link" href="https://github.com/josephbakarji" target="_blank" rel="noopener">github</a>
@@ -128,16 +147,16 @@
       <a class="ext-link" href="https://soundcloud.com/user-343358875" target="_blank" rel="noopener">soundcloud</a>
       <a class="ext-link" href="https://www.sematlas.com" target="_blank" rel="noopener">sematlas</a>
       <a class="ext-link" href="https://ml4science.com" target="_blank" rel="noopener">ml4science</a>
-      <a class="ext-link" href="mailto:joseph.bakarji@aub.edu.lb">email</a>
     </div>
-    <p class="footer-note">joseph bakarji &middot; beirut &middot; <span id="year"></span></p>
+    <p class="footer-note">joseph.bakarji [at] aub.edu.lb &middot; beirut &middot; <span id="year"></span></p>
   </div>
 </footer>
 
 <script src="js/nav.js"></script>
 <script src="js/news.js"></script>
 <script src="js/recent-articles.js"></script>
-<script src="js/landing-anim.js" defer></script>
+<script src="js/featured-projects.js"></script>
+<script src="js/selected-publications.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>

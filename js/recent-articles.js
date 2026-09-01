@@ -18,8 +18,10 @@
       container.innerHTML = '<li class="writing-item writing-item--skeleton">nothing yet.</li>';
       return;
     }
-    // Sort by date desc, take top MAX_ITEMS.
-    const sorted = articles.slice().sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    // Filter out drafts (`published: false`) and unlisted entries
+    // (`listed: false`), then sort by date desc and take top MAX_ITEMS.
+    const visible = articles.filter(a => a.published !== false && a.listed !== false);
+    const sorted = visible.slice().sort((a, b) => (b.date || '').localeCompare(a.date || ''));
     const top = sorted.slice(0, MAX_ITEMS);
 
     container.innerHTML = top.map(a => {

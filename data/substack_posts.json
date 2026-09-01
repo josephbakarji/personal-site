@@ -6,6 +6,36 @@
   },
   "posts": [
     {
+      "title": "But what are agents?",
+      "slug": "but-what-are-agents",
+      "date": "2026-08-31",
+      "url": "https://bakarji.substack.com/p/but-what-are-agents",
+      "excerpt": "The question is one of definition; and I love those. This one is loaded, especially now that there are so many of kinds of them. I&#8217;m not going to talk only about the artificial ones, and...",
+      "tags": [],
+      "has_math": false,
+      "source": "substack"
+    },
+    {
+      "title": "Will Humans Sound Crazy?",
+      "slug": "will-humans-sound-crazy",
+      "date": "2026-08-28",
+      "url": "https://bakarji.substack.com/p/will-humans-sound-crazy",
+      "excerpt": "If I&#8217;m using an LLM to write, I first brainstorm some ideas, edit my essay, and if I&#8217;m too lazy to keep editing, I drop it into Claude, ask it to edit it, hoping it doesn&#8217;t...",
+      "tags": [],
+      "has_math": false,
+      "source": "substack"
+    },
+    {
+      "title": "What Are We Conserving",
+      "slug": "what-are-we-conserving",
+      "date": "2026-08-27",
+      "url": "https://bakarji.substack.com/p/what-are-we-conserving",
+      "excerpt": "My morning routine involves brainstorming out loud until I find an idea I haven&#8217;t thought about before. Then I&#8217;ll write it down, transcribe my voice memo if I recorded it; then, if I...",
+      "tags": [],
+      "has_math": false,
+      "source": "substack"
+    },
+    {
       "title": "The Center of the Universe",
       "slug": "the-center-of-the-universe",
       "date": "2026-01-15",
@@ -174,37 +204,7 @@
       "tags": [],
       "has_math": false,
       "source": "substack"
-    },
-    {
-      "title": "Riding Patterns Into the Unknown",
-      "slug": "riding-patterns-into-the-unknown",
-      "date": "2025-09-11",
-      "url": "https://bakarji.substack.com/p/riding-patterns-into-the-unknown",
-      "excerpt": "Will the sun set tonight? Will it rise tomorrow? We ask those questions with a straight face because, somewhere in us, a compact story about the world has crystalized: nights follow days, days follow...",
-      "tags": [],
-      "has_math": false,
-      "source": "substack"
-    },
-    {
-      "title": "Learning in the Intelligence Age",
-      "slug": "learning-in-the-intelligence-age",
-      "date": "2025-09-09",
-      "url": "https://bakarji.substack.com/p/learning-in-the-intelligence-age",
-      "excerpt": "The story we&#8217;ve told ourselves for a few decades now is the story of information: how to find it, store it, index it, move it faster, compress it smaller. That story isn&#8217;t wrong;...",
-      "tags": [],
-      "has_math": false,
-      "source": "substack"
-    },
-    {
-      "title": "Living Inside a Model",
-      "slug": "living-inside-a-model",
-      "date": "2025-09-08",
-      "url": "https://bakarji.substack.com/p/living-inside-a-model",
-      "excerpt": "As we step into the intelligence age, it&#8217;s worth pausing to ask what &#8220;intelligence&#8221; really is; artificial, human, animal, all of it. Intelligence is not just a feature we admire;...",
-      "tags": [],
-      "has_math": false,
-      "source": "substack"
     }
   ],
-  "fetched": "2026-02-22T17:05:04.443565"
+  "fetched": "2026-08-31T17:33:16.863284"
 }

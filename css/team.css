@@ -145,6 +145,26 @@
   font-weight: 600;
 }
 
+/* Inline note listing previous undergraduates without their own rows.
+   Sits between the "Previous students" block and "Collaborators" so it
+   reads as a coda to that section without adding another heading. */
+.team-inline-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 780px;
+  margin: calc(-1 * var(--space-md)) 0 var(--space-xl);
+  padding-left: var(--space-md);
+  border-left: 2px solid var(--border-subtle);
+}
+.team-inline-note strong {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-style: normal;
+}
+
 .team-note {
   font-family: var(--font-serif);
   font-style: italic;

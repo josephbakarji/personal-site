@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ropeflow Lab</title>
+<style>
+  :root {
+    --bg: #0b0e13;
+    --panel: #10141c;
+    --panel-2: #151a24;
+    --hairline: rgba(255,255,255,0.08);
+    --ink: #e8e6df;
+    --muted: #8b93a3;
+    --faint: #5a6170;
+    --accent: #ffb454;
+    --accent-dim: rgba(255,180,84,0.14);
+    --cool: #6da7ec;
+    --data: #3987e5;
+    --serif: "Iowan Old Style", "Palatino", "Book Antiqua", Georgia, serif;
+    --mono: ui-monospace, "SF Mono", Menlo, "Cascadia Code", monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    overflow: hidden;
+  }
+  #stage {
+    position: fixed;
+    inset: 0 340px 0 0;
+  }
+  #stage canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+  #stage canvas.grabbing { cursor: grabbing; }
+  #stage::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: radial-gradient(120% 90% at 42% 40%, transparent 55%, rgba(0,0,0,0.42) 100%);
+  }
+  .masthead {
+    position: absolute;
+    top: 28px; left: 34px;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .masthead h1 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(26px, 3.2vw, 40px);
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .masthead h1 em { color: var(--accent); font-style: italic; }
+  .masthead p {
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 40ch;
+  }
+  .hint {
+    position: absolute;
+    left: 34px; bottom: 22px;
+    font-size: 10.5px;
+    color: var(--faint);
+    z-index: 2;
+    pointer-events: none;
+  }
+  /* ------------------------------ panel ------------------------------ */
+  #panel {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: 340px;
+    background: linear-gradient(180deg, var(--panel), #0d1017);
+    border-left: 1px solid var(--hairline);
+    overflow-y: auto;
+    padding: 22px 22px 40px;
+    scrollbar-width: thin;
+    scrollbar-color: #2a3140 transparent;
+  }
+  .sec { margin-bottom: 6px; }
+  .sec h2 {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 16px 0 10px;
+    border-top: 1px solid var(--hairline);
+  }
+  .sec:first-child h2 { border-top: none; padding-top: 4px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .chip:hover { color: var(--ink); border-color: rgba(255,255,255,0.25); }
+  .chip.on {
+    color: var(--accent);
+    border-color: rgba(255,180,84,0.55);
+    background: var(--accent-dim);
+  }
+  .chip.mode { padding: 4px 10px; font-size: 10.5px; }
+  .chip.near { border-color: rgba(255,180,84,0.35); }
+
+  .row {
+    display: grid;
+    grid-template-columns: 86px 1fr 52px;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+  }
+  .row label { font-size: 11px; color: var(--muted); }
+  .row output {
+    font-size: 11px;
+    color: var(--ink);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 18px;
+    background: transparent;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    height: 2px;
+    background: #2a3140;
+    border-radius: 1px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: none;
+    margin-top: -5.5px;
+    transition: background .15s, transform .1s;
+  }
+  input[type=range]:hover::-webkit-slider-thumb { background: var(--accent); }
+  input[type=range]:active::-webkit-slider-thumb { transform: scale(1.15); }
+  input[type=range]::-moz-range-track { height: 2px; background: #2a3140; }
+  input[type=range]::-moz-range-thumb {
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--ink); border: none;
+  }
+  input[type=range]:hover::-moz-range-thumb { background: var(--accent); }
+
+  select {
+    width: 100%;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink);
+    background: var(--panel-2);
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+    padding: 7px 9px;
+    margin-bottom: 8px;
+    outline: none;
+    cursor: pointer;
+  }
+  .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+  .stat {
+    background: var(--panel-2);
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+  .stat b {
+    display: block;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat span { font-size: 9px; color: var(--faint); letter-spacing: 0.06em; }
+  .groups {
+    display: flex; gap: 14px;
+    font-size: 11px; color: var(--muted);
+    padding: 2px 0 10px;
+  }
+  .groups b { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+  #chart { width: 100%; height: 58px; display: block; margin: 2px 0 6px; }
+  .chart-cap { font-size: 9.5px; color: var(--faint); margin-bottom: 8px; }
+  .note { font-size: 10px; line-height: 1.65; color: var(--faint); padding-top: 8px; }
+  .note b { color: var(--muted); font-weight: 500; }
+
+  @media (max-width: 860px) {
+    #stage { inset: 0 0 45% 0; }
+    #panel { top: auto; height: 45%; width: 100%; border-left: none; border-top: 1px solid var(--hairline); }
+    .masthead { top: 16px; left: 18px; }
+    .hint { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <div class="masthead">
+    <h1>Ropeflow <em>Lab</em></h1>
+    <p>A rope held at one end, driven by a hand. Circular driving is exactly
+       gravity plus a rotating force of strength &Gamma; = R&Omega;&sup2;/g.
+       Flow begins near &Gamma; = 1.</p>
+  </div>
+  <div class="hint">grab the handle to drive it yourself &middot; space to pause</div>
+  <canvas id="view"></canvas>
+</div>
+
+<div id="panel">
+  <div class="sec">
+    <h2>Presets</h2>
+    <div class="chips" id="presets">
+      <button class="chip on" data-p="flow">flow</button>
+      <button class="chip" data-p="swing">swing</button>
+      <button class="chip" data-p="whip">whip</button>
+      <button class="chip" data-p="rod">rod</button>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Hand drive</h2>
+    <select id="pattern">
+      <option value="circle">circle</option>
+      <option value="ellipse">ellipse</option>
+      <option value="lineH">horizontal line</option>
+      <option value="lineV">vertical line</option>
+      <option value="fig8">figure eight</option>
+      <option value="still">still</option>
+      <option value="drag">drag with pointer</option>
+    </select>
+    <div class="row">
+      <label for="freq">frequency</label>
+      <input type="range" id="freq" min="0.1" max="2.5" step="0.01" value="1.0">
+      <output id="freqV">1.00 Hz</output>
+    </div>
+    <div class="row">
+      <label for="rad">radius</label>
+      <input type="range" id="rad" min="0.05" max="0.6" step="0.01" value="0.25">
+      <output id="radV">0.25 m</output>
+    </div>
+    <div class="chips">
+      <button class="chip on" id="dirCW">clockwise</button>
+      <button class="chip" id="dirCCW">counter</button>
+    </div>
+    <div class="chips" id="modes"></div>
+  </div>
+
+  <div class="sec">
+    <h2>Rope</h2>
+    <div class="row">
+      <label for="len">length</label>
+      <input type="range" id="len" min="0.5" max="4" step="0.05" value="2">
+      <output id="lenV">2.00 m</output>
+    </div>
+    <div class="row">
+      <label for="seg">segments</label>
+      <input type="range" id="seg" min="8" max="60" step="1" value="30">
+      <output id="segV">30</output>
+    </div>
+    <div class="row">
+      <label for="stiff">stiffness</label>
+      <input type="range" id="stiff" min="0" max="1" step="0.01" value="0.02">
+      <output id="stiffV">0.02</output>
+    </div>
+    <div class="row">
+      <label for="drag">air drag</label>
+      <input type="range" id="drag" min="0" max="0.4" step="0.005" value="0.08">
+      <output id="dragV">0.080</output>
+    </div>
+    <div class="row">
+      <label for="damp">damping</label>
+      <input type="range" id="damp" min="0" max="2" step="0.05" value="0.1">
+      <output id="dampV">0.10</output>
+    </div>
+    <div class="row">
+      <label for="grav">gravity</label>
+      <input type="range" id="grav" min="0" max="20" step="0.1" value="9.81">
+      <output id="gravV">9.8</output>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Measurements</h2>
+    <div class="groups">
+      <div>&Gamma; <b id="gGamma">1.01</b></div>
+      <div>f / f&#8321; <b id="gTune">2.39</b></div>
+      <div>slack <b id="gSlack">0%</b></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="mSpeed">0.0</b><span>tip m/s</span></div>
+      <div class="stat"><b id="mCV">0.00</b><span>speed CV</span></div>
+      <div class="stat"><b id="mFold">0</b><span>max fold &deg;</span></div>
+    </div>
+    <canvas id="chart"></canvas>
+    <div class="chart-cap">tip speed, last 6 s. Smooth flow reads as a flat line.</div>
+  </div>
+
+  <div class="sec">
+    <h2>View</h2>
+    <div class="chips">
+      <button class="chip on" id="tglTension">tension color</button>
+      <button class="chip on" id="tglTrail">tip trail</button>
+      <button class="chip on" id="tglGhost">hand path</button>
+      <button class="chip" id="tglSlow">slow motion</button>
+      <button class="chip" id="tglPause">pause</button>
+    </div>
+    <div class="note">
+      <b>Reading the rope.</b> Amber is taut, gray-blue is slack. Whips are
+      tension collapse: watch the color die just before the crack.
+      <b>Weight enters through drag</b>: a heavy rope is a low drag setting,
+      a light rope is a high one. Stiffness sweeps chain to rod.
+      Mode buttons set the drive to the hanging-chain resonances
+      f&#8345; = j&#8320;&#8345;&radic;(g/L)/4&pi;.
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  // ------------------------------------------------------------------
+  // Parameters and state
+  // ------------------------------------------------------------------
+  const P = {
+    L: 2.0, N: 30, kb: 0.02, cd: 0.08, damp: 0.1, g: 9.81,
+    f: 1.0, R: 0.25, dir: 1, pattern: "circle",
+  };
+  const VIEW = { tension: true, trail: true, ghost: true, slow: false, pause: false };
+  const DT = 1 / 240;
+  const ITERS = 18;
+  const J0 = [2.404826, 5.520078, 8.653728];
+
+  let nodes = [];           // {x, y, px, py} in meters, y up, node 0 = hand
+  let strain = [];          // per-segment strain, measured pre-projection
+  let strainRef = 0.004;    // adaptive color normalization
+  let phase = 0;            // accumulated drive phase (rad)
+  let simTime = 0;
+  let manual = false;       // pointer currently driving the hand
+  let pointerW = { x: 0, y: 0 };
+  let trail = [];           // {x, y, t}
+  let speedBuf = [];        // {t, v} tip speed samples
+  let lastTip = null;
+
+  function segLen() { return P.L / P.N; }
+
+  function buildRope() {
+    const h = handTarget();
+    nodes = [];
+    const l = segLen();
+    for (let i = 0; i <= P.N; i++) {
+      const y = h.y - i * l;
+      nodes.push({ x: h.x, y, px: h.x, py: y });
+    }
+    strain = new Array(P.N).fill(0);
+    trail = []; speedBuf = []; lastTip = null;
+  }
+
+  function resampleRope(newL, newN) {
+    if (!nodes.length) { P.L = newL; P.N = newN; buildRope(); return; }
+    const old = nodes, oldN = old.length - 1;
+    const pick = (arr, f) => {
+      const s = f * oldN, i = Math.min(oldN - 1, Math.floor(s)), u = s - i;
+      return {
+        x: arr[i].x + (arr[i + 1].x - arr[i].x) * u,
+        y: arr[i].y + (arr[i + 1].y - arr[i].y) * u,
+        px: arr[i].px + (arr[i + 1].px - arr[i].px) * u,
+        py: arr[i].py + (arr[i + 1].py - arr[i].py) * u,
+      };
+    };
+    const scale = newL / P.L;
+    const h = old[0];
+    const out = [];
+    for (let i = 0; i <= newN; i++) {
+      const q = pick(old, i / newN);
+      out.push({
+        x: h.x + (q.x - h.x) * scale, y: h.y + (q.y - h.y) * scale,
+        px: h.px + (q.px - h.px) * scale, py: h.py + (q.py - h.py) * scale,
+      });
+    }
+    P.L = newL; P.N = newN;
+    nodes = out;
+    strain = new Array(P.N).fill(0);
+  }
+
+  // ------------------------------------------------------------------
+  // Hand paths (meters, centered at origin, y up)
+  // ------------------------------------------------------------------
+  function pathAt(ph) {
+    const R = P.R;
+    switch (P.pattern) {
+      case "circle":  return { x: R * Math.cos(ph), y: R * Math.sin(ph) };
+      case "ellipse": return { x: R * Math.cos(ph), y: 0.55 * R * Math.sin(ph) };
+      case "lineH":   return { x: R * Math.cos(ph), y: 0 };
+      case "lineV":   return { x: 0, y: R * Math.cos(ph) };
+      case "fig8":    return { x: R * Math.cos(ph), y: 0.5 * R * Math.sin(2 * ph) };
+      default:        return { x: 0, y: 0 };
+    }
+  }
+  function handTarget() {
+    if (manual || P.pattern === "drag") {
+      return nodes.length ? pointerW : { x: 0, y: 0 };
+    }
+    return pathAt(P.dir * phase);
+  }
+
+  // ------------------------------------------------------------------
+  // Physics: Verlet + constraint projection
+  // ------------------------------------------------------------------
+  function substep() {
+    const l = segLen();
+    const dampF = Math.max(0, 1 - P.damp * DT);
+
+    // hand: kinematic
+    const h0 = nodes[0];
+    if (manual || P.pattern === "drag") {
+      h0.px = h0.x; h0.py = h0.y;
+      // limit hand speed to keep projection sane on pointer jumps
+      let dx = pointerW.x - h0.x, dy = pointerW.y - h0.y;
+      const d = Math.hypot(dx, dy), dmax = 30 * DT;
+      if (d > dmax) { dx *= dmax / d; dy *= dmax / d; }
+      h0.x += dx; h0.y += dy;
+    } else {
+      const prev = pathAt(P.dir * phase);
+      phase += 2 * Math.PI * P.f * DT;
+      const cur = pathAt(P.dir * phase);
+      h0.px = prev.x; h0.py = prev.y;
+      h0.x = cur.x; h0.y = cur.y;
+    }
+
+    // free nodes: gravity + quadratic air drag
+    for (let i = 1; i <= P.N; i++) {
+      const n = nodes[i];
+      const vx = (n.x - n.px) / DT, vy = (n.y - n.py) / DT;
+      const sp = Math.hypot(vx, vy);
+      const ax = -P.cd * sp * vx;
+      const ay = -P.g - P.cd * sp * vy;
+      const nx = n.x + (n.x - n.px) * dampF + ax * DT * DT;
+      const ny = n.y + (n.y - n.py) * dampF + ay * DT * DT;
+      n.px = n.x; n.py = n.y;
+      n.x = nx; n.y = ny;
+    }
+
+    // measure strain before projection: the tension proxy
+    for (let j = 0; j < P.N; j++) {
+      const a = nodes[j], b = nodes[j + 1];
+      strain[j] = Math.hypot(b.x - a.x, b.y - a.y) / l - 1;
+    }
+
+    // constraint projection
+    const kb = Math.pow(P.kb, 1.5);
+    const bendK = 0.6 * kb;
+    const target2 = 2 * l;
+    for (let it = 0; it < ITERS; it++) {
+      // segment length: stretch corrected fully, compression scaled by stiffness
+      for (let j = 0; j < P.N; j++) {
+        const a = nodes[j], b = nodes[j + 1];
+        let dx = b.x - a.x, dy = b.y - a.y;
+        const d = Math.hypot(dx, dy) || 1e-9;
+        const err = d - l;
+        const k = err > 0 ? 1 : kb;
+        if (k === 0) continue;
+        const corr = k * err / d;
+        if (j === 0) { b.x -= corr * dx; b.y -= corr * dy; }
+        else {
+          a.x += 0.5 * corr * dx; a.y += 0.5 * corr * dy;
+          b.x -= 0.5 * corr * dx; b.y -= 0.5 * corr * dy;
+        }
+      }
+      // bending: second-neighbor spacer, one-sided, resists folding
+      if (bendK > 0) {
+        for (let j = 0; j < P.N - 1; j++) {
+          const a = nodes[j], b = nodes[j + 2];
+          let dx = b.x - a.x, dy = b.y - a.y;
+          const d = Math.hypot(dx, dy) || 1e-9;
+          if (d >= target2) continue;
+          const corr = bendK * (d - target2) / d;
+          if (j === 0) { b.x -= corr * dx; b.y -= corr * dy; }
+          else {
+            a.x += 0.5 * corr * dx; a.y += 0.5 * corr * dy;
+            b.x -= 0.5 * corr * dx; b.y -= 0.5 * corr * dy;
+          }
+        }
+      }
+    }
+    simTime += DT;
+  }
+
+  // ------------------------------------------------------------------
+  // Metrics
+  // ------------------------------------------------------------------
+  function frameMetrics(frameDt) {
+    const tip = nodes[P.N];
+    if (lastTip && frameDt > 0) {
+      const v = Math.hypot(tip.x - lastTip.x, tip.y - lastTip.y) / frameDt;
+      speedBuf.push({ t: simTime, v });
+      while (speedBuf.length && simTime - speedBuf[0].t > 6) speedBuf.shift();
+    }
+    lastTip = { x: tip.x, y: tip.y };
+    if (VIEW.trail) {
+      trail.push({ x: tip.x, y: tip.y, t: simTime });
+      while (trail.length && simTime - trail[0].t > 3.2) trail.shift();
+    }
+    // adaptive strain normalization: smoothed 95th percentile of taut strains
+    const pos = strain.filter(s => s > 0).sort((a, b) => a - b);
+    if (pos.length > 3) {
+      const p95 = pos[Math.floor(0.95 * (pos.length - 1))];
+      strainRef += 0.05 * (Math.max(p95, 1e-4) - strainRef);
+    }
+  }
+
+  function modeFreqs() {
+    return J0.map(j => j / (4 * Math.PI) * Math.sqrt(P.g / Math.max(P.L, 0.01)));
+  }
+
+  // ------------------------------------------------------------------
+  // Rendering
+  // ------------------------------------------------------------------
+  const cv = document.getElementById("view");
+  const cx = cv.getContext("2d");
+  let W = 0, H = 0, DPR = 1;
+
+  function resize() {
+    DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+  }
+  new ResizeObserver(resize).observe(cv);
+
+  function worldScale() {
+    const reach = P.L + P.R + 0.15;
+    return 0.47 * Math.min(W, H) / reach;
+  }
+  function toPx(p, s) { return [W / 2 + p.x * s, H / 2 - p.y * s]; }
+  function toWorld(px, py, s) { return { x: (px - W / 2) / s, y: (H / 2 - py) / s }; }
+
+  function tensionColor(s) {
+    // slack: cool gray-blue; taut: amber to hot
+    const u = Math.max(0, Math.min(1, s / (2 * strainRef)));
+    if (strain.length && s <= 0.0002) return "rgba(96,112,138,0.85)";
+    const r = Math.round(150 + u * 105);
+    const g = Math.round(150 + u * 30);
+    const b = Math.round(160 - u * 100);
+    return `rgb(${r},${g},${b})`;
+  }
+
+  function draw() {
+    cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    cx.clearRect(0, 0, W, H);
+    const s = worldScale();
+
+    // meter grid
+    cx.lineWidth = 1;
+    const reach = (P.L + P.R + 0.2);
+    for (let m = -Math.ceil(reach); m <= Math.ceil(reach); m += 0.5) {
+      const major = Math.abs(m - Math.round(m)) < 1e-6;
+      cx.strokeStyle = major ? "rgba(255,255,255,0.055)" : "rgba(255,255,255,0.028)";
+      const [gx] = toPx({ x: m, y: 0 }, s);
+      const [, gy] = toPx({ x: 0, y: m }, s);
+      cx.beginPath(); cx.moveTo(gx, 0); cx.lineTo(gx, H); cx.stroke();
+      cx.beginPath(); cx.moveTo(0, gy); cx.lineTo(W, gy); cx.stroke();
+    }
+    // scale bar
+    cx.strokeStyle = "rgba(255,255,255,0.28)";
+    cx.lineWidth = 1.5;
+    cx.beginPath();
+    cx.moveTo(W - 30 - s, H - 26); cx.lineTo(W - 30, H - 26);
+    cx.stroke();
+    cx.fillStyle = "rgba(255,255,255,0.35)";
+    cx.font = "10px " + getComputedStyle(document.body).getPropertyValue("--mono");
+    cx.textAlign = "center";
+    cx.fillText("1 m", W - 30 - s / 2, H - 34);
+
+    // hand path ghost
+    if (VIEW.ghost && !["still", "drag"].includes(P.pattern) && !manual) {
+      cx.strokeStyle = "rgba(255,255,255,0.16)";
+      cx.setLineDash([3, 5]);
+      cx.lineWidth = 1;
+      cx.beginPath();
+      for (let k = 0; k <= 96; k++) {
+        const q = pathAt(k / 96 * 2 * Math.PI);
+        const [x, y] = toPx(q, s);
+        k ? cx.lineTo(x, y) : cx.moveTo(x, y);
+      }
+      cx.closePath(); cx.stroke();
+      cx.setLineDash([]);
+    }
+
+    // tip trail
+    if (VIEW.trail && trail.length > 1) {
+      cx.lineWidth = 1.4;
+      for (let i = 1; i < trail.length; i++) {
+        const a = trail[i - 1], b = trail[i];
+        const age = (simTime - b.t) / 3.2;
+        cx.strokeStyle = `rgba(109,167,236,${0.5 * (1 - age)})`;
+        const [x1, y1] = toPx(a, s), [x2, y2] = toPx(b, s);
+        cx.beginPath(); cx.moveTo(x1, y1); cx.lineTo(x2, y2); cx.stroke();
+      }
+    }
+
+    // rope
+    cx.lineCap = "round";
+    cx.lineWidth = Math.max(2.5, 0.012 * s);
+    for (let j = 0; j < P.N; j++) {
+      const a = nodes[j], b = nodes[j + 1];
+      cx.strokeStyle = VIEW.tension ? tensionColor(strain[j]) : "#cfd4dd";
+      const [x1, y1] = toPx(a, s), [x2, y2] = toPx(b, s);
+      cx.beginPath(); cx.moveTo(x1, y1); cx.lineTo(x2, y2); cx.stroke();
+    }
+
+    // hand
+    const [hx, hy] = toPx(nodes[0], s);
+    cx.fillStyle = "#e8e6df";
+    cx.beginPath(); cx.arc(hx, hy, 4, 0, 7); cx.fill();
+    cx.strokeStyle = "rgba(232,230,223,0.5)";
+    cx.lineWidth = 1.5;
+    cx.beginPath(); cx.arc(hx, hy, 9, 0, 7); cx.stroke();
+
+    // free end
+    const [tx, ty] = toPx(nodes[P.N], s);
+    cx.fillStyle = "rgba(109,167,236,0.9)";
+    cx.beginPath(); cx.arc(tx, ty, 3, 0, 7); cx.fill();
+  }
+
+  // ------------------------------------------------------------------
+  // Strip chart: tip speed
+  // ------------------------------------------------------------------
+  const ch = document.getElementById("chart");
+  const chx = ch.getContext("2d");
+  function drawChart() {
+    const w = ch.clientWidth, h = ch.clientHeight;
+    if (ch.width !== w * DPR) { ch.width = w * DPR; ch.height = h * DPR; }
+    chx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    chx.clearRect(0, 0, w, h);
+    if (speedBuf.length < 3) return;
+    let vmax = 0;
+    for (const q of speedBuf) vmax = Math.max(vmax, q.v);
+    vmax = Math.max(vmax * 1.1, 0.5);
+    chx.strokeStyle = "rgba(255,255,255,0.09)";
+    chx.lineWidth = 1;
+    chx.beginPath(); chx.moveTo(0, h - 0.5); chx.lineTo(w, h - 0.5); chx.stroke();
+    chx.strokeStyle = "#3987e5";
+    chx.lineWidth = 1.6;
+    chx.lineJoin = "round";
+    chx.beginPath();
+    const t0 = simTime - 6;
+    for (let i = 0; i < speedBuf.length; i++) {
+      const q = speedBuf[i];
+      const x = (q.t - t0) / 6 * w;
+      const y = h - (q.v / vmax) * (h - 6) - 2;
+      i ? chx.lineTo(x, y) : chx.moveTo(x, y);
+    }
+    chx.stroke();
+  }
+
+  // ------------------------------------------------------------------
+  // UI wiring
+  // ------------------------------------------------------------------
+  const $ = id => document.getElementById(id);
+  const fmt = (v, d, u) => v.toFixed(d) + (u || "");
+
+  function bindSlider(id, key, out, d, unit, after) {
+    $(id).addEventListener("input", e => {
+      const v = parseFloat(e.target.value);
+      if (after) after(v); else P[key] = v;
+      $(out).textContent = fmt(after ? P[key] : v, d, unit);
+      refreshStatic();
+    });
+  }
+  bindSlider("freq", "f", "freqV", 2, " Hz");
+  bindSlider("rad", "R", "radV", 2, " m");
+  bindSlider("stiff", "kb", "stiffV", 2, "");
+  bindSlider("drag", "cd", "dragV", 3, "");
+  bindSlider("damp", "damp", "dampV", 2, "");
+  bindSlider("grav", "g", "gravV", 1, "");
+  $("len").addEventListener("input", e => {
+    resampleRope(parseFloat(e.target.value), P.N);
+    $("lenV").textContent = fmt(P.L, 2, " m");
+    refreshStatic();
+  });
+  $("seg").addEventListener("input", e => {
+    resampleRope(P.L, parseInt(e.target.value, 10));
+    $("segV").textContent = String(P.N);
+    refreshStatic();
+  });
+
+  $("pattern").addEventListener("change", e => {
+    const prev = handTarget();
+    P.pattern = e.target.value;
+    // phase continuity for rotating patterns: start near the current hand
+    if (["circle", "ellipse"].includes(P.pattern)) {
+      phase = P.dir * Math.atan2(prev.y, prev.x);
+    }
+    if (P.pattern === "drag") { pointerW = { x: nodes[0].x, y: nodes[0].y }; }
+    refreshStatic();
+  });
+
+  $("dirCW").addEventListener("click", () => setDir(-1));
+  $("dirCCW").addEventListener("click", () => setDir(1));
+  function setDir(d) {
+    if (P.dir !== d) phase = -phase;
+    P.dir = d;
+    $("dirCW").classList.toggle("on", d === -1);
+    $("dirCCW").classList.toggle("on", d === 1);
+  }
+  setDir(1);
+
+  const PRESETS = {
+    flow:  { L: 2.0, N: 30, kb: 0.02, cd: 0.08, damp: 0.1, g: 9.81, f: 1.0,  R: 0.25, pattern: "circle" },
+    swing: { L: 2.0, N: 30, kb: 0.02, cd: 0.08, damp: 0.1, g: 9.81, f: 0.45, R: 0.25, pattern: "circle" },
+    whip:  { L: 2.0, N: 40, kb: 0.01, cd: 0.05, damp: 0.1, g: 9.81, f: 0.9,  R: 0.35, pattern: "lineH" },
+    rod:   { L: 1.5, N: 14, kb: 1.0,  cd: 0.05, damp: 0.2, g: 9.81, f: 0.8,  R: 0.2,  pattern: "circle" },
+  };
+  document.querySelectorAll("#presets .chip").forEach(b => {
+    b.addEventListener("click", () => {
+      document.querySelectorAll("#presets .chip").forEach(c => c.classList.remove("on"));
+      b.classList.add("on");
+      Object.assign(P, PRESETS[b.dataset.p]);
+      syncControls();
+      buildRope();
+      refreshStatic();
+    });
+  });
+
+  function syncControls() {
+    $("freq").value = P.f;   $("freqV").textContent = fmt(P.f, 2, " Hz");
+    $("rad").value = P.R;    $("radV").textContent = fmt(P.R, 2, " m");
+    $("len").value = P.L;    $("lenV").textContent = fmt(P.L, 2, " m");
+    $("seg").value = P.N;    $("segV").textContent = String(P.N);
+    $("stiff").value = P.kb; $("stiffV").textContent = fmt(P.kb, 2, "");
+    $("drag").value = P.cd;  $("dragV").textContent = fmt(P.cd, 3, "");
+    $("damp").value = P.damp;$("dampV").textContent = fmt(P.damp, 2, "");
+    $("grav").value = P.g;   $("gravV").textContent = fmt(P.g, 1, "");
+    $("pattern").value = P.pattern;
+  }
+
+  // mode chips
+  function refreshModes() {
+    const box = $("modes");
+    box.innerHTML = "";
+    modeFreqs().forEach((f, i) => {
+      const b = document.createElement("button");
+      b.className = "chip mode";
+      b.textContent = `f${i + 1} ${f.toFixed(2)}`;
+      if (Math.abs(P.f - f) < 0.06) b.classList.add("near");
+      b.title = "set drive frequency to this chain mode";
+      b.addEventListener("click", () => {
+        P.f = Math.round(f * 100) / 100;
+        $("freq").value = P.f;
+        $("freqV").textContent = fmt(P.f, 2, " Hz");
+        refreshStatic();
+      });
+      box.appendChild(b);
+    });
+  }
+
+  function refreshStatic() {
+    const gamma = P.R * Math.pow(2 * Math.PI * P.f, 2) / Math.max(P.g, 0.01);
+    $("gGamma").textContent = gamma.toFixed(2);
+    $("gTune").textContent = (P.f / modeFreqs()[0]).toFixed(2);
+    refreshModes();
+  }
+
+  // view toggles
+  function toggle(id, key) {
+    $(id).addEventListener("click", () => {
+      VIEW[key] = !VIEW[key];
+      $(id).classList.toggle("on", VIEW[key]);
+      if (key === "trail" && !VIEW.trail) trail = [];
+    });
+  }
+  toggle("tglTension", "tension");
+  toggle("tglTrail", "trail");
+  toggle("tglGhost", "ghost");
+  toggle("tglSlow", "slow");
+  toggle("tglPause", "pause");
+  window.addEventListener("keydown", e => {
+    if (e.code === "Space" && e.target.tagName !== "INPUT") {
+      e.preventDefault();
+      $("tglPause").click();
+    }
+  });
+
+  // pointer driving
+  cv.addEventListener("pointerdown", e => {
+    const s = worldScale();
+    const r = cv.getBoundingClientRect();
+    const w = toWorld(e.clientX - r.left, e.clientY - r.top, s);
+    const [hx, hy] = toPx(nodes[0], s);
+    const near = Math.hypot(e.clientX - r.left - hx, e.clientY - r.top - hy) < 42;
+    if (near || P.pattern === "drag") {
+      manual = true;
+      pointerW = w;
+      cv.classList.add("grabbing");
+      cv.setPointerCapture(e.pointerId);
+    }
+  });
+  cv.addEventListener("pointermove", e => {
+    if (!manual) return;
+    const r = cv.getBoundingClientRect();
+    pointerW = toWorld(e.clientX - r.left, e.clientY - r.top, worldScale());
+  });
+  cv.addEventListener("pointerup", () => {
+    manual = false;
+    cv.classList.remove("grabbing");
+    if (["circle", "ellipse"].includes(P.pattern)) {
+      phase = P.dir * Math.atan2(nodes[0].y, nodes[0].x);
+    }
+  });
+
+  // ------------------------------------------------------------------
+  // Metrics readouts
+  // ------------------------------------------------------------------
+  let lastUI = 0;
+  function refreshLive() {
+    if (simTime - lastUI < 0.2) return;
+    lastUI = simTime;
+    if (speedBuf.length > 10) {
+      const vs = speedBuf.map(q => q.v);
+      const mean = vs.reduce((a, b) => a + b, 0) / vs.length;
+      const sd = Math.sqrt(vs.reduce((a, b) => a + (b - mean) ** 2, 0) / vs.length);
+      $("mSpeed").textContent = mean.toFixed(1);
+      $("mCV").textContent = mean > 0.15 ? (sd / mean).toFixed(2) : "0.00";
+    }
+    let slack = 0, fold = 0;
+    for (let j = 0; j < P.N; j++) if (strain[j] < -0.001) slack++;
+    for (let j = 1; j < P.N; j++) {
+      const a = nodes[j - 1], b = nodes[j], c = nodes[j + 1];
+      const a1 = Math.atan2(b.y - a.y, b.x - a.x);
+      const a2 = Math.atan2(c.y - b.y, c.x - b.x);
+      let da = Math.abs(a2 - a1);
+      if (da > Math.PI) da = 2 * Math.PI - da;
+      fold = Math.max(fold, da);
+    }
+    $("gSlack").textContent = Math.round(100 * slack / P.N) + "%";
+    $("mFold").textContent = Math.round(fold * 180 / Math.PI);
+  }
+
+  // ------------------------------------------------------------------
+  // Main loop
+  // ------------------------------------------------------------------
+  let lastT = performance.now();
+  let acc = 0;
+  function loop(now) {
+    requestAnimationFrame(loop);
+    let dt = Math.min(0.05, (now - lastT) / 1000);
+    lastT = now;
+    if (!VIEW.pause) {
+      acc += dt * (VIEW.slow ? 0.2 : 1);
+      const frameStart = simTime;
+      while (acc > DT) { substep(); acc -= DT; }
+      frameMetrics(simTime - frameStart);
+      refreshLive();
+    }
+    if (W > 0) { draw(); drawChart(); }
+  }
+
+  resize();
+  syncControls();
+  buildRope();
+  refreshStatic();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

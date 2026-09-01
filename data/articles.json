@@ -1,6 +1,173 @@
 {
   "articles": [
     {
+      "slug": "gluvn",
+      "title": "Gluvn — a five-finger sensor glove for music",
+      "date": "2026-08-31",
+      "tags": [
+        "music",
+        "mechatronics",
+        "ML",
+        "wearable"
+      ],
+      "excerpt": "A first pass at the Gluvn project: a wearable five-finger sensor glove instrument, with a small gallery of videos and an arXiv reference.",
+      "has_math": false,
+      "source": "local",
+      "published": false,
+      "listed": false
+    },
+    {
+      "slug": "but-what-are-agents",
+      "title": "But what are agents?",
+      "date": "2026-08-31",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "The question is one of definition; and I love those. This one is loaded, especially now that there are so many of kinds of them. I&#8217;m not going to talk only about the artificial ones, and...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/but-what-are-agents",
+      "published": true
+    },
+    {
+      "slug": "will-humans-sound-crazy",
+      "title": "Will Humans Sound Crazy?",
+      "date": "2026-08-28",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "If I&#8217;m using an LLM to write, I first brainstorm some ideas, edit my essay, and if I&#8217;m too lazy to keep editing, I drop it into Claude, ask it to edit it, hoping it doesn&#8217;t...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/will-humans-sound-crazy",
+      "published": true
+    },
+    {
+      "slug": "what-are-we-conserving",
+      "title": "What Are We Conserving",
+      "date": "2026-08-27",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "My morning routine involves brainstorming out loud until I find an idea I haven&#8217;t thought about before. Then I&#8217;ll write it down, transcribe my voice memo if I recorded it; then, if I...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/what-are-we-conserving",
+      "published": true
+    },
+    {
+      "slug": "why-i-do-what-i-do",
+      "title": "Why I do what I do",
+      "date": "2026-08-26",
+      "tags": [
+        "personal",
+        "philosophy",
+        "science",
+        "music"
+      ],
+      "excerpt": "A personal walk through the questions behind the research: who am I, what is scientific modeling really, and how music and instrument design became part of the same inquiry.",
+      "has_math": false,
+      "source": "local",
+      "published": true,
+      "listed": false
+    },
+    {
+      "slug": "piano-of-life",
+      "title": "Piano of Life: A Piano Triggered Game of Life",
+      "date": "2026-07-06",
+      "tags": [
+        "music",
+        "computer vision",
+        "cellular automata",
+        "audio",
+        "experiment"
+      ],
+      "excerpt": "A short experiment where a piano video seeds a Game of Life whose column density becomes a live spectral filter over the piano's own audio. Framework payload: intelligence as a closed action–perception loop, made audible.",
+      "has_math": true,
+      "source": "local",
+      "published": true
+    },
+    {
+      "slug": "action-conditioned-information",
+      "title": "Action-Conditioned Information: Compression Should Be Measured by What It Does",
+      "date": "2026-02-23",
+      "tags": [
+        "information theory",
+        "compression",
+        "intelligence",
+        "active inference"
+      ],
+      "excerpt": "Classical information theory evaluates compression by symbol reconstruction fidelity. I argue this is the wrong metric. The purpose of information is to produce behavior: a compressed representation is good if the actions it induces are equivalent to those induced by the original.",
+      "has_math": true,
+      "source": "local",
+      "published": true
+    },
+    {
+      "slug": "the-center-of-the-universe",
+      "title": "The Center of the Universe",
+      "date": "2026-01-15",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "There is only one consciousness in the world, and it is mine.This sounds like solipsism, a position that all respectable philosophers avoid like a plague. I&#8217;ll try to partially embrace it in...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/the-center-of-the-universe",
+      "published": true
+    },
+    {
+      "slug": "you-serve-the-hammer-as-much-as-it-serves-you",
+      "title": "You Serve the Hammer as much as it Serves You",
+      "date": "2026-01-12",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "We are really bad at predicting how new technologies will shape us. When cars arrived, people called them &#8220;horseless carriages&#8221;, only capturing what was absent rather than what was...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/you-serve-the-hammer-as-much-as-it",
+      "published": true
+    },
+    {
+      "slug": "were-entering-the-age-of-complex-systems-technologies",
+      "title": "We’re Entering the Age of Complex Systems Technologies",
+      "date": "2026-01-09",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "For centuries, we&#8217;ve built technology the same way: we understand the parts, predict how they combine in pairs, then engineer the whole. The steam engine, the bridge, and the transistor are all...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/were-entering-the-age-of-complex",
+      "published": true
+    },
+    {
+      "slug": "what-can-world-models-learn-from-the-sciences",
+      "title": "What Can \"World Models\" Learn from the Sciences?",
+      "date": "2026-01-08",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "In what seems to be her first Substack post, Fei-Fei Li writes about spatial intelligence, arguing that the next big thing(s) in AI are world models. Yann LeCun who recently left Meta to focus on...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/what-can-world-models-learn-from",
+      "published": true
+    },
+    {
+      "slug": "what-is-scientific-machine-learning",
+      "title": "What is Scientific Machine Learning?",
+      "date": "2026-01-05",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "Science has always been in the business of compression. You observe the world, you find patterns, and you encode those patterns into representations compact enough to fit in a human mind, or on a...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/what-is-scientific-machine-learning",
+      "published": true
+    },
+    {
       "slug": "vipp-guidelines",
       "title": "VIPP Guidelines",
       "date": "2025-11-19",
@@ -13,6 +180,162 @@
       "excerpt": "The Vertically Integrated Project Program (VIPP) functions as applied research rather than traditional coursework. Students should embrace three core principles: learn by building, share progress within the lab community, and prioritize comprehensive documentation.",
       "has_math": false,
       "source": "local",
+      "published": true
+    },
+    {
+      "slug": "music-can-save-the-world",
+      "title": "Music Can Save the World",
+      "date": "2025-10-23",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "We live in an age where we need to learn how to be creative with machines. And it&#8217;s an age that hasn&#8217;t started recently. Creativity has always happened through various tools we&#8217;ve...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/music-can-save-the-world",
+      "published": true
+    },
+    {
+      "slug": "what-data-science-means-to-me",
+      "title": "What Data Science Means to Me",
+      "date": "2025-10-22",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "What is data science to me?It&#8217;s an interesting question, especially coming from someone who once cared so little about data. My undergraduate years in mechanical engineering were a combination...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/what-data-science-means-to-me",
+      "published": true
+    },
+    {
+      "slug": "clustering-as-the-core-of-cognition",
+      "title": "Clustering as the Core of Cognition",
+      "date": "2025-10-21",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "The Puzzle of BoundariesWhen I first started thinking about intelligent machines, before I knew anything about machine learning, I stumbled upon what seemed like simple questions: What are objects?...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/clustering-as-the-core-of-cognition",
+      "published": true
+    },
+    {
+      "slug": "cycles-as-the-fundamental-architecture-of-reality",
+      "title": "Cycles as the Fundamental Architecture of Reality",
+      "date": "2025-10-13",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "We live in what we call space and time. Or do we? Let me start by questioning this for a moment.We think of space and time as separate entities, but their orthogonality is far from certain. They may...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/cycles-as-the-fundamental-architecture",
+      "published": true
+    },
+    {
+      "slug": "i-am-half-an-intelligence",
+      "title": "I Am Half an Intelligence",
+      "date": "2025-10-12",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "In Is Language Becoming a Science, I argue that we&#8217;re moving from writing to designing writers. More recently, I suggest the possibility of giving machines &#8220;selves&#8221;. While society...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/i-am-half-an-intelligence",
+      "published": true
+    },
+    {
+      "slug": "machines-with-selves",
+      "title": "Machines with Selves",
+      "date": "2025-10-07",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "So how do I use AI assistants? This seems to be a common question these days (especially spamming me on YouTube ads).While seemingly banal, the question surprised me when I started to seriously think...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/the-self-aware-machine",
+      "published": true
+    },
+    {
+      "slug": "when-intelligence-emerges-from-networks-of-simple-functions",
+      "title": "When Intelligence Emerges from Networks of Simple Functions",
+      "date": "2025-09-30",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "The fundamental question &#8220;why do neural networks work?&#8221; has a deceptively simple answer. It has to do with emergence; a ubiquitous, yet poorly understood&#8212;and hard to...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/when-intelligence-emerges-from-networks",
+      "published": true
+    },
+    {
+      "slug": "machines-understand",
+      "title": "Machines Understand",
+      "date": "2025-09-23",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "We use the word understanding as if it&#8217;s a substance that minds possess. A more useful view is much simpler: understanding is a mapping between the external world and an internal world,...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/machines-understand",
+      "published": true
+    },
+    {
+      "slug": "mirror-and-propagation",
+      "title": "Mirror and Propagation",
+      "date": "2025-09-22",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "After an extensive conversation and reflection with ChatGPT, I&#8217;ve decided to make it write the essay from its own &#8220;perspective&#8221;. I tried to provide it with as much...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/mirror-and-propagation",
+      "published": true
+    },
+    {
+      "slug": "vehicles-of-space-and-mind",
+      "title": "Vehicles of Space and Mind",
+      "date": "2025-09-18",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "Something is radically changing in how we work, how we communicate, write, and read. And I&#8217;m not sure how to feel about it. Some of it is exciting and some almost disgusting. The deeper...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/vehicles-of-space-and-mind",
+      "published": true
+    },
+    {
+      "slug": "what-do-i-need-to-know",
+      "title": "What Do I Need to Know?",
+      "date": "2025-09-17",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "Do I need to code this algorithm? Do I need to learn the theory or practice the application? Do I need to remember everything in that chapter? Do I need to understand what happens under the hood; or...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/what-do-i-need-to-know",
+      "published": true
+    },
+    {
+      "slug": "separating-things-and-non-things",
+      "title": "Separating Things and Non-Things",
+      "date": "2025-09-16",
+      "tags": [
+        "essay"
+      ],
+      "excerpt": "Boundaries have followed me for years. I remember the first time they stopped being invisible in 2013, when my master&#8217;s work forced me to stitch together two ways of seeing the phenomenon of...",
+      "has_math": false,
+      "source": "substack",
+      "external_url": "https://bakarji.substack.com/p/separating-things-and-non-things",
       "published": true
     },
     {
@@ -76,21 +399,6 @@
       "published": true
     },
     {
-      "slug": "introduction-to-linear-regression",
-      "title": "Introduction to Linear Regression",
-      "date": "2024-01-18",
-      "tags": [
-        "machine-learning",
-        "tutorial",
-        "python",
-        "regression"
-      ],
-      "excerpt": "Machine learning is everywhere. The basic principles of machine learning are easy to understand. In this tutorial, I'll cover linear regression to introduce general concepts.",
-      "has_math": true,
-      "source": "local",
-      "published": true
-    },
-    {
       "slug": "over-generalization-and-its-paradox",
       "title": "Over-Generalization and its Paradox",
       "date": "2024-03-02",
@@ -136,275 +444,19 @@
       "published": true
     },
     {
-      "slug": "piano-of-life",
-      "title": "Piano of Life: A Piano Triggered Game of Life",
-      "date": "2026-07-06",
+      "slug": "introduction-to-linear-regression",
+      "title": "Introduction to Linear Regression",
+      "date": "2024-01-18",
       "tags": [
-        "music",
-        "computer vision",
-        "cellular automata",
-        "audio",
-        "experiment"
+        "machine-learning",
+        "tutorial",
+        "python",
+        "regression"
       ],
-      "excerpt": "A short experiment where a piano video seeds a Game of Life whose column density becomes a live spectral filter over the piano's own audio. Framework payload: intelligence as a closed action–perception loop, made audible.",
+      "excerpt": "Machine learning is everywhere. The basic principles of machine learning are easy to understand. In this tutorial, I'll cover linear regression to introduce general concepts.",
       "has_math": true,
       "source": "local",
       "published": true
-    },
-    {
-      "slug": "action-conditioned-information",
-      "title": "Action-Conditioned Information: Compression Should Be Measured by What It Does",
-      "date": "2026-02-23",
-      "tags": [
-        "information theory",
-        "compression",
-        "intelligence",
-        "active inference"
-      ],
-      "excerpt": "Classical information theory evaluates compression by symbol reconstruction fidelity. I argue this is the wrong metric. The purpose of information is to produce behavior: a compressed representation is good if the actions it induces are equivalent to those induced by the original.",
-      "has_math": true,
-      "source": "local",
-      "published": true
-    },
-    {
-      "slug": "the-center-of-the-universe",
-      "title": "The Center of the Universe",
-      "date": "2026-01-15",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "There is only one consciousness in the world, and it is mine.This sounds like solipsism, a position that all respectable philosophers avoid like a plague. I&#8217;ll try to partially embrace it in...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/the-center-of-the-universe"
-    },
-    {
-      "slug": "you-serve-the-hammer-as-much-as-it-serves-you",
-      "title": "You Serve the Hammer as much as it Serves You",
-      "date": "2026-01-12",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "We are really bad at predicting how new technologies will shape us. When cars arrived, people called them &#8220;horseless carriages&#8221;, only capturing what was absent rather than what was...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/you-serve-the-hammer-as-much-as-it"
-    },
-    {
-      "slug": "were-entering-the-age-of-complex-systems-technologies",
-      "title": "We’re Entering the Age of Complex Systems Technologies",
-      "date": "2026-01-09",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "For centuries, we&#8217;ve built technology the same way: we understand the parts, predict how they combine in pairs, then engineer the whole. The steam engine, the bridge, and the transistor are all...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/were-entering-the-age-of-complex"
-    },
-    {
-      "slug": "what-can-world-models-learn-from-the-sciences",
-      "title": "What Can \"World Models\" Learn from the Sciences?",
-      "date": "2026-01-08",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "In what seems to be her first Substack post, Fei-Fei Li writes about spatial intelligence, arguing that the next big thing(s) in AI are world models. Yann LeCun who recently left Meta to focus on...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/what-can-world-models-learn-from"
-    },
-    {
-      "slug": "what-is-scientific-machine-learning",
-      "title": "What is Scientific Machine Learning?",
-      "date": "2026-01-05",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "Science has always been in the business of compression. You observe the world, you find patterns, and you encode those patterns into representations compact enough to fit in a human mind, or on a...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/what-is-scientific-machine-learning"
-    },
-    {
-      "slug": "music-can-save-the-world",
-      "title": "Music Can Save the World",
-      "date": "2025-10-23",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "We live in an age where we need to learn how to be creative with machines. And it&#8217;s an age that hasn&#8217;t started recently. Creativity has always happened through various tools we&#8217;ve...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/music-can-save-the-world"
-    },
-    {
-      "slug": "what-data-science-means-to-me",
-      "title": "What Data Science Means to Me",
-      "date": "2025-10-22",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "What is data science to me?It&#8217;s an interesting question, especially coming from someone who once cared so little about data. My undergraduate years in mechanical engineering were a combination...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/what-data-science-means-to-me"
-    },
-    {
-      "slug": "clustering-as-the-core-of-cognition",
-      "title": "Clustering as the Core of Cognition",
-      "date": "2025-10-21",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "The Puzzle of BoundariesWhen I first started thinking about intelligent machines, before I knew anything about machine learning, I stumbled upon what seemed like simple questions: What are objects?...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/clustering-as-the-core-of-cognition"
-    },
-    {
-      "slug": "cycles-as-the-fundamental-architecture-of-reality",
-      "title": "Cycles as the Fundamental Architecture of Reality",
-      "date": "2025-10-13",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "We live in what we call space and time. Or do we? Let me start by questioning this for a moment.We think of space and time as separate entities, but their orthogonality is far from certain. They may...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/cycles-as-the-fundamental-architecture"
-    },
-    {
-      "slug": "i-am-half-an-intelligence",
-      "title": "I Am Half an Intelligence",
-      "date": "2025-10-12",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "In Is Language Becoming a Science, I argue that we&#8217;re moving from writing to designing writers. More recently, I suggest the possibility of giving machines &#8220;selves&#8221;. While society...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/i-am-half-an-intelligence"
-    },
-    {
-      "slug": "machines-with-selves",
-      "title": "Machines with Selves",
-      "date": "2025-10-07",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "So how do I use AI assistants? This seems to be a common question these days (especially spamming me on YouTube ads).While seemingly banal, the question surprised me when I started to seriously think...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/the-self-aware-machine"
-    },
-    {
-      "slug": "when-intelligence-emerges-from-networks-of-simple-functions",
-      "title": "When Intelligence Emerges from Networks of Simple Functions",
-      "date": "2025-09-30",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "The fundamental question &#8220;why do neural networks work?&#8221; has a deceptively simple answer. It has to do with emergence; a ubiquitous, yet poorly understood&#8212;and hard to...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/when-intelligence-emerges-from-networks"
-    },
-    {
-      "slug": "machines-understand",
-      "title": "Machines Understand",
-      "date": "2025-09-23",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "We use the word understanding as if it&#8217;s a substance that minds possess. A more useful view is much simpler: understanding is a mapping between the external world and an internal world,...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/machines-understand"
-    },
-    {
-      "slug": "mirror-and-propagation",
-      "title": "Mirror and Propagation",
-      "date": "2025-09-22",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "After an extensive conversation and reflection with ChatGPT, I&#8217;ve decided to make it write the essay from its own &#8220;perspective&#8221;. I tried to provide it with as much...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/mirror-and-propagation"
-    },
-    {
-      "slug": "vehicles-of-space-and-mind",
-      "title": "Vehicles of Space and Mind",
-      "date": "2025-09-18",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "Something is radically changing in how we work, how we communicate, write, and read. And I&#8217;m not sure how to feel about it. Some of it is exciting and some almost disgusting. The deeper...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/vehicles-of-space-and-mind"
-    },
-    {
-      "slug": "what-do-i-need-to-know",
-      "title": "What Do I Need to Know?",
-      "date": "2025-09-17",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "Do I need to code this algorithm? Do I need to learn the theory or practice the application? Do I need to remember everything in that chapter? Do I need to understand what happens under the hood; or...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/what-do-i-need-to-know"
-    },
-    {
-      "slug": "separating-things-and-non-things",
-      "title": "Separating Things and Non-Things",
-      "date": "2025-09-16",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "Boundaries have followed me for years. I remember the first time they stopped being invisible in 2013, when my master&#8217;s work forced me to stitch together two ways of seeing the phenomenon of...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/separating-things-and-non-things"
-    },
-    {
-      "slug": "riding-patterns-into-the-unknown",
-      "title": "Riding Patterns Into the Unknown",
-      "date": "2025-09-11",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "Will the sun set tonight? Will it rise tomorrow? We ask those questions with a straight face because, somewhere in us, a compact story about the world has crystalized: nights follow days, days follow...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/riding-patterns-into-the-unknown"
-    },
-    {
-      "slug": "learning-in-the-intelligence-age",
-      "title": "Learning in the Intelligence Age",
-      "date": "2025-09-09",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "The story we&#8217;ve told ourselves for a few decades now is the story of information: how to find it, store it, index it, move it faster, compress it smaller. That story isn&#8217;t wrong;...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/learning-in-the-intelligence-age"
-    },
-    {
-      "slug": "living-inside-a-model",
-      "title": "Living Inside a Model",
-      "date": "2025-09-08",
-      "tags": [
-        "essay"
-      ],
-      "excerpt": "As we step into the intelligence age, it&#8217;s worth pausing to ask what &#8220;intelligence&#8221; really is; artificial, human, animal, all of it. Intelligence is not just a feature we admire;...",
-      "has_math": false,
-      "source": "substack",
-      "external_url": "https://bakarji.substack.com/p/living-inside-a-model"
     }
   ]
 }

@@ -25,6 +25,7 @@
   const golCanvas  = document.getElementById('hero-canvas');
   const pauseBtn   = document.getElementById('hero-ctrl-pause');
   const audioBtn   = document.getElementById('hero-ctrl-audio');
+  const loopBtn    = document.getElementById('hero-ctrl-loop');
 
   if (!video || !golCanvas) return;
 
@@ -135,6 +136,23 @@
     rollBars.push({ col, y: 0, strength, alive: true });
   }
 
+  // Video is rendered at a fixed CSS width (1400px desktop, 900px mobile)
+  // centered in a full-width strip. Detection columns are relative to the
+  // video's own frame, so to keep piano-roll bars and GoL seeds under the
+  // visible hammers we must project column indices into the video's actual
+  // on-screen rect, not the whole container.
+  function getVideoLayoutForCanvas(canvas) {
+    if (!video) return null;
+    const cRect = canvas.getBoundingClientRect();
+    const vRect = video.getBoundingClientRect();
+    if (!cRect.width || !vRect.width) return null;
+    return {
+      offX: vRect.left - cRect.left,   // container-local x where video starts
+      w:    vRect.width,               // video on-screen width
+      containerW: cRect.width,
+    };
+  }
+
   function drawRollBars(dtMs) {
     if (!rollCtx || !rollCanvas) return;
     const rect = rollCanvas.getBoundingClientRect();
@@ -142,7 +160,8 @@
     rollCtx.clearRect(0, 0, w, h);
 
     const dy = ROLL_SPEED_PX_PER_S * dtMs / 1000;
-    const colW = w / cfg.nCols;
+    const layout = getVideoLayoutForCanvas(rollCanvas) || { offX: 0, w, containerW: w };
+    const colW = layout.w / cfg.nCols;
 
     for (const b of rollBars) {
       if (!b.alive) continue;
@@ -151,12 +170,16 @@
       const alpha = Math.max(0.35, 1 - (b.y / h) * 0.6);
       rollCtx.fillStyle = P.accent;
       rollCtx.globalAlpha = alpha;
-      rollCtx.fillRect(b.col * colW + 1, b.y, Math.max(2, colW - 2), barH);
+      const x = layout.offX + b.col * colW;
+      rollCtx.fillRect(x + 1, b.y, Math.max(2, colW - 2), barH);
 
       if (b.y > h - 2) {
         b.alive = false;
-        // Bar reached the GoL: seed cells at top row for that column
-        seedGolTop(b.col, b.strength);
+        // Convert the bar's container-x to a GoL column index so the seed
+        // lands under the same hammer visually, regardless of viewport width.
+        const barCenterX = layout.offX + (b.col + 0.5) * colW;
+        const gridCol = Math.floor(barCenterX / layout.containerW * gol.cols);
+        if (gridCol >= 0 && gridCol < gol.cols) seedGolTop(gridCol, b.strength);
       }
     }
     rollCtx.globalAlpha = 1;
@@ -336,13 +359,18 @@
 
   function syncPauseLabel() {
     if (!pauseBtn) return;
-    if (video.paused || video.ended) {
-      pauseBtn.textContent = 'play';
-      pauseBtn.setAttribute('aria-pressed', 'true');
-    } else {
-      pauseBtn.textContent = 'pause';
-      pauseBtn.setAttribute('aria-pressed', 'false');
-    }
+    const playing = !(video.paused || video.ended);
+    pauseBtn.dataset.state = playing ? 'playing' : 'paused';
+    pauseBtn.setAttribute('aria-pressed', playing ? 'false' : 'true');
+    pauseBtn.setAttribute('aria-label',    playing ? 'pause'    : 'play');
+  }
+
+  function syncLoopLabel() {
+    if (!loopBtn) return;
+    const on = !!video.loop;
+    loopBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    loopBtn.setAttribute('aria-label', on ? 'stop looping' : 'keep playing (loop off)');
+    loopBtn.title = on ? 'looping — click to stop' : 'keep playing';
   }
 
   // Controls
@@ -362,16 +390,46 @@
     if (audioBtn) {
       audioBtn.addEventListener('click', () => {
         video.muted = !video.muted;
-        audioBtn.textContent = video.muted ? 'audio: off' : 'audio: on';
         audioBtn.setAttribute('aria-pressed', video.muted ? 'false' : 'true');
+        audioBtn.setAttribute('aria-label',   video.muted ? 'unmute video audio' : 'mute video audio');
       });
     }
-    // Video state drives the RAF loop and the pause button label
-    video.addEventListener('play',  () => { syncPauseLabel(); startLoop(); });
+    if (loopBtn) {
+      loopBtn.addEventListener('click', () => {
+        video.loop = !video.loop;
+        syncLoopLabel();
+        // If the user turns looping on after the video already ended,
+        // restart it immediately.
+        if (video.loop && (video.ended || video.paused)) {
+          if (video.ended) video.currentTime = 0;
+          video.play().catch(() => {});
+        }
+      });
+    }
+    // Video state drives the RAF loop and the pause button label.
+    // On `ended`: if the user opted into "keep playing", the browser's
+    // native loop handles it. Otherwise, transparently restart until we
+    // hit the auto-play budget (roughly 30s of playback total), so a short
+    // clip still fills a bit of time before quieting down.
+    video.addEventListener('play',    () => { syncPauseLabel(); startLoop(); });
     video.addEventListener('playing', () => { syncPauseLabel(); startLoop(); });
-    video.addEventListener('pause', () => { syncPauseLabel(); stopLoop(); });
-    video.addEventListener('ended', () => { syncPauseLabel(); stopLoop(); });
+    video.addEventListener('pause',   () => { syncPauseLabel(); stopLoop(); });
+    video.addEventListener('ended',   () => {
+      if (!video.loop && (performance.now() - autoPlayStartedAt) < AUTOPLAY_BUDGET_MS) {
+        video.currentTime = 0;
+        video.play().catch(() => { syncPauseLabel(); stopLoop(); });
+      } else {
+        syncPauseLabel();
+        stopLoop();
+      }
+    });
+    syncLoopLabel();
   }
+
+  // Auto-play budget: keep the hero alive for roughly this long on first
+  // load, then let it stop unless the user has clicked the loop button.
+  const AUTOPLAY_BUDGET_MS = 30000;
+  let autoPlayStartedAt = 0;
 
   // Main loop: only runs while video is playing
   function frame(now) {
@@ -400,11 +458,12 @@
     resizeAll();
     window.addEventListener('resize', resizeAll);
 
-    // Video is not looped: it plays once through and stops. On mobile
-    // we don't autoplay at all (poster shows until the user taps play)
-    // so first paint is cheap and the phone doesn't burn power.
+    // Default on desktop: play repeatedly for the AUTOPLAY_BUDGET_MS window
+    // (native `loop` off, our `ended` handler restarts until budget runs out).
+    // Mobile still requires a tap to start so the phone doesn't burn power.
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     video.loop = false;
+    autoPlayStartedAt = performance.now();
     if (isMobile) {
       video.pause();
       syncPauseLabel();

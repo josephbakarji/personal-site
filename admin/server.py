@@ -36,6 +36,37 @@ HERO_INTRO_PATTERN = re.compile(
     re.DOTALL,
 )
 
+# --- Editable static-HTML pages (about, labs, ...) ---
+# Each entry: which HTML file to patch, where to store the JSON snapshot,
+# and (implicitly) a page-body region delimited by <div class="page-body">
+# and the "  </div>\n</div>" closing pair. Adding a new page = new dict row.
+PAGES = {
+    'about': {
+        'title': 'about',
+        'source_file': SITE_ROOT / 'about' / 'index.html',
+        'data_file': DATA_DIR / 'about.json',
+        'live_url': '/about/',
+        'preview_class': 'preview-about',
+    },
+    'projects': {
+        'title': 'projects',
+        'source_file': SITE_ROOT / 'projects' / 'index.html',
+        'data_file': DATA_DIR / 'projects-page.json',
+        'live_url': '/projects/',
+        'preview_class': 'preview-lab',
+    },
+}
+PAGE_BODY_PATTERN = re.compile(
+    r'(<div class="page-body">\n)(.*?)(\n  </div>\n</div>)',
+    re.DOTALL,
+)
+
+# --- Portfolio (public projects on /projects/) ---
+PORTFOLIO_JSON = DATA_DIR / 'portfolio.json'
+PORTFOLIO_UPLOAD_DIR = SITE_ROOT / 'assets' / 'projects'
+PORTFOLIO_UPLOAD_URL_PREFIX = 'assets/projects/'
+PORTFOLIO_ALLOWED_EXT = {'.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg'}
+
 # External paths
 HOME = Path.home()
 PROJECTS_BASE = HOME / 'Documents' / '00-projects'
@@ -54,6 +85,14 @@ app = Flask(
     static_folder=str(Path(__file__).parent / 'static'),
     static_url_path='/admin/static',
 )
+
+
+# Inject `pages` into every template so the shared nav partial can list
+# them without each route having to pass it. `current_nav` is still set
+# per-route so the partial knows which link to mark .active.
+@app.context_processor
+def _inject_nav_ctx():
+    return {'pages': PAGES}
 
 
 # --- Helpers ---
@@ -130,6 +169,113 @@ def sync_intro_to_index(intro_html):
     INDEX_HTML.write_text(new_txt, encoding='utf-8')
 
 
+# --- Helpers: editable pages (about, labs, ...) ---
+
+def load_page(slug):
+    cfg = PAGES.get(slug)
+    if not cfg:
+        return None
+    if not cfg['data_file'].exists():
+        return {'body_html': '', 'last_updated': None, 'slug': slug}
+    with open(cfg['data_file']) as f:
+        data = json.load(f)
+    data['slug'] = slug
+    return data
+
+def save_page(slug, body_html):
+    cfg = PAGES[slug]
+    data = {
+        'body_html': body_html,
+        'last_updated': datetime.now().strftime('%Y-%m-%d'),
+    }
+    with open(cfg['data_file'], 'w') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    return data
+
+def sync_page_to_file(slug, body_html):
+    """
+    Patch the <div class="page-body">...</div> region inside the target file
+    so the rendered page matches what admin shows. Raises on mismatch so the
+    caller can surface the error to the UI (the JSON snapshot is still saved).
+    """
+    cfg = PAGES[slug]
+    src = cfg['source_file']
+    txt = src.read_text(encoding='utf-8')
+    body = body_html.strip('\n')
+    def repl(m):
+        return f"{m.group(1)}{body}{m.group(3)}"
+    new_txt, n = PAGE_BODY_PATTERN.subn(repl, txt, count=1)
+    if n == 0:
+        raise ValueError(f'could not locate <div class="page-body"> in {src.name}')
+    src.write_text(new_txt, encoding='utf-8')
+
+
+# --- Helpers: Portfolio (public projects on /projects/) ---
+
+def load_portfolio():
+    if not PORTFOLIO_JSON.exists():
+        return {'projects': [], 'last_updated': None}
+    with open(PORTFOLIO_JSON) as f:
+        return json.load(f)
+
+def save_portfolio(data):
+    data['last_updated'] = datetime.now().strftime('%Y-%m-%d')
+    with open(PORTFOLIO_JSON, 'w') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+LINK_TYPES = {'paper', 'github', 'video', 'demo', 'essay', 'site', 'dataset'}
+
+def _sanitize_project(payload, existing_id=None):
+    """Coerce a POST/PUT payload into the canonical project shape."""
+    def as_str_list(val):
+        if isinstance(val, list):
+            return [str(x).strip() for x in val if str(x).strip()]
+        if isinstance(val, str):
+            return [s.strip() for s in val.split(',') if s.strip()]
+        return []
+    def as_links(val):
+        out = []
+        if isinstance(val, list):
+            for item in val:
+                if not isinstance(item, dict): continue
+                label = str(item.get('label', '')).strip()
+                href  = str(item.get('href',  '')).strip()
+                if not (label and href): continue
+                link = {'label': label, 'href': href}
+                t = str(item.get('type', '')).strip().lower()
+                if t in LINK_TYPES:
+                    link['type'] = t
+                out.append(link)
+        return out
+    def as_video(val):
+        if not isinstance(val, dict): return None
+        url = str(val.get('url', '')).strip()
+        if not url: return None
+        v = {'url': url}
+        poster = str(val.get('poster', '')).strip()
+        if poster: v['poster'] = poster
+        return v
+
+    proj_id = (payload.get('id') or existing_id or '').strip()
+    if not proj_id:
+        proj_id = re.sub(r'[^a-z0-9]+', '-', str(payload.get('title', '')).lower()).strip('-')[:60]
+
+    return {
+        'id':            proj_id,
+        'theme':         str(payload.get('theme', '')).strip() or None,
+        'title':         str(payload.get('title', '')).strip(),
+        'thumbnail':     str(payload.get('thumbnail', '')).strip() or None,
+        'tags':          as_str_list(payload.get('tags')),
+        'collaborators': as_str_list(payload.get('collaborators')),
+        'blurb':         str(payload.get('blurb', '')).strip(),
+        'description':   str(payload.get('description', '')).strip() or None,
+        'links':         as_links(payload.get('links')),
+        'video':         as_video(payload.get('video')),
+        'featured':      bool(payload.get('featured', False)),
+        'published':     bool(payload.get('published', True)),
+    }
+
+
 # --- Helpers: Projects metadata ---
 
 def load_projects_meta():
@@ -156,27 +302,43 @@ _PROJECT_META_DEFAULTS = {
 
 @app.route('/admin/')
 def admin_page():
-    return render_template('admin.html')
+    return render_template('admin.html', current_nav='articles')
 
 @app.route('/admin/dashboard')
 def dashboard_page():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', current_nav='dashboard')
 
 @app.route('/admin/projects')
 def projects_page():
-    return render_template('projects.html')
+    return render_template('projects.html', current_nav='projects')
 
 @app.route('/admin/news')
 def news_page():
-    return render_template('news.html')
+    return render_template('news.html', current_nav='news')
+
+@app.route('/admin/page/<slug>')
+def page_admin(slug):
+    cfg = PAGES.get(slug)
+    if not cfg:
+        abort(404)
+    return render_template('page.html', slug=slug, cfg=cfg, current_nav=f'page:{slug}')
+
+# Legacy path used by the earlier about-only editor; redirect to the generic one.
+@app.route('/admin/about')
+def about_admin_page():
+    return page_admin('about')
 
 @app.route('/admin/hero')
 def hero_page():
-    return render_template('hero.html')
+    return render_template('hero.html', current_nav='hero')
 
 @app.route('/admin/sessions')
 def sessions_page():
-    return render_template('sessions.html')
+    return render_template('sessions.html', current_nav='sessions')
+
+@app.route('/admin/portfolio')
+def portfolio_admin_page():
+    return render_template('portfolio.html', current_nav='portfolio')
 
 
 # --- API: Articles ---
@@ -306,6 +468,116 @@ def reorder_articles():
 # --- API: Dashboard ---
 
 # --- Hero API ---
+
+@app.route('/api/page/<slug>', methods=['GET'])
+def api_get_page(slug):
+    if slug not in PAGES:
+        return jsonify({'error': f'unknown page: {slug}'}), 404
+    data = load_page(slug)
+    return jsonify(data)
+
+@app.route('/api/page/<slug>', methods=['PUT'])
+def api_update_page(slug):
+    if slug not in PAGES:
+        return jsonify({'error': f'unknown page: {slug}'}), 404
+    body = request.json or {}
+    body_html = (body.get('body_html') or '').strip()
+    if not body_html:
+        return jsonify({'error': 'body_html is required'}), 400
+    data = save_page(slug, body_html)
+    try:
+        sync_page_to_file(slug, body_html)
+    except Exception as e:
+        return jsonify({
+            'error': f'saved {slug}.json but failed to patch source file: {e}',
+            'data': data,
+        }), 500
+    data['slug'] = slug
+    return jsonify(data)
+
+
+# --- API: Portfolio (public projects) ---
+
+@app.route('/api/portfolio', methods=['GET'])
+def api_get_portfolio():
+    return jsonify(load_portfolio())
+
+@app.route('/api/portfolio', methods=['POST'])
+def api_create_project():
+    body = request.json or {}
+    if not (body.get('title') or '').strip():
+        return jsonify({'error': 'title is required'}), 400
+    data = load_portfolio()
+    proj = _sanitize_project(body)
+    # Enforce unique ID
+    existing_ids = {p['id'] for p in data.get('projects', [])}
+    if proj['id'] in existing_ids:
+        base = proj['id']; n = 2
+        while f'{base}-{n}' in existing_ids: n += 1
+        proj['id'] = f'{base}-{n}'
+    data['projects'].append(proj)
+    save_portfolio(data)
+    return jsonify(proj), 201
+
+@app.route('/api/portfolio/<proj_id>', methods=['PUT'])
+def api_update_project(proj_id):
+    body = request.json or {}
+    data = load_portfolio()
+    for i, p in enumerate(data.get('projects', [])):
+        if p['id'] == proj_id:
+            data['projects'][i] = _sanitize_project(body, existing_id=proj_id)
+            save_portfolio(data)
+            return jsonify(data['projects'][i])
+    return jsonify({'error': f'project not found: {proj_id}'}), 404
+
+@app.route('/api/portfolio/<proj_id>', methods=['DELETE'])
+def api_delete_project(proj_id):
+    data = load_portfolio()
+    n_before = len(data.get('projects', []))
+    data['projects'] = [p for p in data.get('projects', []) if p['id'] != proj_id]
+    if len(data['projects']) == n_before:
+        return jsonify({'error': f'project not found: {proj_id}'}), 404
+    save_portfolio(data)
+    return jsonify({'deleted': proj_id})
+
+@app.route('/api/portfolio/reorder', methods=['POST'])
+def api_reorder_portfolio():
+    order = (request.json or {}).get('order') or []
+    data = load_portfolio()
+    by_id = {p['id']: p for p in data.get('projects', [])}
+    reordered = [by_id[i] for i in order if i in by_id]
+    # Append any not-mentioned projects at the end to avoid data loss
+    seen = set(order)
+    for p in data.get('projects', []):
+        if p['id'] not in seen:
+            reordered.append(p)
+    data['projects'] = reordered
+    save_portfolio(data)
+    return jsonify({'reordered': len(reordered)})
+
+@app.route('/api/portfolio/upload', methods=['POST'])
+def api_upload_thumbnail():
+    if 'file' not in request.files:
+        return jsonify({'error': 'file field required'}), 400
+    f = request.files['file']
+    fname = (f.filename or '').strip()
+    if not fname:
+        return jsonify({'error': 'empty filename'}), 400
+    ext = os.path.splitext(fname)[1].lower()
+    if ext not in PORTFOLIO_ALLOWED_EXT:
+        return jsonify({'error': f'unsupported extension {ext}. allowed: {sorted(PORTFOLIO_ALLOWED_EXT)}'}), 400
+    # Slug the base name so we don't dump weird chars on disk
+    stem = re.sub(r'[^a-z0-9]+', '-', os.path.splitext(fname)[0].lower()).strip('-') or 'upload'
+    PORTFOLIO_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    target = PORTFOLIO_UPLOAD_DIR / f'{stem}{ext}'
+    # Avoid clobbering an existing asset unless the bytes are identical
+    n = 2
+    while target.exists():
+        target = PORTFOLIO_UPLOAD_DIR / f'{stem}-{n}{ext}'
+        n += 1
+    f.save(str(target))
+    return jsonify({'path': f'{PORTFOLIO_UPLOAD_URL_PREFIX}{target.name}'}), 201
+
 
 @app.route('/api/hero', methods=['GET'])
 def api_get_hero():
@@ -883,7 +1155,7 @@ def dashboard_search():
 
 @app.route('/admin/workflow')
 def workflow_page():
-    return render_template('workflow.html')
+    return render_template('workflow.html', current_nav='workflow')
 
 
 # --- API: Sync ---

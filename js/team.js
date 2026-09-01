@@ -29,18 +29,9 @@
     return `<span class="team-row-links">${parts.join('<span class="team-row-sep"> · </span>')}</span>`;
   }
 
-  function labAliases(memberLabs, labs) {
-    return (memberLabs || []).map(slug => {
-      const l = labs.find(x => x.slug === slug);
-      return l ? (l.alias || l.name) : slug;
-    }).join(', ');
-  }
-
-  function memberRow(m, labs) {
+  function memberRow(m) {
     const roleBits = [];
     if (m.role) roleBits.push(m.role);
-    const labStr = labAliases(m.labs, labs);
-    if (labStr) roleBits.push(labStr);
     if (m.co_supervisor) roleBits.push(`co-supervised with ${m.co_supervisor}`);
     const roleLine = roleBits.join(' &middot; ');
 
@@ -73,17 +64,14 @@
   }
 
   function funderRow(f) {
-    const link = f.url
-      ? `<span class="team-row-links"><a href="${f.url}" target="_blank" rel="noopener">website</a></span>`
-      : '';
+    const name = f.url
+      ? `<a href="${f.url}" target="_blank" rel="noopener">${f.name}</a>`
+      : f.name;
     return `
-      <li class="team-row">
-        <div class="team-row-header">
-          <span class="team-row-name">${f.name}</span>
-          ${link}
-        </div>
-        <div class="team-row-role">${f.alias || ''}</div>
-      </li>
+      <div class="funder">
+        <span class="funder-name">${name}</span>
+        <span class="funder-alias">${f.alias || ''}</span>
+      </div>
     `;
   }
 
@@ -99,30 +87,35 @@
   }
 
   function render(data) {
-    const labs = data.labs || [];
     let html = '';
 
-    if (data.director) {
-      html += sectionBlock('Director', memberRow(data.director, labs));
-    }
     if (data.current && data.current.length) {
       html += sectionBlock('Current students and researchers',
-        data.current.map(m => memberRow(m, labs)).join(''));
+        data.current.map(memberRow).join(''));
     }
     if (data.previous && data.previous.length) {
       html += sectionBlock('Previous students and researchers',
-        data.previous.map(m => memberRow(m, labs)).join(''));
+        data.previous.map(memberRow).join(''));
+    }
+    if (data.previous_undergraduates && data.previous_undergraduates.note) {
+      html += `<p class="team-inline-note">${data.previous_undergraduates.note}</p>`;
     }
     if (data.collaborators && data.collaborators.length) {
-      html += sectionBlock('Collaborators and mentors',
+      html += sectionBlock('Collaborators',
         data.collaborators.map(collaboratorRow).join(''));
     }
     if (data.conversations && data.conversations.text) {
       html += `<p class="team-conversations">${data.conversations.text}</p>`;
     }
     if (data.funders && data.funders.length) {
-      html += sectionBlock('Funders and partners',
-        data.funders.map(funderRow).join(''));
+      // Render the same block used on the projects page so the two stay
+      // in sync visually. Different markup from the other team sections.
+      html += `
+        <section class="lab-section" style="margin-top: var(--space-xl);">
+          <h2>funders and partners</h2>
+          <div class="funders">${data.funders.map(funderRow).join('')}</div>
+        </section>
+      `;
     }
     if (data.notes) {
       html += `<div class="team-note">${data.notes}</div>`;
