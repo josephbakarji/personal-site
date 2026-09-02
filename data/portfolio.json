@@ -147,7 +147,7 @@
         "Samir Shaker"
       ],
       "blurb": "Turning full-body motion into music: IMU-on-flow-rope streamed live into a classifier, tokenizer, and DAW/synth pipeline.",
-      "description": "A spinning flow rope has an M5Stack IMU that broadcasts over BLE to a live pipeline: movement classification (12-label taxonomy), transition-sparse VQ tokenization, latent-space discovery via UMAP and a Hilbert transform, and audio synthesis via Ableton Live.",
+      "description": "A spinning flow rope has an M5Stack IMU that broadcasts over BLE to a live pipeline: movement classification (12-label taxonomy), transition-sparse VQ tokenization, latent-space discovery via UMAP and a Hilbert transform, and audio synthesis via Ableton Live. The Musical Flow Rope was started in 2024 as our first movement-to-sound experiment, independent of any external grant. Its ongoing extension into a broader body-and-dance instrument is now one strand of the AFAC-funded Music in Motion project (2026 to 2028).",
       "links": [
         {
           "label": "YouTube video",
