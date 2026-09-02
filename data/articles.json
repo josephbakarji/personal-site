@@ -13,7 +13,8 @@
       "excerpt": "A one-year project on unifying music and dance under movement, funded by the Arab Fund for Arts and Culture (AFAC). The vision, the team, and what the year looks like.",
       "has_math": false,
       "source": "local",
-      "published": true
+      "published": false,
+      "listed": false
     },
     {
       "slug": "gluvn",
