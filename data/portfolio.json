@@ -147,13 +147,8 @@
         "Samir Shaker"
       ],
       "blurb": "Turning full-body motion into music: IMU-on-flow-rope streamed live into a classifier, tokenizer, and DAW/synth pipeline.",
-      "description": "A spinning flow rope has an M5Stack IMU that broadcasts over BLE to a live pipeline: movement classification (12-label taxonomy), transition-sparse VQ tokenization, latent-space discovery via UMAP and a Hilbert transform, and audio synthesis via Ableton Live. This is an application of the \"Music in Motion\" project, funded by the Arab Fund for Arts and Culture (AFAC).",
+      "description": "A spinning flow rope has an M5Stack IMU that broadcasts over BLE to a live pipeline: movement classification (12-label taxonomy), transition-sparse VQ tokenization, latent-space discovery via UMAP and a Hilbert transform, and audio synthesis via Ableton Live.",
       "links": [
-        {
-          "label": "NeurIPS Creative AI submission (PDF)",
-          "href": "assets/papers/rope-flow-music-neurips-creative-ai.pdf",
-          "type": "paper"
-        },
         {
           "label": "YouTube video",
           "href": "https://www.youtube.com/watch?v=UIkylBomf_M",
