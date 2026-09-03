@@ -41,7 +41,7 @@ The team is also supported by collaborators, including: Joelle Khoury, on music 
 
 The purpose of this project is to make an art form, or at least to make it credible enough that other people want to make one with us. Specifically, we expect to develop a set of trained models we can release, an open-source repository, three to five public performances in a mix of academic, traditional, and contemporary venues, and a body of writing that lets other groups (in Lebanon, in the Arab region, and beyond it) pick up the work and build on it. If, a year after the grant ends, someone we have never met is building on top of any of this, we will call that a success.
 
-If you are working on any part of this space (motion sensing, movement-to-sound mapping, dance practice, real-time music systems), please reach out. This project only works if it becomes a scene.
+If you are working on any part of this space (motion sensing, movement-to-sound mapping, dance practice, real-time music systems), or if you are a musician, dancer, or engineer who would like to be involved, please reach out at [joseph.bakarji@aub.edu.lb](mailto:joseph.bakarji@aub.edu.lb). This project only works if it becomes a scene.
 
 ---
 
