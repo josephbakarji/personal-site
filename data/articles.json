@@ -17,7 +17,7 @@
     },
     {
       "slug": "gluvn",
-      "title": "Gluvn — a five-finger sensor glove for music",
+      "title": "Gluvn: a five-finger sensor glove for music",
       "date": "2026-08-31",
       "tags": [
         "music",
@@ -28,7 +28,7 @@
       "excerpt": "A first pass at the Gluvn project: a wearable five-finger sensor glove instrument, with a small gallery of videos and an arXiv reference.",
       "has_math": false,
       "source": "local",
-      "published": false,
+      "published": true,
       "listed": false
     },
     {

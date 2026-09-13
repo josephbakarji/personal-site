@@ -1,8 +1,8 @@
-# Gluvn — a five-finger sensor glove for music
+# Gluvn: a five-finger sensor glove for music
 
 *A first pass. The videos below are a mix of polished excerpts, quick demos, and unedited experiments that I'll trim and re-caption over time.*
 
-Gluvn is a wearable glove instrument I've been building on and off since 2019. Each finger carries a bend/flex sensor and the palm carries an IMU; the readings stream to a laptop that maps them to musical control signals over MIDI or OSC. The idea is to build a "portable studio" — an instrument that carries part of the composition rather than being a neutral controller, so the mapping between hand gesture and sound is itself an artistic choice.
+Gluvn is a wearable glove instrument I've been building on and off since 2019. Each finger carries a bend/flex sensor and the palm carries an IMU; the readings stream to a laptop that maps them to musical control signals over MIDI or OSC. The idea is to build a "portable studio", an instrument that carries part of the composition rather than being a neutral controller, so the mapping between hand gesture and sound is itself an artistic choice.
 
 ## A polished excerpt (2024)
 
