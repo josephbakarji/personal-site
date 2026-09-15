@@ -1,16 +1,6 @@
 {
   "current": [
     {
-      "name": "Khyam Allami",
-      "role": "Postdoctoral Fellow",
-      "topic": "Building the Arabic maqam archive (with Ibrahim El Khansa); maqam identification (with Dany Abou Jaoude); maqam and ajnas network modeling (with Sara Najem).",
-      "email": "ka109@aub.edu.lb",
-      "links": [
-        { "label": "khyamallami.com", "href": "https://khyamallami.com" },
-        { "label": "diarmaqar.netlify.app", "href": "https://diarmaqar.netlify.app/" }
-      ]
-    },
-    {
       "name": "Fatima Fneich",
       "role": "PhD Student",
       "topic": "Computational neuroscience for uncovering multi-scale brain dynamics.",
@@ -48,6 +38,15 @@
     }
   ],
   "previous": [
+    {
+      "name": "Khyam Allami",
+      "role": "Previous Postdoctoral Fellow",
+      "topic": "Built the Arabic maqam archive (with Ibrahim El Khansa); maqam identification (with Dany Abou Jaoude); maqam and ajnas network modeling (with Sara Najem).",
+      "links": [
+        { "label": "khyamallami.com", "href": "https://khyamallami.com" },
+        { "label": "diarmaqar.netlify.app", "href": "https://diarmaqar.netlify.app/" }
+      ]
+    },
     {
       "name": "Lama Sleem",
       "role": "MS Computational Science",
