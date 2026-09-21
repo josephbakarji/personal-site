@@ -22,6 +22,10 @@ Rolling list of things to fix / write / rework.
 - **Publications**: `python3 tools/fetch_scholar.py` — re-run periodically. Author names shortened to initials in a post-process.
 - **Substack posts**: `python3 tools/fetch_substack.py` — re-run to refresh the articles list + landing "recent writing" strip.
 
+## Reminders
+
+- **Ping Sara Najem** about the status of the maqam-network project (the one that generated `ResultingNetworks.html`). Placeholder link removed from musicintelligencelab.com on 2026-09-21; decide whether to publish the interactive network view or retire it.
+
 ## Nice-to-haves
 
 - **VIPP student list** on the team page.
