@@ -17,7 +17,7 @@
     },
     {
       "slug": "gluvn",
-      "title": "Gluvn: a five-finger sensor glove for music",
+      "title": "Gluvn: a wearable glove musical instrument",
       "date": "2026-09-21",
       "tags": [
         "music",
@@ -25,11 +25,10 @@
         "ML",
         "wearable"
       ],
-      "excerpt": "A five-finger sensor glove instrument I've been building since 2014, from COSMOS at UC San Diego to Hélène Jabbour's ongoing thesis at AUB. Demo reel + arXiv reference.",
+      "excerpt": "A wearable sensor glove instrument I've been building since 2014, from COSMOS at UC San Diego to Hélène Jabbour's ongoing thesis at AUB. Demo reel + arXiv reference.",
       "has_math": false,
       "source": "local",
-      "published": true,
-      "listed": false
+      "published": true
     },
     {
       "slug": "but-what-are-agents",
