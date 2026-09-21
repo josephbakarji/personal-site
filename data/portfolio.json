@@ -178,6 +178,11 @@
       "description": "A five-finger flex/FSR sensor glove that turns joint angles, gestures, and finger contacts into continuous musical control signals. It's an experiment in what an intuitive movement-to-sound mapping actually looks like when the interface maps the high dimensional degrees of freedom of the hands. The instrument is an experiment in \"Music in Motion\", exploiting the fact that most instruments are played with hands. The complexity is in finding intuitive gesture-to-sound maps.",
       "links": [
         {
+          "label": "article + demo reel",
+          "href": "articles/?slug=gluvn",
+          "type": "essay"
+        },
+        {
           "label": "Gluvn Preprint",
           "href": "https://arxiv.org/abs/2001.09551",
           "type": "paper"

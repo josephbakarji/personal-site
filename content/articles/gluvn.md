@@ -1,6 +1,8 @@
 # Gluvn: a five-finger sensor glove for music
 
-*A reference page for the Gluvn project. A single narrated overview video (edited in Premiere) will replace the clips below.*
+*A reference page for the Gluvn project, with a demo reel and links to the paper. Rough cut for now; will polish over time.*
+
+<div style="position:relative; padding-bottom:56.25%; height:0; max-width:800px; margin:1.5rem auto;"><iframe src="https://www.youtube.com/embed/rFsVS_Wkfo0" style="position:absolute; top:0; left:0; width:100%; height:100%;" title="Gluvn demo reel" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 Gluvn is a wearable five-finger sensor glove instrument I've been building on and off since 2014. Each finger has a bend/flex sensor, and the palm carries an inertial measurement unit (accelerometer plus gyroscope). The readings stream over serial (or Bluetooth in later iterations) to a laptop that maps them to MIDI or OSC control signals routed into a DAW or synth. The idea is a "portable studio", an instrument that carries part of the composition rather than being a neutral controller, so the mapping between hand gesture and sound is itself an artistic choice.
 
@@ -28,36 +30,6 @@ The machine-learning side of the mapping (from finger-bend sensors to note event
 ## Current work: Hélène Jabbour
 
 The current chapter is being written by **Hélène Jabbour**, an MS student in Mechanical Engineering at AUB, who is bringing the sensing and mapping stack to a mature, performance-ready version. Her thesis focuses on making the glove reliable across users and hand sizes, and on turning the recent expressive-mapping experiments into a stable interface a performer can actually rehearse on.
-
-## Video excerpts
-
-*A mix of polished excerpts, quick demos, and unedited experiments. These will be replaced by a single narrated overview video.*
-
-### A polished excerpt (2024)
-
-<video src="../assets/music/video/gluvn/gluvn-ideas-2024.mp4" controls playsinline preload="metadata" style="width:100%; max-width:800px; display:block; margin: 1.5rem auto;"></video>
-
-### With Jacob (choir)
-
-<video src="../assets/music/video/gluvn/jacob-choir.mp4" controls playsinline preload="metadata" style="width:100%; max-width:400px; display:block; margin: 1.5rem auto;"></video>
-
-### Acceleration demo
-
-*Raw IMU acceleration driving the mapping. Full-length; will trim to the interesting stretch.*
-
-<video src="../assets/music/video/gluvn/accel-demo.mp4" controls playsinline preload="metadata" style="width:100%; max-width:400px; display:block; margin: 1.5rem auto;"></video>
-
-### Early narrated demo
-
-*From an earlier iteration; I talk through the design in the first minute or so.*
-
-<video src="../assets/music/video/gluvn/gluvn-early-demo.mp4" controls playsinline preload="metadata" style="width:100%; max-width:800px; display:block; margin: 1.5rem auto;"></video>
-
-### Vocoder mode (reference)
-
-*Rough visual quality; kept here mostly as a reference for students working on similar mappings.*
-
-<video src="../assets/music/video/gluvn/gluvn-vocoder.mp4" controls playsinline preload="metadata" style="width:100%; max-width:800px; display:block; margin: 1.5rem auto;"></video>
 
 ## Cite
 

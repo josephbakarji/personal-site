@@ -18,17 +18,17 @@
     {
       "slug": "gluvn",
       "title": "Gluvn: a five-finger sensor glove for music",
-      "date": "2026-08-31",
+      "date": "2026-09-21",
       "tags": [
         "music",
         "mechatronics",
         "ML",
         "wearable"
       ],
-      "excerpt": "A first pass at the Gluvn project: a wearable five-finger sensor glove instrument, with a small gallery of videos and an arXiv reference.",
+      "excerpt": "A five-finger sensor glove instrument I've been building since 2014, from COSMOS at UC San Diego to Hélène Jabbour's ongoing thesis at AUB. Demo reel + arXiv reference.",
       "has_math": false,
       "source": "local",
-      "published": false,
+      "published": true,
       "listed": false
     },
     {
