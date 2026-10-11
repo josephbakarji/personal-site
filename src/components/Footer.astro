@@ -1,0 +1,18 @@
+---
+const ext = [
+  ['substack', 'https://bakarji.substack.com'],
+  ['github', 'https://github.com/josephbakarji'],
+  ['scholar', 'https://scholar.google.com/citations?user=1zZNV48AAAAJ&hl=en'],
+  ['soundcloud', 'https://soundcloud.com/user-343358875'],
+  ['sematlas', 'https://www.sematlas.com'],
+  ['ml4science', 'https://ml4science.com'],
+];
+---
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="ext-links">
+      {ext.map(([label, href]) => <a class="ext-link" href={href} target="_blank" rel="noopener">{label}</a>)}
+    </div>
+    <p class="footer-note">joseph.bakarji [at] aub.edu.lb &middot; beirut &middot; {new Date().getFullYear()}</p>
+  </div>
+</footer>

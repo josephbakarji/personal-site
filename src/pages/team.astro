@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import team from '../../data/team.json';
+import { renderTeam } from '../lib/team.js';
+import { rootLinks } from '../lib/format.js';
+---
+<Base title="Team · Joseph Bakarji" page="team" css={['pages', 'labs', 'team']}>
+  <div class="page-body">
+    <h2 class="page-title">team</h2>
+    <div id="team-content" set:html={rootLinks(renderTeam(team))} />
+  </div>
+</Base>

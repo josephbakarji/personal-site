@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import portfolio from '../../data/portfolio.json';
+import articlesData from '../../data/articles.json';
+import pubsData from '../../data/publications.json';
+import { esc, fmtDate, url, listedArticles, articleHref, fmtAuthors, fmtVenue } from '../lib/format.js';
+
+const featured = (portfolio.projects || [])
+  .filter(p => p.published !== false && p.featured === true)
+  .slice(0, 4);
+
+const recent = listedArticles(articlesData.articles).slice(0, 3);
+
+// Pinned (`featured: true`) first, then by citations, then by year.
+const pubs = (pubsData.publications || []).slice().sort((a, b) =>
+  ((b.featured ? 1 : 0) - (a.featured ? 1 : 0)) ||
+  ((b.citations || 0) - (a.citations || 0)) ||
+  ((b.year || 0) - (a.year || 0))
+).slice(0, 5);
+---
+<Base
+  title="Joseph Bakarji"
+  description="Joseph Bakarji. Researcher and instrument designer at the American University of Beirut, working across scientific machine learning, music technology, mechatronics, and complex systems."
+  css={['portfolio', 'landing']}
+>
+<!-- ============ HEADER ============ -->
+<header class="landing-head">
+  <div class="landing-head-inner">
+    <aside class="landing-head-side">
+      <figure class="landing-portrait">
+        <img src="/assets/about/joseph.jpg" alt="Joseph Bakarji"
+             >
+      </figure>
+
+      <ul class="landing-social" aria-label="links">
+        <li>
+          <a class="landing-social-icon" href="https://scholar.google.com/citations?user=1zZNV48AAAAJ&hl=en" target="_blank" rel="noopener" title="Google Scholar" aria-label="Google Scholar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5.242 13.769L0.5 9.5 12 1l11.5 8.5-4.742 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 100 14 7 7 0 000-14z"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="landing-social-icon" href="https://github.com/josephbakarji" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+        </li>
+        <li><a class="landing-social-text" href="/about/">Bio</a></li>
+      </ul>
+      <p class="landing-email">joseph.bakarji [at] aub.edu.lb</p>
+    </aside>
+
+    <div class="landing-head-text">
+      <h1 class="landing-name">Joseph Bakarji</h1>
+
+      <div class="landing-affiliation">
+        <p>Assistant Professor at the American University of Beirut</p>
+        <p><a class="soft-link" href="https://www.aub.edu.lb/msfea/me/Pages/default.aspx" target="_blank" rel="noopener">MechE</a> at <a class="soft-link" href="https://www.aub.edu.lb/msfea/Pages/default.aspx" target="_blank" rel="noopener">MSFEA</a> and Data Science at <a class="soft-link" href="https://scds.aub.edu.lb/" target="_blank" rel="noopener">SCDS</a></p>
+      </div>
+
+      <p class="landing-bio">
+        <em>What is it that we do when we do science?</em> and <em>what is a well-designed movement-to-sound musical interface?</em> Two of my latest obsessions, and you can find more on the <a href="/projects/">projects</a> page. The unifying theme is intelligence. Automating scientific discovery asks about the mathematical and algorithmic techniques for distilling observations into models (usually differential equations); music performance is an embodied form of intelligence, arguably more deeply responsible for our survival than Newton's second law. Beyond <a href="/publications/">academic publication</a>, I wrestle with some of these questions on <a href="https://bakarji.substack.com" target="_blank" rel="noopener">The Latent Dimension</a>, and teach them on <a href="https://ml4science.com" target="_blank" rel="noopener">ml4science.com</a> and <a href="https://intro2ml.com" target="_blank" rel="noopener">intro2ml.com</a>. Enjoy the tour of my website, and feel free to ping me an email.
+      </p>
+
+      <div class="landing-now">
+        <p class="landing-now-tag">// now</p>
+        <ul>
+          <li><a href="/articles/music-in-motion/">Music in Motion</a>, a two-year AFAC project turning dance and full-body movement into music, with Elsa Maalouf and Olivier Chiniara.</li>
+          <li>The <a href="/projects/#proj-musical-flow-rope">Musical Flow Rope</a> at NeurIPS Creative AI 2026, and maqām recognition at ISMIR 2026.</li>
+          <li>New piano pieces, played through the <a href="/music/">Piano of Life</a>.</li>
+          <li>Writing a book on intelligence, from science to music. In progress.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SELECTED PROJECTS ============ -->
+<section class="section section--featured" data-section="projects">
+  <div class="section-inner">
+    <header class="section-head">
+      <h2 class="section-title"><span class="section-tag">// selected projects</span></h2>
+      <a class="section-more" href="/projects/">see all projects &rsaquo;</a>
+    </header>
+    <div class="featured-grid">
+      {featured.map(p => (
+        <a class="featured-card" href={`/projects/#proj-${p.id}`}>
+          {p.thumbnail
+            ? <img class="featured-card-thumb" src={url(p.thumbnail)} alt={p.title} loading="lazy">
+            : <div class="featured-card-thumb featured-card-thumb--empty" aria-hidden="true"></div>}
+          <div class="featured-card-body">
+            <h3 class="featured-card-title">{p.title}</h3>
+            <p class="featured-card-blurb">{p.blurb || ''}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECENT WRITING ============ -->
+<section class="section section--writing" data-section="writing">
+  <div class="section-inner">
+    <header class="section-head">
+      <h2 class="section-title"><span class="section-tag">// recent writing</span></h2>
+    </header>
+    <ul class="writing-list">
+      {recent.map(a => {
+        const href = articleHref(a);
+        const ext = href.startsWith('http');
+        const ex = a.excerpt || '';
+        return (
+          <li class="writing-item">
+            <a href={href} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>
+              <span class="writing-date">{fmtDate(a.date)}</span>
+              <span>
+                <span class="writing-title" set:html={a.title} />
+                {ex && <span class="writing-excerpt" set:html={ex.slice(0, 180) + (ex.length > 180 ? '&hellip;' : '')} />}
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+    <a class="section-more" href="/articles/">all articles &rsaquo;</a>
+  </div>
+</section>
+
+<!-- ============ SELECTED PUBLICATIONS ============ -->
+<section class="section section--pubs" data-section="pubs">
+  <div class="section-inner">
+    <header class="section-head">
+      <h2 class="section-title"><span class="section-tag">// selected publications</span></h2>
+      <a class="section-more" href="/publications/">all publications &rsaquo;</a>
+    </header>
+    <ul class="pubs-list">
+      {pubs.map(p => {
+        const link = p.url || p.eprint;
+        const cites = p.citations || 0;
+        return (
+          <li class="pubs-item">
+            <div class="pubs-title">{link ? <a href={link} target="_blank" rel="noopener">{p.title}</a> : p.title}</div>
+            <div class="pubs-meta">
+              <span class="pubs-authors" set:html={fmtAuthors(p.authors)} />
+              <span class="pubs-dot">·</span>
+              <span class="pubs-venue">{fmtVenue(p.venue)}</span>
+              {p.year && <Fragment><span class="pubs-dot">·</span><span class="pubs-year">{p.year}</span></Fragment>}
+              {cites > 0 && <Fragment><span class="pubs-dot">·</span><span class="pubs-cites">{cites} citation{cites === 1 ? '' : 's'}</span></Fragment>}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>
+</Base>

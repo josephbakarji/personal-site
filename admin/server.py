@@ -63,7 +63,7 @@ PAGE_BODY_PATTERN = re.compile(
 
 # --- Portfolio (public projects on /projects/) ---
 PORTFOLIO_JSON = DATA_DIR / 'portfolio.json'
-PORTFOLIO_UPLOAD_DIR = SITE_ROOT / 'assets' / 'projects'
+PORTFOLIO_UPLOAD_DIR = SITE_ROOT / 'public' / 'assets' / 'projects'
 PORTFOLIO_UPLOAD_URL_PREFIX = 'assets/projects/'
 PORTFOLIO_ALLOWED_EXT = {'.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg'}
 
@@ -160,6 +160,8 @@ def sync_intro_to_index(intro_html):
     surrounding whitespace/indentation. Non-destructive if pattern
     doesn't match (raises so the caller can surface the error).
     """
+    if not INDEX_HTML.exists():
+        return  # Astro build: the landing lives in src/pages/index.astro
     txt = INDEX_HTML.read_text(encoding='utf-8')
     def repl(m):
         return f"{m.group(1)}\n        {intro_html.strip()}\n      {m.group(3)}"
@@ -200,6 +202,11 @@ def sync_page_to_file(slug, body_html):
     """
     cfg = PAGES[slug]
     src = cfg['source_file']
+    if not src.exists():
+        # Astro build: src/pages/about.astro reads data/about.json directly,
+        # so saving the JSON is enough. (projects-page.json is not read by
+        # the Astro projects page; edit src/pages/projects.astro instead.)
+        return
     txt = src.read_text(encoding='utf-8')
     body = body_html.strip('\n')
     def repl(m):
@@ -1193,14 +1200,17 @@ def sync_scholar():
 
 # --- Serve static site files ---
 
+# The public site is built by Astro into dist/ (`npm run build`).
+SITE_DIST = SITE_ROOT / 'dist'
+
 @app.route('/')
 def serve_index():
-    return send_from_directory(str(SITE_ROOT), 'index.html')
+    return send_from_directory(str(SITE_DIST), 'index.html')
 
 @app.route('/<path:filepath>')
 def serve_site(filepath):
     # Serve folder/index.html for directory-style URLs
-    full_path = SITE_ROOT / filepath
+    full_path = SITE_DIST / filepath
     if full_path.is_dir():
         index = full_path / 'index.html'
         if index.exists():

@@ -1,0 +1,10 @@
+---
+const { active } = Astro.props;
+const links = ['projects', 'publications', 'teaching', 'articles', 'music', 'team', 'about'];
+---
+<nav class="nav">
+  <a class="nav-logo" href="/">jb</a>
+  <ul class="nav-links">
+    {links.map(l => <li><a href={`/${l}/`} aria-current={l === active ? 'page' : undefined}>{l}</a></li>)}
+  </ul>
+</nav>

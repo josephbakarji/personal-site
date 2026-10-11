@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import portfolio from '../../data/portfolio.json';
+import { renderPortfolio } from '../lib/portfolio.js';
+---
+<Base
+  title="Projects · Joseph Bakarji"
+  description="Interdisciplinary projects across scientific ML, music technology, mechatronics, and complex systems."
+  page="projects"
+  css={['pages', 'labs', 'portfolio']}
+>
+  <div class="page-body">
+    <header class="portfolio-head">
+      <div class="portfolio-head-logos">
+        <figure class="portfolio-lab-mark">
+          <img src="/assets/projects/ddm-lab-hero.png" alt="Data-Driven Modeling Lab">
+          <figcaption>Data-Driven Modeling Lab</figcaption>
+        </figure>
+        <figure class="portfolio-lab-mark">
+          <img src="/assets/projects/mil-logo.png" alt="Music Intelligence Lab">
+          <figcaption>Music Intelligence Lab</figcaption>
+        </figure>
+      </div>
+      <div class="portfolio-head-intro">
+        <p>Our work crosses multiple disciplines, including: music, mechatronics, algorithms, machine learning, complex systems, differential equation modeling, and materials. The projects are organized around two threads: the Data-Driven Modeling Lab and the Music Intelligence Lab (or &micro;-lab). Many projects come down to questions about intelligence (artificial, natural, and embodied) with the hopes of finding good answers about who and what we are. More questions we're currently thinking about: can the scientific process be automated? And what is a well-designed movement-to-sound mapping?</p>
+      </div>
+    </header>
+
+    <div class="portfolio-themes" id="portfolio-grid" set:html={renderPortfolio(portfolio)} />
+
+    <section class="lab-section" style="margin-top: var(--space-xl);">
+      <h2>funders and partners</h2>
+      <div class="funders">
+        <div class="funder">
+          <span class="funder-name"><a href="https://cams.aub.edu.lb" target="_blank" rel="noopener">Center for Advanced Mathematical Sciences</a></span>
+          <span class="funder-alias">CAMS, AUB (collaborator + funder)</span>
+        </div>
+        <div class="funder">
+          <span class="funder-name"><a href="https://aub.edu.lb" target="_blank" rel="noopener">American University of Beirut</a></span>
+          <span class="funder-alias">URB, AI Hub, Science Meets Arts initiative</span>
+        </div>
+        <div class="funder">
+          <span class="funder-name"><a href="https://www.arabculturefund.org" target="_blank" rel="noopener">Arab Fund for Arts and Culture</a></span>
+          <span class="funder-alias">AFAC</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

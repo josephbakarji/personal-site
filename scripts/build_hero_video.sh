@@ -23,7 +23,7 @@ END="${3:-60}"
 DUR=$(( END - START ))
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SITE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-OUT_DIR="$SITE_DIR/assets/hero"
+OUT_DIR="$SITE_DIR/public/assets/hero"
 DATA_DIR="$SITE_DIR/data"
 TMP_WAV="$(mktemp -t piano.XXXXXX).wav"
 

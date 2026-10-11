@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Videos · Joseph Bakarji" page="videos" css={['pages', 'videos']}>
+  <div class="page-body">
+    <h2 class="page-title">videos</h2>
+
+    <p class="page-lede">Talks, instrument demos, performances, and lecture excerpts. Piano and soundcloud <a href="https://soundcloud.com/user-343358875" target="_blank" rel="noopener">→</a></p>
+
+    <!-- Featured tool -->
+    <a class="featured-tool" href="/articles/piano-of-life/">
+      <span class="featured-badge">// featured tool</span>
+      <span class="featured-title">Piano of Life</span>
+      <span class="featured-blurb">Drop a top-down piano video &mdash; hammer strikes seed a shaded Game of Life whose column density becomes a live spectral filter over the piano's own audio. Vanilla JS, open source, MIT.</span>
+      <span class="featured-cta">read the write-up &rarr;</span>
+    </a>
+
+    <div class="video-filter" id="video-filter"></div>
+
+    <div id="video-grid">
+      <p class="is-loading">loading…</p>
+    </div>
+  </div>
+  <Fragment slot="scripts">
+    <script is:inline src="/js/videos.js"></script>
+  </Fragment>
+</Base>

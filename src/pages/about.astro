@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import about from '../../data/about.json';
+import { rootLinks } from '../lib/format.js';
+---
+<Base title="About · Joseph Bakarji" page="about" css={['pages']}>
+  <div class="page-body" set:html={rootLinks(about.body_html)} />
+  <Fragment slot="scripts">
+    <script is:inline src="https://d3js.org/d3.v7.min.js"></script>
+    <script is:inline src="/js/mindmap.js"></script>
+  </Fragment>
+</Base>

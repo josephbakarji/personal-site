@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import data from '../../data/publications.json';
+
+// Grouped by year, newest first. Synced from Google Scholar by tools/fetch_scholar.py.
+const byYear = new Map();
+for (const p of data.publications || []) {
+  const y = p.year || 'Unknown';
+  if (!byYear.has(y)) byYear.set(y, []);
+  byYear.get(y).push(p);
+}
+const years = [...byYear.keys()].sort((a, b) => b - a);
+const fetched = data.fetched
+  ? new Date(data.fetched).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+  : null;
+---
+<Base title="Publications · Joseph Bakarji" page="publications" css={['pages']}>
+  <div class="page-body">
+    <h2 class="page-title">publications</h2>
+
+    {data.author && (
+      <div style="display:flex;gap:var(--space-lg);flex-wrap:wrap;color:var(--text-muted);font-size:var(--font-size-sm);margin-bottom:var(--space-lg);">
+        <a href={`https://scholar.google.com/citations?user=${data.author.scholar_id}&hl=en`} target="_blank" rel="noopener" style="color:var(--accent-blue)">google scholar</a>
+      </div>
+    )}
+
+    <div id="publications-list">
+      {years.map(year => (
+        <Fragment>
+          <div class="pub-year">{year}</div>
+          {byYear.get(year).map(pub => {
+            const isArxiv = pub.url?.includes('arxiv');
+            return (
+              <div class="pub-item">
+                <div class="pub-title" set:html={pub.title} />
+                <div class="pub-authors" set:html={pub.authors} />
+                {pub.venue && <div class="pub-venue" set:html={pub.venue} />}
+                <div class="pub-links">
+                  {pub.url && <a class="pub-link" href={pub.url} target="_blank" rel="noopener">{isArxiv ? 'arxiv' : 'paper'}</a>}
+                  {pub.eprint && !isArxiv && <a class="pub-link" href={`https://arxiv.org/abs/${pub.eprint}`} target="_blank" rel="noopener">arxiv</a>}
+                  {pub.citations > 0 && <span style="color:var(--text-muted);font-size:var(--font-size-xs);margin-left:var(--space-sm);">cited: {pub.citations}</span>}
+                </div>
+              </div>
+            );
+          })}
+        </Fragment>
+      ))}
+    </div>
+
+    {fetched && <p style="color:var(--text-muted);font-size:var(--font-size-xs);margin-top:var(--space-xl);">last synced from google scholar: {fetched}</p>}
+  </div>
+</Base>

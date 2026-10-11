@@ -8,7 +8,7 @@
   const container = document.getElementById('mindmap');
   if (!container) return;
 
-  fetch('../data/tag-network.json', { cache: 'no-store' })
+  fetch('/data/tag-network.json', { cache: 'no-store' })
     .then(r => r.json())
     .then(render)
     .catch(err => {

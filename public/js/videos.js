@@ -102,7 +102,7 @@
     });
   }
 
-  fetch('../data/videos.json', { cache: 'no-store' })
+  fetch('/data/videos.json', { cache: 'no-store' })
     .then(r => r.json())
     .then(data => {
       allVideos = (data.videos || []).slice().sort((a, b) => (b.date || '').localeCompare(a.date || ''));

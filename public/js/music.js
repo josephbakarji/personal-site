@@ -15,7 +15,7 @@
   const ropeEl  = $('rope-list');
   if (!ropeEl) return;
 
-  fetch('../data/music.json', { cache: 'no-store' })
+  fetch('/data/music.json', { cache: 'no-store' })
     .then(r => r.json())
     .then(render)
     .catch(err => {
@@ -183,9 +183,10 @@
   // ── Render ────────────────────────────────────────────────────────
 
   function render(data) {
-    if (introEl) introEl.innerHTML = data.intro_html || '';
+    // Intro and note are rendered into the page at build time.
+    if (introEl && !introEl.innerHTML.trim()) introEl.innerHTML = data.intro_html || '';
     const noteEl = $('piano-note');
-    if (noteEl) {
+    if (noteEl && !noteEl.textContent.trim()) {
       noteEl.textContent = data.piano_note || '';
       noteEl.hidden = !data.piano_note;
     }

@@ -36,7 +36,7 @@ import sys
 import tempfile
 
 SITE_ROOT   = pathlib.Path(__file__).resolve().parent.parent
-VIDEO_DIR   = SITE_ROOT / 'assets' / 'music' / 'video'
+VIDEO_DIR   = SITE_ROOT / 'public' / 'assets' / 'music' / 'video'
 MUSIC_JSON  = SITE_ROOT / 'data' / 'music.json'
 
 
