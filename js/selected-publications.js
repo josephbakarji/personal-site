@@ -45,7 +45,8 @@
     if (!v) return '';
     const s = String(v);
     if (/^arxiv preprint/i.test(s)) return 'arXiv';
-    return s;
+    // Scholar sometimes appends the year to the venue; the year is shown separately.
+    return s.replace(/,?\s*(19|20)\d{2}\s*$/, '');
   }
 
   function render(data) {

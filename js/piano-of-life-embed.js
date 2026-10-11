@@ -59,14 +59,16 @@
       // TOP (false). Depends on which end of the piano is at video-col-0.
       // Landscape videos usually keep the default; portrait videos flipped
       // 180° from a CW rotation want `false`.
-      flipCols = true,
+      flipCols: flipColsOpt = true,
     } = opts;
+    let flipCols = flipColsOpt;
     if (!video || !gol) return null;
 
     // Config with sensible defaults.
-    let bandAxis     = band.axis      || 'auto';   // resolved after metadata if 'auto'
-    const bandPos    = band.position != null ? band.position    : 0.60;
-    const bandThick  = band.thickness != null ? band.thickness  : 0.05;
+    let bandAxisReq  = band.axis      || 'auto';   // resolved after metadata if 'auto'
+    let bandAxis     = bandAxisReq === 'auto' ? 'y' : bandAxisReq;
+    let bandPosNow   = band.position != null ? band.position    : 0.60;
+    let bandThickNow = band.thickness != null ? band.thickness  : 0.05;
 
     // Hidden work canvas for detection — downsampled copy of the video
     // frame in its native orientation. Sized so the long side maps to
@@ -81,7 +83,7 @@
     function onMetadataReady() {
       const vw = video.videoWidth, vh = video.videoHeight;
       if (!vw || !vh) return;
-      if (bandAxis === 'auto') bandAxis = vw >= vh ? 'y' : 'x';
+      if (bandAxisReq === 'auto') bandAxis = vw >= vh ? 'y' : 'x';
       // Keep work canvas long side ~320
       if (vw >= vh) {
         workCv.width = 320;
@@ -92,7 +94,7 @@
       }
     }
     if (video.readyState >= 1) onMetadataReady();
-    else video.addEventListener('loadedmetadata', onMetadataReady, { once: true });
+    video.addEventListener('loadedmetadata', onMetadataReady);
 
     const stripCtx = strip ? strip.getContext('2d') : null;
     const golCtx   = gol.getContext('2d');
@@ -164,8 +166,10 @@
         stripCtx.fillRect(b.x, y + 1, barW, Math.max(2, rowH - 2));
         if (b.x > w - 2) {
           b.alive = false;
-          const barCenterY = y + rowH / 2;
-          const gridRow = Math.floor(barCenterY / h * state.rows);
+          // Normalised position, so seeding still works when the strip is
+          // hidden (h = 0) on narrow screens.
+          const frac = colToY(b.col, 1) + 0.5 / nCols();
+          const gridRow = Math.min(state.rows - 1, Math.floor(frac * state.rows));
           seedLeftEdge(gridRow, b.strength);
         }
       }
@@ -253,9 +257,9 @@
       const mean = new Float32Array(N);
 
       if (bandAxis === 'x') {
-        // Vertical band at x = bandPos * W, columns run along Y (top→bottom)
-        const cx = bandPos * W;
-        const halfT = (bandThick * W) / 2;
+        // Vertical band at x = bandPosNow * W, columns run along Y (top→bottom)
+        const cx = bandPosNow * W;
+        const halfT = (bandThickNow * W) / 2;
         const x0 = Math.max(0, Math.floor(cx - halfT));
         const x1 = Math.min(W, Math.floor(cx + halfT));
         if (x1 <= x0) return [];
@@ -271,9 +275,9 @@
         const area = x1 - x0;
         for (let c = 0; c < N; c++) mean[c] /= area * rowH;
       } else {
-        // Horizontal band at y = bandPos * H, columns run along X (left→right)
-        const cy = bandPos * H;
-        const halfT = (bandThick * H) / 2;
+        // Horizontal band at y = bandPosNow * H, columns run along X (left→right)
+        const cy = bandPosNow * H;
+        const halfT = (bandThickNow * H) / 2;
         const y0 = Math.max(0, Math.floor(cy - halfT));
         const y1 = Math.min(H, Math.floor(cy + halfT));
         if (y1 <= y0) return [];
@@ -372,10 +376,95 @@
       updateStopBtn();
     }
 
+    // Audio: the GoL row density shapes a bandpass bank over the video's own
+    // audio (same idea as the standalone tool). Rows run along the piano's
+    // key axis with low notes at the bottom, so row r maps to a log-spaced
+    // band from fMax (top) down to fMin (bottom). Created lazily on the first
+    // user gesture because browsers refuse to start an AudioContext before one.
+    const audio = { ctx: null, src: null, dry: null, wet: null, gains: [], on: false };
+    const N_BANDS = 32, F_MIN = 110, F_MAX = 2093, Q = 9, DRY = 0.35, WET = 0.75;
+    function initAudio() {
+      if (audio.ctx) return true;
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return false;
+      try {
+        audio.ctx = new Ctx();
+        audio.src = audio.ctx.createMediaElementSource(video);
+      } catch (e) {
+        console.warn('Piano of Life: audio unavailable', e);
+        audio.ctx = null;
+        return false;
+      }
+      audio.dry = audio.ctx.createGain();
+      audio.wet = audio.ctx.createGain();
+      audio.dry.gain.value = 1;
+      audio.wet.gain.value = 0;
+      audio.src.connect(audio.dry).connect(audio.ctx.destination);
+      audio.wet.connect(audio.ctx.destination);
+      for (let b = 0; b < N_BANDS; b++) {
+        const f = audio.ctx.createBiquadFilter();
+        f.type = 'bandpass';
+        f.frequency.value = F_MIN * Math.pow(F_MAX / F_MIN, b / (N_BANDS - 1));
+        f.Q.value = Q;
+        const g = audio.ctx.createGain();
+        g.gain.value = 0;
+        audio.src.connect(f).connect(g).connect(audio.wet);
+        audio.gains.push(g);
+      }
+      return true;
+    }
+    function setFilter(on) {
+      if (on && !initAudio()) return false;
+      audio.on = !!on;
+      if (!audio.ctx) return audio.on;
+      audio.ctx.resume().catch(() => {});
+      const now = audio.ctx.currentTime;
+      audio.dry.gain.setTargetAtTime(audio.on ? DRY : 1, now, 0.05);
+      audio.wet.gain.setTargetAtTime(audio.on ? WET : 0, now, 0.05);
+      if (!audio.on) for (const g of audio.gains) g.gain.setTargetAtTime(0, now, 0.05);
+      return audio.on;
+    }
+    function updateAudio() {
+      if (!audio.on || !state.alpha) return;
+      const R = state.rows, C = state.cols, a = state.alpha;
+      const pmf = new Float32Array(N_BANDS);
+      for (let r = 0; r < R; r++) {
+        let s = 0;
+        for (let c = 0; c < C; c++) s += a[r * C + c];
+        const b = Math.min(N_BANDS - 1, Math.floor(((R - 1 - r) / R) * N_BANDS));
+        pmf[b] += s;
+      }
+      let peak = 0;
+      for (let b = 0; b < N_BANDS; b++) if (pmf[b] > peak) peak = pmf[b];
+      const norm = peak > 0 ? 0.9 / peak : 0;
+      const now = audio.ctx.currentTime;
+      for (let b = 0; b < N_BANDS; b++) audio.gains[b].gain.setTargetAtTime(pmf[b] * norm, now, 0.08);
+    }
+    const audioTimer = setInterval(updateAudio, 60);
+
+    // Swap the detection band when the player loads a different piece. The
+    // GoL grid is left alone on purpose: what the last piece grew carries
+    // into the next one.
+    function setBand(b = {}) {
+      bandAxisReq = b.axis || 'auto';
+      if (bandAxisReq !== 'auto') bandAxis = bandAxisReq;
+      bandPosNow = b.position != null ? b.position : 0.60;
+      bandThickNow = b.thickness != null ? b.thickness : 0.05;
+      prevLuma = null;
+      onMetadataReady();
+    }
+
     resizeAll();
     window.addEventListener('resize', resizeAll);
 
-    return { stop: stopLoop, start: startLoop, reset: resetGrid };
+    return {
+      stop() { manuallyStopped = true; stopLoop(); },
+      start() { manuallyStopped = false; startLoop(); },
+      reset: resetGrid,
+      setFilter, setBand,
+      setFlipCols(v) { flipCols = v; },
+      destroy() { stopLoop(); clearInterval(audioTimer); },
+    };
   }
 
   window.PianoOfLife = { mount };

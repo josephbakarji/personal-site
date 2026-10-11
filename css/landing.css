@@ -120,6 +120,37 @@ body {
   font-size: 0.85em;
 }
 
+/* "// now" block under the bio: what is actually live this season.
+   Edit by hand when something starts or ends. */
+.landing-now {
+  margin-top: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  border-left: 2px solid var(--accent-primary);
+  background: rgba(166, 132, 78, 0.05);
+  border-radius: 0 6px 6px 0;
+}
+.landing-now-tag {
+  margin: 0 0 6px;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--accent-primary);
+}
+.landing-now ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-serif);
+  font-size: 0.97rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+.landing-now li + li { margin-top: 4px; }
+.landing-now a {
+  color: var(--text-primary);
+  border-bottom: 1px solid rgba(166, 132, 78, 0.45);
+}
+.landing-now a:hover { color: var(--accent-primary); }
+
 /* Elegant link inside the affiliation lines: no underline by default,
    subtle warm underline on hover. */
 .soft-link {
@@ -186,7 +217,7 @@ body {
   font-size: var(--font-size-base);
   line-height: 1.65;
   color: var(--text-secondary);
-  margin: 0 0 var(--space-md);
+  margin: var(--space-md) 0 var(--space-md);
   max-width: 720px;
 }
 .landing-bio a {

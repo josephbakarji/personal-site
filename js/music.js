@@ -1,27 +1,26 @@
 /**
- * /music/ renderer — pulls from data/music.json and lays out three sections:
- * piano pieces (optional Piano-of-Life panel per piece), rope-flow performances
- * (YouTube embeds), and a browser physics sim iframe at the bottom.
+ * /music/ renderer. Pulls data/music.json and lays out:
+ *   - one Piano of Life player whose playlist is every piano piece with a
+ *     local video and `gol: true`. The Game of Life grid is shared across
+ *     the playlist, so what one piece grows carries into the next.
+ *   - any other piano pieces (YouTube, or local without gol) as cards
+ *   - rope-flow performances
+ *   - an optional `live` list of upcoming dates
  */
 (function () {
   'use strict';
 
-  const introEl   = document.getElementById('music-intro');
-  const wipEl     = document.getElementById('music-wip');
-  const pianoEl   = document.getElementById('piano-list');
-  const ropeEl    = document.getElementById('rope-list');
-  const simFrame  = document.getElementById('ropeflow-sim');
-  const simBlurb  = document.getElementById('rope-sim-blurb');
-  const simSec    = document.getElementById('ropeflow-sim-section');
-  if (!pianoEl) return;
+  const $ = (id) => document.getElementById(id);
+  const introEl = $('music-intro');
+  const ropeEl  = $('rope-list');
+  if (!ropeEl) return;
 
   fetch('../data/music.json', { cache: 'no-store' })
     .then(r => r.json())
     .then(render)
     .catch(err => {
       console.warn('music.json load failed', err);
-      pianoEl.innerHTML = '<p class="music-empty">could not load music.</p>';
-      ropeEl.innerHTML  = '';
+      ropeEl.innerHTML = '<p class="music-empty">could not load music.</p>';
     });
 
   function esc(s) {
@@ -30,8 +29,7 @@
     }[c]));
   }
 
-  // Extract a YouTube video id from any common URL form. Returns null if
-  // the id can't be found, in which case we render a "no video" placeholder.
+  // Extract a YouTube video id from any common URL form.
   function ytId(input) {
     const s = String(input || '').trim();
     if (!s) return null;
@@ -40,138 +38,182 @@
     return m ? m[1] : null;
   }
 
-  function pianoPieceHtml(p, i) {
-    const hasLocal = p.video?.type === 'local' && p.video?.src;
-    const hasYt    = p.video?.type === 'youtube' && ytId(p.video.id || p.video.src);
-
-    let mediaHtml = '';
-    if (hasLocal) {
-      const golPanel = p.gol
-        ? `<canvas class="pol-strip" id="pol-strip-${i}"></canvas>
-           <div class="pol-substrate">
-             <canvas class="pol-gol" id="pol-gol-${i}"></canvas>
-             <button class="pol-stop" id="pol-stop-${i}" type="button" aria-pressed="true" title="stop simulation" aria-label="stop simulation">
-               <svg class="ic ic-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3" width="3" height="10" rx="0.5"/><rect x="9" y="3" width="3" height="10" rx="0.5"/></svg>
-               <svg class="ic ic-play"  viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.2v9.6L13 8z"/></svg>
-             </button>
-           </div>`
-        : '';
-      const mediaClasses = [
-        'piece-media',
-        p.gol ? 'piece-media--with-gol' : '',
-      ].filter(Boolean).join(' ');
-      mediaHtml = `
-        <div class="${mediaClasses}">
-          <div class="pol-video-wrap">
-            <video id="piece-video-${i}" src="../${esc(p.video.src)}" controls playsinline preload="metadata"></video>
-          </div>
-          ${golPanel}
-        </div>`;
-    } else if (hasYt) {
-      mediaHtml = `
-        <div class="piece-media piece-media--youtube">
-          <iframe src="https://www.youtube.com/embed/${esc(hasYt)}" title="${esc(p.title)}"
-                  frameborder="0" loading="lazy"
-                  allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-        </div>`;
-    } else {
-      mediaHtml = `<div class="piece-media piece-media--empty">no video yet</div>`;
-    }
-
-    const gnote = p.gol && !hasLocal
-      ? `<p class="piece-note">Piano-of-Life coupling requires a local <code>.mp4</code> video (YouTube frames aren't accessible from the page).</p>`
-      : '';
-
-    const year = p.year ? `<span class="piece-year">${esc(p.year)}</span>` : '';
-
-    return `
-      <article class="music-piece" id="${esc(p.id)}" data-id="${esc(p.id)}">
-        ${mediaHtml}
-        <div class="piece-body">
-          <h3 class="piece-title">${esc(p.title)} ${year}</h3>
-          ${p.description ? `<p class="piece-desc">${p.description}</p>` : ''}
-          ${gnote}
-        </div>
-      </article>
-    `;
+  function fmtTime(t) {
+    if (!isFinite(t)) return '0:00';
+    const m = Math.floor(t / 60), s = Math.floor(t % 60);
+    return `${m}:${String(s).padStart(2, '0')}`;
   }
 
-  function ropeItemHtml(r, i) {
-    const hasLocal = r.video?.type === 'local' && r.video?.src;
-    const ytid     = r.video?.type === 'youtube' ? ytId(r.video.id || r.video.src) : null;
-    let media = '';
-    if (hasLocal) {
-      media = `<div class="piece-media piece-media--rope-local">
-          <video src="../${esc(r.video.src)}" controls playsinline preload="metadata"></video>
+  function mediaHtml(item) {
+    const v = item.video || {};
+    if (v.type === 'local' && v.src) {
+      return `<div class="piece-media piece-media--local">
+          <video src="../${esc(v.src)}#t=0.1" controls playsinline preload="metadata"></video>
         </div>`;
-    } else if (ytid) {
-      media = `<div class="piece-media piece-media--youtube">
-          <iframe src="https://www.youtube.com/embed/${esc(ytid)}" title="${esc(r.title)}"
+    }
+    const id = v.type === 'youtube' ? ytId(v.id || v.src) : null;
+    if (id) {
+      return `<div class="piece-media">
+          <iframe src="https://www.youtube.com/embed/${esc(id)}" title="${esc(item.title)}"
                   frameborder="0" loading="lazy"
                   allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
         </div>`;
-    } else {
-      media = `<div class="piece-media piece-media--empty">drop a video src or YouTube URL in music.json</div>`;
     }
-    const year = r.year ? `<span class="piece-year">${esc(r.year)}</span>` : '';
+    return '';
+  }
+
+  function cardHtml(item, extraClass = '') {
+    const media = mediaHtml(item);
+    if (!media) return '';
+    const year = item.year ? `<span class="piece-year">${esc(item.year)}</span>` : '';
     return `
-      <article class="music-piece music-piece--rope" id="${esc(r.id)}" data-id="${esc(r.id)}">
+      <article class="music-piece ${extraClass}" id="${esc(item.id)}">
         ${media}
         <div class="piece-body">
-          <h3 class="piece-title">${esc(r.title)} ${year}</h3>
-          ${r.description ? `<p class="piece-desc">${r.description}</p>` : ''}
+          <h3 class="piece-title">${esc(item.title)} ${year}</h3>
+          ${item.description ? `<p class="piece-desc">${item.description}</p>` : ''}
         </div>
-      </article>
-    `;
+      </article>`;
   }
+
+  // ── Piano of Life player ──────────────────────────────────────────
+
+  function mountPlayer(tracks) {
+    const section = $('pol-player');
+    if (!tracks.length || !window.PianoOfLife) { if (section) section.hidden = true; return; }
+
+    const video    = $('pol-video');
+    const playBtn  = $('pol-play');
+    const filtBtn  = $('pol-filter');
+    const simBtn   = $('pol-sim');
+    const titleEl  = $('pol-now-title');
+    const descEl   = $('pol-desc');
+    const timeEl   = $('pol-time');
+    const progEl   = $('pol-progress');
+    const barEl    = $('pol-progress-bar');
+    const listEl   = $('pol-playlist');
+
+    listEl.innerHTML = tracks.map((t, i) => `
+      <li class="pol-track" data-i="${i}">
+        <button type="button">
+          <span class="pol-track-n">${String(i + 1).padStart(2, '0')}</span>
+          <span class="pol-track-title">${esc(t.title)}</span>
+          <span class="pol-track-year">${esc(t.year || '')}</span>
+        </button>
+      </li>`).join('');
+
+    let current = -1;
+    let pol = null;
+
+    function load(i, autoplay) {
+      current = (i + tracks.length) % tracks.length;
+      const t = tracks[current];
+      video.src = '../' + t.video.src + '#t=0.1';  // fragment paints a first frame on mobile
+      titleEl.textContent = t.title;
+      descEl.innerHTML = t.description || '';
+      descEl.hidden = !t.description;
+      listEl.querySelectorAll('.pol-track').forEach((li) =>
+        li.classList.toggle('is-current', +li.dataset.i === current));
+      if (pol) {
+        pol.setBand(t.pol?.band || {});
+        pol.setFlipCols(t.pol?.flipCols ?? true);
+      }
+      if (autoplay) video.play().catch(() => {});
+    }
+
+    load(0, false);
+    const t0 = tracks[0];
+    requestAnimationFrame(() => {
+      pol = window.PianoOfLife.mount({
+        video, strip: $('pol-strip'), gol: $('pol-gol'),
+        band: t0.pol?.band, flipCols: t0.pol?.flipCols ?? true,
+        threshold: t0.pol?.threshold,
+      });
+    });
+
+    playBtn.addEventListener('click', () => {
+      if (video.paused) video.play().catch(() => {}); else video.pause();
+    });
+    video.addEventListener('click', () => playBtn.click());
+    const syncPlay = () => {
+      const playing = !video.paused && !video.ended;
+      playBtn.classList.toggle('is-playing', playing);
+      playBtn.setAttribute('aria-label', playing ? 'pause' : 'play');
+    };
+    video.addEventListener('play', () => { syncPlay(); $('pol-hint')?.remove(); });
+    video.addEventListener('pause', syncPlay);
+    video.addEventListener('ended', () => {
+      syncPlay();
+      if (current < tracks.length - 1) load(current + 1, true);
+    });
+    video.addEventListener('timeupdate', () => {
+      timeEl.textContent = fmtTime(video.currentTime);
+      barEl.style.width = video.duration ? `${(video.currentTime / video.duration) * 100}%` : '0';
+    });
+    progEl.addEventListener('click', (e) => {
+      if (!video.duration) return;
+      const r = progEl.getBoundingClientRect();
+      video.currentTime = ((e.clientX - r.left) / r.width) * video.duration;
+    });
+
+    listEl.addEventListener('click', (e) => {
+      const li = e.target.closest('.pol-track');
+      if (!li) return;
+      const i = +li.dataset.i;
+      if (i === current) { playBtn.click(); return; }
+      load(i, true);
+    });
+
+    filtBtn.addEventListener('click', () => {
+      if (!pol) return;
+      const on = filtBtn.getAttribute('aria-pressed') !== 'true';
+      const ok = pol.setFilter(on);
+      filtBtn.setAttribute('aria-pressed', ok ? 'true' : 'false');
+    });
+
+    simBtn.addEventListener('click', () => {
+      if (!pol) return;
+      const on = simBtn.getAttribute('aria-pressed') !== 'true';
+      on ? pol.start() : pol.stop();
+      simBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      simBtn.textContent = on ? 'simulation on' : 'simulation off';
+    });
+  }
+
+  // ── Render ────────────────────────────────────────────────────────
 
   function render(data) {
     if (introEl) introEl.innerHTML = data.intro_html || '';
-    if (wipEl && data.under_construction_note) {
-      wipEl.innerHTML = `<span class="wip-tag">// under construction</span> ${esc(data.under_construction_note)}`;
-    }
-    const pianoNoteEl = document.getElementById('piano-note');
-    if (pianoNoteEl) {
-      pianoNoteEl.textContent = data.piano_note || '';
-      if (!data.piano_note) pianoNoteEl.style.display = 'none';
+    const noteEl = $('piano-note');
+    if (noteEl) {
+      noteEl.textContent = data.piano_note || '';
+      noteEl.hidden = !data.piano_note;
     }
 
-    const pianoPieces = data.piano || [];
-    pianoEl.innerHTML = pianoPieces.length
-      ? pianoPieces.map(pianoPieceHtml).join('')
-      : '<p class="music-empty">no pieces yet.</p>';
+    const piano  = data.piano || [];
+    const tracks = piano.filter(p => p.gol && p.video?.type === 'local' && p.video?.src);
+    const extra  = piano.filter(p => !tracks.includes(p));
+    mountPlayer(tracks);
 
-    const ropeItems = data.ropeflow || [];
-    ropeEl.innerHTML = ropeItems.length
-      ? ropeItems.map(ropeItemHtml).join('')
+    if (extra.length) {
+      $('piano-list').innerHTML = extra.map(p => cardHtml(p)).join('');
+      $('piano-extra-section').hidden = false;
+    }
+
+    const rope = data.ropeflow || [];
+    ropeEl.innerHTML = rope.length
+      ? rope.map((r, i) => cardHtml(r, i === 0 ? 'music-piece--lead' : '')).join('')
       : '<p class="music-empty">no rope-flow videos yet.</p>';
 
-    // Wire up Piano of Life on any piece that opted in and has a local video.
-    pianoPieces.forEach((p, i) => {
-      if (!p.gol || p.video?.type !== 'local') return;
-      const video = document.getElementById(`piece-video-${i}`);
-      const strip = document.getElementById(`pol-strip-${i}`);
-      const gol   = document.getElementById(`pol-gol-${i}`);
-      if (video && gol && window.PianoOfLife) {
-        // Wait until dimensions are known before mounting so canvases get the
-        // right pixel size on first paint. Per-piece overrides come from
-        // music.json's `pol` field: { band: {axis, position, thickness},
-        // threshold, flipCols, ... }.
-        const stopBtn = document.getElementById(`pol-stop-${i}`);
-        const cfg = { video, strip, gol, stopBtn };
-        if (p.pol?.band)                  cfg.band      = p.pol.band;
-        if (p.pol?.threshold != null)     cfg.threshold = p.pol.threshold;
-        if (p.pol?.flipCols  != null)     cfg.flipCols  = p.pol.flipCols;
-        requestAnimationFrame(() => window.PianoOfLife.mount(cfg));
-      }
-    });
-
-    // Ropeflow simulator iframe
-    if (data.simulation?.src && simFrame) {
-      simFrame.src = data.simulation.src;
-      if (simBlurb) simBlurb.textContent = data.simulation.blurb || '';
-    } else if (simSec) {
-      simSec.style.display = 'none';
+    const live = (data.live || []).filter(l => l.date && l.title);
+    if (live.length) {
+      $('live-list').innerHTML = live.map(l => `
+        <li class="live-item">
+          <span class="live-date">${esc(l.date)}</span>
+          <span class="live-title">${l.url ? `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.title)}</a>` : esc(l.title)}</span>
+          ${l.place ? `<span class="live-place">${esc(l.place)}</span>` : ''}
+        </li>`).join('');
+      $('live-section').hidden = false;
     }
   }
 })();

@@ -52,29 +52,6 @@
   border-radius: 8px;
 }
 
-/* "Under construction" banner beneath the intro. Subtle warm strip
-   so it reads as a friendly notice, not an error. */
-.music-wip {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: var(--font-size-sm);
-  line-height: 1.55;
-  color: var(--text-secondary);
-  background: rgba(166, 132, 78, 0.06);
-  border-left: 3px solid var(--accent-primary);
-  border-radius: 0 6px 6px 0;
-  padding: var(--space-sm) var(--space-md);
-  margin: 0 0 var(--space-xl);
-  max-width: 780px;
-}
-.music-wip .wip-tag {
-  font-family: var(--font-mono);
-  font-style: normal;
-  color: var(--accent-primary);
-  margin-right: 6px;
-  font-size: 0.85em;
-}
-
 /* ─── Piece cards ─── */
 
 .music-list {
@@ -110,10 +87,7 @@
 }
 /* Local ropeflow video: letterbox inside the 16:9 card so portrait
    performances aren't cropped top/bottom. */
-.piece-media--rope-local {
-  background: #000;
-}
-.piece-media--rope-local video {
+.piece-media--local video {
   object-fit: contain;
 }
 .piece-media--empty {
@@ -125,98 +99,6 @@
   font-size: var(--font-size-sm);
   letter-spacing: 0.05em;
 }
-
-/* Piano-of-Life-coupled piece: three-column layout,
-   video · strip · GoL substrate. Video column sizes itself to the
-   video's natural aspect (object-fit: contain) so portrait pieces get a
-   narrow, tall column and landscape pieces get a wide short one, all
-   at the same shared row height. */
-.piece-media--with-gol {
-  aspect-ratio: auto;
-  height: 480px;
-  display: grid;
-  grid-template-columns: auto 44px minmax(0, 1fr);
-  gap: 0;
-  background: var(--bg-primary);
-}
-.piece-media--with-gol .pol-video-wrap {
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-  background: #000;
-  /* Take the video's aspect ratio so the column width fits it snugly.
-     The video element inside uses object-fit: contain to preserve
-     aspect. */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-right: 1px solid var(--border-subtle);
-}
-.piece-media--with-gol video {
-  height: 100%;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  display: block;
-  background: #000;
-}
-.pol-strip {
-  height: 100%;
-  width: 100%;
-  display: block;
-  background: var(--bg-primary);
-  border-right: 1px solid var(--border-subtle);
-}
-/* Wraps the GoL canvas plus its stop button so the button can sit
-   absolute-positioned inside the same rectangle. */
-.pol-substrate {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  display: block;
-}
-.pol-gol {
-  height: 100%;
-  width: 100%;
-  display: block;
-  background: var(--bg-secondary);
-}
-.pol-stop {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(28, 27, 31, 0.55);
-  color: rgba(250, 248, 243, 0.95);
-  border: 1px solid rgba(250, 248, 243, 0.25);
-  border-radius: 4px;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  cursor: pointer;
-  transition: color 0.15s, border-color 0.15s, background 0.15s;
-  z-index: 2;
-}
-.pol-stop:hover {
-  color: #fff;
-  border-color: rgba(250, 248, 243, 0.6);
-  background: rgba(28, 27, 31, 0.8);
-}
-.pol-stop .ic {
-  width: 12px;
-  height: 12px;
-  display: none;
-  fill: currentColor;
-}
-/* Running: show pause icon (click to stop). Stopped: show play icon. */
-.pol-stop[data-state="running"] .ic-pause { display: block; }
-.pol-stop[data-state="stopped"] .ic-play  { display: block; }
-/* Default (before JS runs): assume running, show pause */
-.pol-stop:not([data-state]) .ic-pause     { display: block; }
 
 .piece-body {
   padding: var(--space-md) var(--space-lg) var(--space-lg);
@@ -256,35 +138,259 @@
   background: rgba(0, 0, 0, 0.02);
 }
 
-/* ─── Ropeflow sim frame ─── */
+/* ─── Section head with a right-aligned aside ─── */
 
-.sim-frame {
-  width: 100%;
-  aspect-ratio: 16 / 10;
+.music-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: var(--space-sm);
+}
+.music-section-head .music-section-title {
+  border-bottom: 0;
+  margin: 0;
+}
+.music-section-aside {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin: 0;
+  white-space: nowrap;
+}
+.music-section-aside a { color: var(--text-secondary); }
+.music-section-aside a:hover { color: var(--accent-primary); }
+.music-section-blurb a { color: var(--accent-primary); }
+
+/* ─── Piano of Life player ─── */
+
+.pol-stage {
+  display: grid;
+  grid-template-columns: auto 40px minmax(0, 1fr);
+  height: min(520px, 62vh);
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
   overflow: hidden;
 }
-.sim-frame iframe {
-  width: 100%;
+.pol-video-wrap {
   height: 100%;
-  border: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+.pol-video-wrap video {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
   display: block;
 }
+.pol-strip {
+  height: 100%;
+  width: 100%;
+  display: block;
+  background: var(--bg-primary);
+  border-left: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+}
+.pol-substrate {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.pol-gol {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+.pol-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--space-lg);
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text-muted);
+  pointer-events: none;
+}
 
-/* ─── Responsive: stack the piano-of-life panel when narrow ─── */
+.pol-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: 10px var(--space-md);
+  border: 1px solid var(--border-subtle);
+  border-top: 0;
+  border-radius: 0 0 10px 10px;
+  background: var(--bg-card);
+}
+.pol-btn--play {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-primary);
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+.pol-btn--play .ic { width: 15px; height: 15px; fill: currentColor; }
+.pol-btn--play .ic-pause { display: none; }
+.pol-btn--play.is-playing .ic-play { display: none; }
+.pol-btn--play.is-playing .ic-pause { display: block; }
+
+.pol-now { flex: 1; min-width: 0; }
+.pol-now-title {
+  margin: 0 0 6px;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pol-progress {
+  height: 4px;
+  background: var(--border-subtle);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+.pol-progress::before { /* larger hit area */
+  content: "";
+  position: absolute;
+  inset: -8px 0;
+}
+.pol-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent-primary);
+  border-radius: 2px;
+}
+.pol-time {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  min-width: 3.2em;
+  text-align: right;
+}
+.pol-toggle {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.pol-toggle:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
+.pol-toggle[aria-pressed="true"] {
+  background: rgba(166, 132, 78, 0.12);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.pol-playlist {
+  list-style: none;
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--border-subtle);
+}
+.pol-track { border-bottom: 1px solid var(--border-subtle); }
+.pol-track button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2.4em 1fr auto;
+  align-items: baseline;
+  gap: var(--space-sm);
+  padding: 10px 4px;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: var(--text-secondary);
+}
+.pol-track button:hover { color: var(--text-primary); }
+.pol-track-n,
+.pol-track-year {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+.pol-track-title { font-family: var(--font-serif); }
+.pol-track.is-current .pol-track-title { color: var(--accent-primary); font-weight: 600; }
+.pol-track.is-current .pol-track-n { color: var(--accent-primary); }
+
+.pol-desc {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: var(--space-md) 0 0;
+  max-width: 720px;
+}
+
+/* ─── Rope flow: lead video full width, the rest in a grid ─── */
+
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+.music-grid .music-piece--lead { grid-column: 1 / -1; }
+.music-piece .piece-media--local { background: #000; }
+
+/* ─── Live dates ─── */
+
+.live-list { list-style: none; margin: 0; padding: 0; }
+.live-item {
+  display: grid;
+  grid-template-columns: 9em 1fr auto;
+  gap: var(--space-md);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  font-family: var(--font-serif);
+}
+.live-date, .live-place {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+/* ─── Narrow screens ─── */
 
 @media (max-width: 780px) {
-  .piece-media--with-gol {
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 200px) 32px minmax(0, 200px);
-    height: auto;
+  /* Keep video | strip | grid side by side on phones. The video column is
+     cropped to fill (detection still reads the full frame). */
+  .pol-stage {
+    grid-template-columns: 50% 18px minmax(0, 1fr);
+    height: min(400px, 58vh);
   }
-  .pol-strip {
-    border-left: none;
-    border-right: none;
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
-  }
+  .pol-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
+  .pol-hint { font-size: 0.85rem; padding: var(--space-sm); }
+  .pol-controls { flex-wrap: wrap; gap: var(--space-sm); }
+  .pol-now { flex-basis: calc(100% - 56px); }
+  .pol-time { order: 3; text-align: left; min-width: 0; }
+  .pol-toggle { order: 4; }
+  .music-grid { grid-template-columns: 1fr; }
+  .live-item { grid-template-columns: 1fr; gap: 2px; }
+  .music-section-head { flex-wrap: wrap; }
 }

@@ -251,3 +251,13 @@ a:hover {
   color: var(--text-muted);
   letter-spacing: 0.5px;
 }
+
+/* Placeholder shown until a JSON-driven list renders. Reserves the space
+   without flashing "loading..." text at the reader. */
+.is-loading {
+  color: transparent !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  min-height: 8rem;
+  user-select: none;
+}

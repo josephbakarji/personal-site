@@ -1,6 +1,6 @@
 # Gluvn: a wearable glove musical instrument
 
-*I've been building these gloves for over a decade now, starting at UC San Diego in 2014 and now at the Music Intelligence Lab at AUB. I've filmed very rough cuts along the way and kept postponing the finished video I'd share with the community. I've finally decided to give up on perfection, so I'm sharing some of these reels here for reference. More details on the current state of the project below.*
+*I've been building these gloves for over a decade now, starting at UC San Diego in 2014 and now at the Music Intelligence Lab at AUB, with the help of students. I've filmed very rough cuts along the way and kept postponing the finished video I'd share with a publication. Giving up on perfection now, I'm sharing some of these reels here for reference. More details on the current state of the project below.*
 
 <div style="position:relative; padding-bottom:56.25%; height:0; max-width:800px; margin:1.5rem auto;"><iframe src="https://www.youtube.com/embed/rFsVS_Wkfo0" style="position:absolute; top:0; left:0; width:100%; height:100%;" title="Gluvn demo reel" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 

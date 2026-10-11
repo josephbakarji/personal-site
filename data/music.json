@@ -1,7 +1,6 @@
 {
-  "intro_html": "<p>The piano has been my doorway to music. I grew up with Bach, Scriabin, and Wagner, have done some composing in contemporary and neo-classical music, enjoy exploring improvisational styles, and have been getting into looping and Rope Flow Music (an instrument I'm currently building obsessively). Find some things here and there below. It's still under construction and I'm imagining fun things for it; starting with the <a href=\"../articles/?slug=piano-of-life\">Piano of Life</a>. If you're curious about older pieces, most of my earlier recordings live on <a href=\"https://soundcloud.com/user-343358875\" target=\"_blank\" rel=\"noopener\">SoundCloud</a>.</p>",
-  "under_construction_note": "This page is still under construction — the video layout, the Piano of Life coupling, and the piece list are all works in progress. It also doesn't work on mobile yet; we're figuring that out.",
-  "piano_note": "Enjoy watching Game of Life patterns emerge from the keys, but note that it runs live in your browser and might make your laptop a bit unhappy. You can stop it via the button at the top right of each simulation.",
+  "intro_html": "<p>The piano has been my doorway to music. I grew up with Bach, Scriabin, and Wagner, have done some composing in contemporary and neo-classical music, enjoy exploring improvisational styles, and have been getting into looping and Rope Flow Music (an instrument I'm currently building obsessively). Find some things here and there below. If you're curious about older pieces, most of my earlier recordings live on <a href=\"https://soundcloud.com/user-343358875\" target=\"_blank\" rel=\"noopener\">SoundCloud</a>.</p>",
+  "piano_note": "Game of Life patterns emerge from the keys as the piece plays. It runs live in your browser and might make your laptop a bit unhappy; you can pause the simulation below. Turn on \"hear the cells\" to let the grid filter the piano's own sound.",
   "piano": [
     {
       "id": "home-beyond-the-horizon",
@@ -63,5 +62,6 @@
       }
     }
   ],
-  "last_updated": "2026-08-26"
+  "last_updated": "2026-08-26",
+  "live": []
 }

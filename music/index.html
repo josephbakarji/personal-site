@@ -37,22 +37,56 @@
 
     <div class="music-intro" id="music-intro"></div>
 
-    <p class="music-wip" id="music-wip"></p>
-
-    <section class="music-section">
-      <h2 class="music-section-title">// piano pieces and improvisations</h2>
+    <section class="music-section pol-player" id="pol-player" aria-label="Piano of Life player">
+      <header class="music-section-head">
+        <h2 class="music-section-title">// piano of life</h2>
+        <p class="music-section-aside"><a href="../articles/?slug=piano-of-life">how it works</a> &middot; <a href="https://github.com/josephbakarji/piano-of-life" target="_blank" rel="noopener">code</a></p>
+      </header>
       <p class="music-section-blurb" id="piano-note"></p>
-      <div class="music-list" id="piano-list">
-        <p class="music-empty">loading pieces...</p>
+
+      <div class="pol-stage">
+        <div class="pol-video-wrap">
+          <video id="pol-video" playsinline preload="metadata"></video>
+        </div>
+        <canvas class="pol-strip" id="pol-strip"></canvas>
+        <div class="pol-substrate">
+          <canvas class="pol-gol" id="pol-gol"></canvas>
+          <p class="pol-hint" id="pol-hint">press play: every hammer strike seeds the cells</p>
+        </div>
       </div>
+
+      <div class="pol-controls">
+        <button class="pol-btn pol-btn--play" id="pol-play" type="button" aria-label="play">
+          <svg class="ic ic-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.8v10.4L13.5 8z"/></svg>
+          <svg class="ic ic-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3" width="3" height="10" rx="0.5"/><rect x="9" y="3" width="3" height="10" rx="0.5"/></svg>
+        </button>
+        <div class="pol-now">
+          <p class="pol-now-title" id="pol-now-title"></p>
+          <div class="pol-progress" id="pol-progress"><span id="pol-progress-bar"></span></div>
+        </div>
+        <span class="pol-time" id="pol-time">0:00</span>
+        <button class="pol-toggle" id="pol-filter" type="button" aria-pressed="false" title="Let the Game of Life shape what you hear">hear the cells</button>
+        <button class="pol-toggle" id="pol-sim" type="button" aria-pressed="true" title="Pause the simulation to save your battery">simulation on</button>
+      </div>
+
+      <ol class="pol-playlist" id="pol-playlist"></ol>
+      <p class="pol-desc" id="pol-desc"></p>
+    </section>
+
+    <section class="music-section" id="piano-extra-section" hidden>
+      <h2 class="music-section-title">// more piano</h2>
+      <div class="music-list" id="piano-list"></div>
     </section>
 
     <section class="music-section">
       <h2 class="music-section-title">// rope flow music</h2>
-      <p class="music-section-blurb">Performances from the ongoing rope-flow-music experiment.</p>
-      <div class="music-list" id="rope-list">
-        <p class="music-empty">loading videos...</p>
-      </div>
+      <p class="music-section-blurb">Performances on the <a href="../projects/#proj-musical-flow-rope">Musical Flow Rope</a>, an instrumented flow rope whose movements are recognised in real time and turned into sound.</p>
+      <div class="music-grid" id="rope-list"></div>
+    </section>
+
+    <section class="music-section" id="live-section" hidden>
+      <h2 class="music-section-title">// live</h2>
+      <ul class="live-list" id="live-list"></ul>
     </section>
 
     <!-- Rope-flow physics simulator: staged out of this page until we write
@@ -65,15 +99,6 @@
 
 <footer class="footer">
   <div class="footer-inner">
-    <ul class="footer-nav">
-      <li><a href="../projects/">projects</a></li>
-      <li><a href="../publications/">publications</a></li>
-      <li><a href="../teaching/">teaching</a></li>
-      <li><a href="../articles/">articles</a></li>
-      <li><a href="./">music</a></li>
-      <li><a href="../team/">team</a></li>
-      <li><a href="../about/">about</a></li>
-    </ul>
     <div class="ext-links">
       <a class="ext-link" href="https://bakarji.substack.com" target="_blank" rel="noopener">substack</a>
       <a class="ext-link" href="https://github.com/josephbakarji" target="_blank" rel="noopener">github</a>
